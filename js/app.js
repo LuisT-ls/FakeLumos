@@ -7,7 +7,6 @@ import { ShareController } from './modules/share/ShareController.js'
 import { AccessibilityController } from './modules/accessibility/AccessibilityController.js'
 import { NotificationController } from './modules/notifications/NotificationController.js'
 import { ExpandableController } from './modules/ui/ExpandableController.js'
-import { ServiceWorkerController } from './modules/sw/ServiceWorkerController.js'
 
 class App {
   constructor() {
@@ -32,7 +31,6 @@ class App {
       this.controllers.history = new HistoryController()
       this.controllers.share = new ShareController()
       this.controllers.accessibility = new AccessibilityController()
-      this.controllers.serviceWorker = new ServiceWorkerController()
 
       // Inicializar todos os controladores
       await this.initializeControllers()
