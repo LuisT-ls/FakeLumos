@@ -1,0 +1,351 @@
+/* ANIMATIONS.CSS - Animações e transições */
+
+/* Variáveis de animação */
+:root {
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  --bounce-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Animações de pulsação */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+/* Animação de fade in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+/* Animação de fade out */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+.fade-out {
+  animation: fadeOut 0.3s ease forwards;
+}
+
+/* Animação de slide down */
+@keyframes slideDown {
+  from {
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    max-height: 500px;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-down {
+  animation: slideDown 0.4s ease forwards;
+}
+
+/* Animação de slide up */
+@keyframes slideUp {
+  from {
+    max-height: 500px;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+.slide-up {
+  animation: slideUp 0.3s ease forwards;
+}
+
+/* Animação de rotação */
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rotate {
+  animation: rotate 1s linear infinite;
+}
+
+/* Animação de shake */
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+/* Animação de bounce */
+@keyframes bounce {
+  0%,
+  20%,
+  53%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40%,
+  43% {
+    transform: translateY(-10px);
+  }
+  70% {
+    transform: translateY(-5px);
+  }
+  90% {
+    transform: translateY(-2px);
+  }
+}
+
+.bounce {
+  animation: bounce 1s ease-in-out;
+}
+
+/* Animação de loading skeleton */
+@keyframes skeleton {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: skeleton 1.5s infinite;
+}
+
+/* Animação de float */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Animação de scale in */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.scale-in {
+  animation: scaleIn 0.3s var(--bounce-timing) forwards;
+}
+
+/* Animação de scale out */
+@keyframes scaleOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+.scale-out {
+  animation: scaleOut 0.2s ease forwards;
+}
+
+/* Transições base */
+.transition-fast {
+  transition: all var(--transition-fast);
+}
+
+.transition-normal {
+  transition: all var(--transition-normal);
+}
+
+.transition-slow {
+  transition: all var(--transition-slow);
+}
+
+/* Transições específicas */
+.transition-colors {
+  transition: color var(--transition-normal),
+    background-color var(--transition-normal),
+    border-color var(--transition-normal);
+}
+
+.transition-transform {
+  transition: transform var(--transition-normal);
+}
+
+.transition-opacity {
+  transition: opacity var(--transition-normal);
+}
+
+.transition-shadow {
+  transition: box-shadow var(--transition-normal);
+}
+
+/* Hover effects */
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.hover-rotate:hover {
+  transform: rotate(5deg);
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(74, 144, 226, 0.3);
+}
+
+/* Animações de entrada para elementos */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate-on-scroll.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Delays para animações em cascata */
+.delay-100 {
+  animation-delay: 0.1s;
+}
+
+.delay-200 {
+  animation-delay: 0.2s;
+}
+
+.delay-300 {
+  animation-delay: 0.3s;
+}
+
+.delay-400 {
+  animation-delay: 0.4s;
+}
+
+.delay-500 {
+  animation-delay: 0.5s;
+}
+
+/* Animação de loading dots */
+@keyframes loadingDots {
+  0%,
+  20% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  80%,
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+.loading-dots {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.loading-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: currentColor;
+  animation: loadingDots 1.4s infinite;
+}
+
+.loading-dots span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.loading-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* Redução de movimento para acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

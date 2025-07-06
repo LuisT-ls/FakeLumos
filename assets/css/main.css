@@ -1,10 +1,5 @@
-/* ===================================================================
-   MAIN.CSS - Arquivo CSS Principal Modular
-   =================================================================== */
-
-/* -------------------------------------------------------------------
-   BASE - Estilos fundamentais e configurações globais
-   ------------------------------------------------------------------- */
+/* MAIN.CSS - Arquivo CSS Principal Modular */
+/* BASE - Estilos fundamentais e configurações globais */
 @import url('./modules/base/reset.css');
 @import url('./modules/base/variables.css');
 @import url('./modules/base/var-darkmode.css');
@@ -12,17 +7,13 @@
 @import url('./modules/base/animations.css');
 @import url('./modules/base/scrollbar.css');
 
-/* -------------------------------------------------------------------
-   LAYOUT - Estrutura e organização das seções
-   ------------------------------------------------------------------- */
+/* LAYOUT - Estrutura e organização das seções */
 @import url('./modules/layout/container.css');
 @import url('./modules/layout/header.css');
 @import url('./modules/layout/section.css');
 @import url('./modules/layout/footer.css');
 
-/* -------------------------------------------------------------------
-   COMPONENTS - Componentes reutilizáveis
-   ------------------------------------------------------------------- */
+/* COMPONENTS - Componentes reutilizáveis */
 @import url('./modules/components/buttons.css');
 @import url('./modules/components/inputs.css');
 @import url('./modules/components/modal.css');
@@ -31,30 +22,21 @@
 @import url('./modules/components/flags.css');
 @import url('./modules/components/theme-toggle.css');
 
-/* -------------------------------------------------------------------
-   FEATURES - Funcionalidades específicas
-   ------------------------------------------------------------------- */
+/* FEATURES - Funcionalidades específicas */
 /* Arquivos de features serão importados aqui conforme necessário */
 
-/* -------------------------------------------------------------------
-   UTILS - Utilitários e classes auxiliares
-   ------------------------------------------------------------------- */
+/* UTILS - Utilitários e classes auxiliares*/
 @import url('./modules/utils/spacing.css');
 @import url('./modules/utils/responsive.css');
 @import url('./modules/utils/accessibility.css');
 @import url('./modules/utils/darkmode.css');
 @import url('./modules/utils/tooltip.css');
 
-/* -------------------------------------------------------------------
-   PAGES - Estilos específicos de páginas
-   ------------------------------------------------------------------- */
+/* PAGES - Estilos específicos de páginas */
 @import url('../../pages/css/privacy.css');
 @import url('../../pages/css/terms-of-service.css');
 
-/* ===================================================================
-   ESTILOS GLOBAIS ADICIONAIS
-   =================================================================== */
-
+/* ESTILOS GLOBAIS */
 /* Estilos que precisam ser aplicados após todos os imports */
 *,
 *::before,

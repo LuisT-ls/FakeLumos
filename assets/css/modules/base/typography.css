@@ -1,0 +1,223 @@
+/* TYPOGRAPHY.CSS - Estilos tipográficos */
+
+/* Importação da fonte Roboto */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+/* Configuração base da tipografia */
+body {
+  font-family: 'Roboto', 'Arial', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--text-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Títulos */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  color: var(--heading-color);
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+h4 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+h5 {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+h6 {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Parágrafos */
+p {
+  margin-bottom: 1rem;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* Lead text */
+.lead {
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+/* Small text */
+.small {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* Text utilities */
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+.text-white {
+  color: white !important;
+}
+
+.text-white-50 {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.text-start {
+  text-align: start !important;
+}
+
+.text-end {
+  text-align: end !important;
+}
+
+/* Font weights */
+.fw-light {
+  font-weight: 300 !important;
+}
+
+.fw-normal {
+  font-weight: 400 !important;
+}
+
+.fw-medium {
+  font-weight: 500 !important;
+}
+
+.fw-semibold {
+  font-weight: 600 !important;
+}
+
+.fw-bold {
+  font-weight: 700 !important;
+}
+
+/* Links */
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+/* Listas */
+ul,
+ol {
+  margin-bottom: 1rem;
+  padding-left: 2rem;
+}
+
+li {
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+
+.list-inline {
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.list-inline-item {
+  display: inline-block;
+}
+
+/* Blockquotes */
+blockquote {
+  padding: 1rem;
+  border-left: 4px solid var(--primary-color);
+  background-color: var(--bg-light);
+  margin: 1rem 0;
+  font-style: italic;
+}
+
+/* Code */
+code {
+  background-color: var(--bg-light);
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.875rem;
+  color: var(--text-color);
+}
+
+pre {
+  background-color: var(--bg-light);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+/* Responsividade para tipografia */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+
+  h4 {
+    font-size: 1.25rem;
+  }
+
+  .lead {
+    font-size: 1.125rem;
+  }
+
+  body {
+    font-size: 14px;
+  }
+}
