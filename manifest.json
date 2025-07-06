@@ -1,0 +1,12 @@
+{
+  "name": "Verificador de Fake News",
+  "short_name": "Fake News Check",
+  "description": "Ferramenta para verificação de fake news e desinformação",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4a90e2",
+  "orientation": "portrait",
+  "scope": "/",
+  "lang": "pt-BR"
+}
