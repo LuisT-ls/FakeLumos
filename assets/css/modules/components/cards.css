@@ -1,0 +1,153 @@
+/* Card Base Styles */
+.bg-white {
+  background: #ffffff;
+  transition: transform var(--transition-speed),
+    box-shadow var(--transition-speed);
+}
+
+.bg-white:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Feature Icon in Cards */
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+/* Modal Card Styles */
+.modal-content {
+  border: none;
+  border-radius: 1rem;
+}
+
+.modal-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.score-circle {
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  font-size: 1.5rem;
+  border-radius: var(--radius-full);
+  background-color: var(--primary-color);
+  color: var(--light-color);
+  display: inline-block;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Toast Card Styles */
+.toast {
+  background: #ffffff;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 1rem;
+}
+
+/* Result Cards */
+#result-section .result-card {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+/* Progress Ring Styles */
+.progress-ring-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+}
+
+.progress-ring {
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  transition: stroke-dashoffset 0.5s ease-in-out;
+}
+
+.progress-ring-circle {
+  fill: none;
+  stroke-width: 12;
+  stroke-linecap: round;
+  transition: all 0.5s ease-in-out;
+}
+
+.progress-ring-bg {
+  stroke: #e9ecef;
+}
+
+.progress-ring-value {
+  stroke: #4caf50;
+}
+
+.score-value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.score-label {
+  display: block;
+  font-size: 1rem;
+  color: #6c757d;
+  margin-top: 5px;
+}
+
+/* Classes de cor baseadas no score */
+.score-high {
+  stroke: #28a745;
+}
+
+.score-medium {
+  stroke: #ffc107;
+}
+
+.score-low {
+  stroke: #dc3545;
+}
+
+/* Dark Mode Card Styles */
+[data-theme='dark'] .bg-white {
+  background-color: #1e293b !important;
+  color: #ffffff;
+}
+
+[data-theme='dark'] #result-section {
+  background-color: #1e293b;
+  color: #e2e8f0;
+}
+
+[data-theme='dark'] #result-section .result-card {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  border-color: #334155;
+}
+
+[data-theme='dark'] #feedbackModal .modal-content {
+  background-color: #1e293b;
+  color: #e2e8f0;
+}
+
+[data-theme='dark'] #feedbackModal .modal-header {
+  border-bottom: 1px solid #334155;
+}
+
+/* Responsive Card Adjustments */
+@media (max-width: 768px) {
+  .feature-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+}

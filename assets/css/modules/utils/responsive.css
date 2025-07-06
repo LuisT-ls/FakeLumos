@@ -1,0 +1,155 @@
+/* Large Screens (992px and up) */
+@media (min-width: 992px) {
+  #themeSwitcher {
+    margin-left: 1rem;
+  }
+}
+
+/* Medium Screens and below (768px and down) */
+@media (max-width: 768px) {
+  /* Header & Navigation */
+  .navbar-brand span {
+    font-size: 1rem;
+  }
+
+  .header-gradient {
+    padding: 2rem 0;
+  }
+
+  .header-gradient h1 {
+    font-size: 1.5rem;
+  }
+
+  .header-gradient .lead {
+    font-size: 0.9rem;
+  }
+
+  /* Icons & Features */
+  .feature-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  /* Footer */
+  footer .col-md-6,
+  footer .col-md-3 {
+    text-align: center;
+  }
+
+  footer .list-inline {
+    justify-content: center;
+  }
+
+  /* Como Funciona */
+  #como-funciona {
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .expand-section {
+    margin-bottom: 1.5rem;
+  }
+
+  .expand-trigger {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 0.5rem;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    cursor: pointer;
+  }
+
+  .expand-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    color: #007bff;
+  }
+
+  .expand-icon {
+    margin-right: 0.5rem;
+  }
+
+  .expand-arrow {
+    margin-left: 0.5rem;
+  }
+
+  .expand-label {
+    text-align: center;
+    display: inline-block;
+    margin-top: 0.25rem;
+  }
+
+  /* Steps */
+  .steps-container {
+    padding: 1rem;
+  }
+
+  .step-item {
+    margin-left: 1rem;
+  }
+
+  /* Clear History Button */
+  #clearHistoryBtn .btn-text {
+    display: none;
+  }
+
+  #clearHistoryBtn {
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 767px) {
+  .expand-label {
+    font-size: 1rem;
+  }
+
+  .step-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .step-icon {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}
