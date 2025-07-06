@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Saiba mais sobre o projeto Verificador de Fake News, sua missão, equipe e objetivos no combate à desinformação."
+    />
+
+    <!-- Primary Meta Tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="title"
+      content="Verificador de Fake News - Combatendo a Desinformação com IA"
+    />
+    <meta
+      name="description"
+      content="Ferramenta de verificação de notícias falsas que utiliza Inteligência Artificial para analisar e validar a credibilidade de informações em tempo real. Desenvolvido na UFBA para combater a desinformação."
+    />
+    <meta
+      name="keywords"
+      content="fake news, verificador, fact checking, desinformação, notícias falsas, UFBA, inteligência artificial, verificação de notícias"
+    />
+    <meta name="author" content="Luís Antonio Souza Teixeira" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="pt-BR" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://fakelumos.vercel.app/pages/sobre.html"
+    />
+    <meta
+      property="og:title"
+      content="Verificador de Fake News - Combatendo a Desinformação com IA"
+    />
+    <meta
+      property="og:description"
+      content="Ferramenta de verificação de notícias falsas que utiliza Inteligência Artificial para analisar e validar a credibilidade de informações em tempo real. Desenvolvido na UFBA para combater a desinformação."
+    />
+    <meta
+      property="og:image"
+      content="https://fakelumos.vercel.app/imagem-de-preview.jpg"
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:url"
+      content="https://fakelumos.vercel.app/pages/sobre.html"
+    />
+    <meta
+      property="twitter:title"
+      content="Verificador de Fake News - Combatendo a Desinformação com IA"
+    />
+    <meta
+      property="twitter:description"
+      content="Ferramenta de verificação de notícias falsas que utiliza Inteligência Artificial para analisar e validar a credibilidade de informações em tempo real. Desenvolvido na UFBA para combater a desinformação."
+    />
+
+    <!-- Additional SEO Tags -->
+    <meta name="application-name" content="Verificador de Fake News" />
+    <meta name="theme-color" content="#2563eb" />
+    <link
+      rel="canonical"
+      href="https://fakelumos.vercel.app/pages/sobre.html"
+    />
+
+    <title>Sobre - Verificador de Fake News</title>
+
+    <!-- Bootstrap e FontAwesome -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Navbar */
+      .navbar {
+        background-color: #2563eb !important;
+        padding: 0.5rem 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar-brand {
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+      }
+
+      .navbar-brand i {
+        font-size: 1.25rem;
+      }
+
+      .nav-link {
+        color: #ffffff !important;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        transition: color var(--transition-speed);
+      }
+
+      .nav-link:hover {
+        color: #f8fafc !important;
+        transform: translateY(-1px);
+      }
+
+      .header-gradient {
+        background: linear-gradient(135deg, #2563eb, #6366f1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .team-member img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .mission-card {
+        border-left: 4px solid #2563eb;
+      }
+
+      .timeline {
+        position: relative;
+        padding-left: 50px;
+      }
+
+      .timeline::before {
+        content: '';
+        position: absolute;
+        left: 15px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: #2563eb;
+      }
+
+      .timeline-item {
+        position: relative;
+        margin-bottom: 30px;
+      }
+
+      .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: -43px;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #2563eb;
+        border: 4px solid #fff;
+      }
+
+      .social-link,
+      .text-primary {
+        text-decoration: none !important;
+        color: inherit;
+        margin-right: 1rem;
+        transition: color 0.3s ease;
+      }
+
+      .social-link:hover {
+        color: #2563eb;
+      }
+
+      .social-link:last-child {
+        margin-right: 0;
+      }
+
+      .card .card-body i {
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      footer .list-inline-item a:hover {
+        color: #f39c12 !important;
+        transform: scale(1.1);
+      }
+
+      #backToTopBtn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        display: none; /* Escondido inicialmente */
+        z-index: 1000;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+      }
+
+      #backToTopBtn:focus {
+        outline: none;
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #2563eb;
+        border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #1e40af;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Barra de Navegação -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <i class="fas fa-shield-alt"></i>
+          <span class="ms-2">Verificador de Fake News</span>
+        </a>
+
+        <!-- Menu Hamburguer (visível em mobile) -->
+        <div class="d-flex align-items-center order-lg-last">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/index.html#como-funciona"
+                >Como Funciona</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/index.html#dicas">Dicas</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="py-4 text-center header-gradient">
+      <div class="container">
+        <h1 class="h2 fw-bold text-white mb-2">Detecte Fake News com IA</h1>
+        <p class="lead text-white-50 mb-0 small">
+          Verifique a credibilidade de notícias em segundos
+        </p>
+      </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="container py-5">
+      <!-- Missão e Visão -->
+      <section class="mb-5">
+        <div class="row">
+          <div class="col-lg-6 mb-4">
+            <div class="card h-100 mission-card">
+              <div class="card-body">
+                <h2 class="h4 mb-4">Nossa Missão</h2>
+                <p>
+                  O Verificador de Fake News nasceu da necessidade de combater a
+                  crescente onda de desinformação em nossa sociedade. Nossa
+                  missão é empoderar as pessoas com ferramentas e conhecimento
+                  para identificar e combater notícias falsas.
+                </p>
+                <p>
+                  Através da combinação de tecnologia avançada e educação
+                  digital, buscamos criar um ambiente online mais confiável e
+                  transparente.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 mb-4">
+            <div class="card h-100 mission-card">
+              <div class="card-body">
+                <h2 class="h4 mb-4">Nossa Visão</h2>
+                <p>
+                  Aspiramos criar uma sociedade mais consciente e crítica em
+                  relação às informações que consome. Visualizamos um futuro
+                  onde cada cidadão tenha as ferramentas e o conhecimento
+                  necessários para distinguir fatos de ficção.
+                </p>
+                <p>
+                  Queremos ser referência no combate à desinformação,
+                  contribuindo para um debate público mais saudável e baseado em
+                  fatos.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- História do Projeto -->
+      <section class="mb-5">
+        <h2 class="h4 mb-4">História do Projeto</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <h3 class="h5">Início do Desenvolvimento</h3>
+            <p>
+              O projeto começou como trabalho final na disciplina "Algoritmo,
+              Política e Sociedade" na UFBA, sob orientação do Prof. Dr. Paulo
+              Fonseca.
+            </p>
+          </div>
+          <div class="timeline-item">
+            <h3 class="h5">Desenvolvimento da IA</h3>
+            <p>
+              Implementação de algoritmos de análise de texto e integração com
+              APIs de fact-checking para melhorar a precisão das verificações.
+            </p>
+          </div>
+          <div class="timeline-item">
+            <h3 class="h5">Lançamento</h3>
+            <p>
+              Disponibilização da ferramenta para o público, com foco em
+              usabilidade e acessibilidade.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Equipe -->
+      <section class="mb-5">
+        <h2 class="h4 mb-4">Nossa Equipe</h2>
+        <div class="row justify-content-center">
+          <div class="col-md-4 text-center mb-4">
+            <div class="team-member">
+              <img
+                src="/assets/img/luis.svg"
+                alt="Luís Antonio"
+                class="mb-3"
+              />
+              <h3 class="h5">Luís Teixeira</h3>
+              <p class="text-muted">Desenvolvedor Full-Stack e Estudante</p>
+              <div class="social-links">
+                <a
+                  href="https://www.linkedin.com/in/luis-tei/"
+                  class="text-primary me-2"
+                  target="_blank"
+                  aria-label="Visite o perfil de LinkedIn de Luis Teixeira"
+                >
+                  <i class="fab fa-linkedin"></i>
+                </a>
+                <a
+                  href="https://github.com/LuisT-ls"
+                  class="text-primary"
+                  target="_blank"
+                  aria-label="Visite o perfil de GitHub de Luis Teixeira"
+                >
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 text-center mb-4">
+            <div class="team-member">
+              <img
+                src="../assets/img/image.png"
+                alt="Dr. Paulo Fonseca"
+                class="mb-3"
+              />
+              <h3 class="h5">Prof. Dr. Paulo Fonseca</h3>
+              <p class="text-muted">Orientador do Projeto</p>
+              <div class="social-links">
+                <a
+                  href="https://www.linkedin.com/in/paulo-f-c-fonseca/"
+                  class="text-primary me-2"
+                  target="_blank"
+                  aria-label="Visite o perfil de LinkedIn de Dr. Paulo Fonseca"
+                >
+                  <i class="fab fa-linkedin"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tecnologias -->
+      <section>
+        <h2 class="h4 mb-4">Tecnologias Utilizadas</h2>
+        <div class="row row-cols-2 row-cols-md-4 g-4">
+          <div class="col">
+            <div class="card h-100 text-center">
+              <div
+                class="card-body d-flex flex-column align-items-center justify-content-center"
+              >
+                <i class="fab fa-bootstrap fa-2x text-primary mb-3"></i>
+                <h3 class="h6">Bootstrap</h3>
+                <p class="small text-muted">Frontend</p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100 text-center">
+              <div
+                class="card-body d-flex flex-column align-items-center justify-content-center"
+              >
+                <i class="fas fa-robot fa-2x text-primary mb-3"></i>
+                <h3 class="h6">Machine Learning</h3>
+                <p class="small text-muted">Análise de Texto</p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100 text-center">
+              <div
+                class="card-body d-flex flex-column align-items-center justify-content-center"
+              >
+                <i class="fas fa-database fa-2x text-primary mb-3"></i>
+                <h3 class="h6">APIs</h3>
+                <p class="small text-muted">Fact-checking</p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100 text-center">
+              <div
+                class="card-body d-flex flex-column align-items-center justify-content-center"
+              >
+                <i class="fas fa-mobile-alt fa-2x text-primary mb-3"></i>
+                <h3 class="h6">PWA</h3>
+                <p class="small text-muted">Mobile-first</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <h4 class="h5 mb-3">Verificador de Fake News</h4>
+            <p class="mb-0">
+              Combatendo a desinformação com tecnologia e análise crítica.
+            </p>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <h4 class="h5 mb-3">Redes Sociais</h4>
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item">
+                <a
+                  href="https://www.facebook.com/luis.teixeira.10236"
+                  class="text-white-50"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="Perfil no Facebook de Luis Teixeira"
+                >
+                  <i class="fab fa-facebook fa-lg"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a
+                  href="https://x.com/luistls_?t=5sLIkrkR-Rr1L_n7TT3zDg&s=08"
+                  class="text-white-50"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="Perfil no Twitter de Luis Teixeira"
+                >
+                  <i class="fab fa-twitter fa-lg"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a
+                  href="https://www.instagram.com/luis.tei"
+                  class="text-white-50"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="Perfil no Instagram de Luis Teixeira"
+                >
+                  <i class="fab fa-instagram fa-lg"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a
+                  href="https://www.linkedin.com/in/luis-tei/"
+                  class="text-white-50"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="Perfil no LinkedIn de Luis Teixeira"
+                >
+                  <i class="fab fa-linkedin fa-lg"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <hr class="my-4" />
+        <div class="text-center">
+          <p class="mb-0">
+            &copy; <time datetime="2025">2025</time> Verificador de Fake News.
+            Todos os direitos reservados.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Botão Flutuante "Voltar ao Topo" -->
+    <button id="backToTopBtn" class="btn btn-primary btn-lg rounded-circle">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      // Referência ao botão
+      const backToTopBtn = document.getElementById('backToTopBtn')
+
+      // Mostrar/ocultar o botão com base na rolagem
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 200) {
+          backToTopBtn.style.display = 'block'
+        } else {
+          backToTopBtn.style.display = 'none'
+        }
+      })
+
+      // Voltar ao topo ao clicar no botão
+      backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        })
+      })
+    </script>
+  </body>
+</html>
