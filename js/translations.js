@@ -431,7 +431,6 @@ document.addEventListener('DOMContentLoaded', initializeI18n)
 // Exportações
 export {
   translations,
-  translateDynamicContent,
   translatePage,
   toggleLanguage,
   initializeI18n

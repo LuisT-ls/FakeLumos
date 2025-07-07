@@ -30,6 +30,9 @@ import {
   resetAllAccessibilitySettings
 } from './modules/accessibility.js'
 
+// Expõe funções imediatamente para que onclick, etc. funcionem
+exposeGlobalFunctions()
+
 /**
  * Inicializa a aplicação quando o DOM é carregado
  * Configura event listeners, carrega histórico e inicializa componentes
@@ -39,37 +42,45 @@ document.addEventListener('DOMContentLoaded', initializeApp)
 /**
  * Função principal de inicialização da aplicação
  */
-function initializeApp() {
-  // Verificar se já inicializamos antes (previne inicialização duplicada)
-  if (window.appInitialized) return
-  window.appInitialized = true
+async function initializeApp() {
+  try {
+    // Verificar se já inicializamos antes (previne inicialização duplicada)
+    if (window.appInitialized) {
+      console.warn('A aplicação já foi inicializada')
+      return
+    }
 
-  console.log('Inicializando aplicação...')
+    // Marca como inicializado
+    window.appInitialized = true
+    console.log('Inicializando aplicação...')
 
-  // Expor funções globalmente para acesso via HTML inline antes de qualquer outro setup
-  exposeGlobalFunctions()
+    // Inicializar elementos do DOM
+    initializeDynamicElements()
+    initializeSkeletonElements()
 
-  // Inicializar elementos do DOM
-  initializeDynamicElements()
-  initializeSkeletonElements()
+    // Configurar temas e preferências
+    initThemeSwitch()
+    loadAccessibilityPreferences()
 
-  // Configurar temas e preferências
-  initThemeSwitch()
-  loadAccessibilityPreferences()
+    // Inicializar expandable sections
+    setupExpandableSections()
 
-  // Inicializar expandable sections
-  setupExpandableSections()
+    // Carregar histórico (pode ser assíncrono)
+    await loadVerificationHistory()
 
-  // Carregar histórico
-  loadVerificationHistory()
+    // Configurar event listeners
+    setupEventListeners()
+    setupHistoryEvents()
+    setupAccessibilityListeners()
 
-  // Configurar event listeners
-  setupEventListeners()
-  setupHistoryEvents()
-  setupAccessibilityListeners()
+    // Registrar o Service Worker
+    registerServiceWorker()
 
-  // Registrar o Service Worker
-  registerServiceWorker()
+    // Iniciar observadores de performance
+    initPerformanceObservers()
+  } catch (error) {
+    console.error('Erro durante a inicialização da aplicação:', error)
+  }
 }
 
 /**
@@ -77,16 +88,19 @@ function initializeApp() {
  */
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker
-        .register('/sw.js')
-        .then(registration => {
-          console.log('ServiceWorker registrado com sucesso')
+    navigator.serviceWorker
+      .register('/sw.js')
+      .then(registration => {
+        console.log('ServiceWorker registrado com sucesso:', registration.scope)
+
+        // Verifica se há atualizações
+        registration.update().then(() => {
+          console.log('Verificando atualizações do Service Worker')
         })
-        .catch(error => {
-          console.error('Erro no registro do ServiceWorker:', error)
-        })
-    })
+      })
+      .catch(error => {
+        console.error('Erro no registro do ServiceWorker:', error)
+      })
   }
 }
 
@@ -94,25 +108,38 @@ function registerServiceWorker() {
  * Inicializa observadores de performance
  */
 function initPerformanceObservers() {
-  // Registra um paint timing observer
-  if ('PerformanceObserver' in window) {
-    const observer = new PerformanceObserver(list => {
-      for (const entry of list.getEntries()) {
-        if (entry.entryType === 'largest-contentful-paint') {
-          console.log('LCP:', entry.startTime)
-        }
+  if (!('PerformanceObserver' in window)) return
+
+  // Observador para LCP (Largest Contentful Paint)
+  const lcpObserver = new PerformanceObserver(list => {
+    const entries = list.getEntries()
+    entries.forEach(entry => {
+      console.log('LCP:', entry.startTime)
+    })
+  })
+  lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] })
+
+  // Observador para erros de recursos
+  const resourceObserver = new PerformanceObserver(list => {
+    list.getEntries().forEach(entry => {
+      if (entry.decodedBodySize > 500000) {
+        // 500KB
+        console.warn(
+          'Recurso grande carregado:',
+          entry.name,
+          entry.decodedBodySize
+        )
       }
     })
-    observer.observe({ entryTypes: ['largest-contentful-paint'] })
-  }
+  })
+  resourceObserver.observe({ entryTypes: ['resource'] })
 }
 
 /**
  * Expõe funções para acesso global para uso no HTML
- * IMPORTANTE: Essa função deve ser chamada antes de qualquer outro setup
  */
 function exposeGlobalFunctions() {
-  console.log('Exposing global functions')
+  console.log('Expondo funções globais')
 
   // Expõe as funções de acessibilidade globalmente para uso em atributos HTML
   window.setContrast = setContrast
@@ -124,9 +151,3 @@ function exposeGlobalFunctions() {
   window.toggleLargeCursor = toggleLargeCursor
   window.resetAllAccessibilitySettings = resetAllAccessibilitySettings
 }
-
-// Iniciar observadores de performance
-initPerformanceObservers()
-
-// Expor funções imediatamente para que onclick, etc. funcionem
-exposeGlobalFunctions()

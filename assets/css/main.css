@@ -12,6 +12,8 @@
 @import url('./modules/layout/header.css');
 @import url('./modules/layout/section.css');
 @import url('./modules/layout/footer.css');
+@import url('./modules/layout/accessibility.css');
+@import url('./modules/layout/autocontraste.css');
 
 /* COMPONENTS - Componentes reutilizáveis */
 @import url('./modules/components/buttons.css');
@@ -30,7 +32,6 @@
 /* UTILS - Utilitários e classes auxiliares*/
 @import url('./modules/utils/spacing.css');
 @import url('./modules/utils/responsive.css');
-@import url('./modules/utils/accessibility.css');
 @import url('./modules/utils/darkmode.css');
 @import url('./modules/utils/tooltip.css');
 
