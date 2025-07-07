@@ -8,8 +8,11 @@ let adsInitialized = false
 
 function initializeAds() {
   if (!adsInitialized) {
-    // Seu código de inicialização de ads
+    console.log('Inicializando anúncios...')
+    // Seu código de inicialização de ads aqui
     adsInitialized = true
+  } else {
+    console.log('Anúncios já inicializados - chamada ignorada')
   }
 }
 

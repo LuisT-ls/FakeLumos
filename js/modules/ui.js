@@ -4,7 +4,6 @@
  */
 
 import { elements } from './dom.js'
-import { translateDynamicContent } from '../translations.js'
 
 /**
  * Exibe notificações toast
@@ -12,24 +11,21 @@ import { translateDynamicContent } from '../translations.js'
  * @param {string} type - Tipo da notificação (success, info, warning, danger)
  */
 export function showNotification(message, type = 'info') {
-  const currentLang = document.documentElement.lang
-  const translatedMessage = translateDynamicContent(message, currentLang)
-
   // Verifica se o Toast está disponível (Bootstrap)
   if (typeof bootstrap !== 'undefined' && elements.notificationToast) {
     const toast = new bootstrap.Toast(elements.notificationToast)
     elements.notificationToast.querySelector('.toast-body').textContent =
-      translatedMessage
+      message
     elements.notificationToast.className = `toast bg-${type}`
     toast.show()
   } else {
     // Fallback para quando bootstrap não está disponível
-    console.log(`Notificação (${type}): ${translatedMessage}`)
+    console.log(`Notificação (${type}): ${message}`)
 
     // Criar notificação simples caso o elemento toast não exista
     if (!elements.notificationToast) {
       const simpleNotification = document.createElement('div')
-      simpleNotification.textContent = translatedMessage
+      simpleNotification.textContent = message
       simpleNotification.className = `simple-notification notification-${type}`
       simpleNotification.style.cssText = `
         position: fixed;
