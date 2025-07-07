@@ -66,7 +66,7 @@ cd fakenews
 │   │   ├── components/    # Estilos de componentes
 │   │   ├── layout/        # Estilos de layout
 │   │   └── utils/         # Utilidades CSS
-│   ├── images/
+│   ├── img/
 │   │   └── icons/         # Ícones e favicon
 │   └── js/
 │       ├── components/    # Componentes JavaScript
