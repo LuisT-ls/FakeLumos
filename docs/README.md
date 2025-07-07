@@ -1,28 +1,28 @@
-# 🔍 Verificador de Fake News | Fake News Detector
+# 🔍 Verificador de Fake News
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 [![Made with JavaScript](https://img.shields.io/badge/Made%20with-JavaScript-yellow.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![Bootstrap 5](https://img.shields.io/badge/Bootstrap-5.3.0-purple.svg)](https://getbootstrap.com/)
 [![PWA Ready](https://img.shields.io/badge/PWA-Ready-blue.svg)](https://web.dev/progressive-web-apps/)
 
-Uma aplicação web moderna que utiliza Inteligência Artificial e a API do Google Gemini para detectar e analisar possíveis fake news em tempo real, promovendo uma comunicação mais consciente e baseada em fatos.
+Uma aplicação web moderna que utiliza Inteligência Artificial e a API do Google Gemini para detectar e analisar possíveis fake news em tempo real.
 
 ## 🎯 Principais Destaques
 
 - ⚡ Análise em tempo real com IA avançada
-- 🌍 Interface bilíngue (Português/Inglês)
 - 📱 Progressive Web App (PWA) instalável
 - 🎨 Interface moderna e responsiva
 - 🌓 Suporte a tema claro/escuro
+- ♿ Recursos avançados de acessibilidade
 - ☁️ Integração serverless com Vercel
 
 ## 🚀 Começando
 
 ### Pré-requisitos
 
+- Node.js (opcional para desenvolvimento)
 - Um servidor web local (como Live Server do VS Code)
-- Uma chave de API do Google Gemini
-- Conta no Vercel (para deploy)
+- Chave de API do Google Gemini
 
 ### Instalação Local
 
@@ -30,96 +30,122 @@ Uma aplicação web moderna que utiliza Inteligência Artificial e a API do Goog
 
 ```bash
 git clone https://github.com/LuisT-ls/FakeLumos.git
-cd fakenews
+cd FakeLumos
 ```
 
-2. Configure o ambiente no Vercel:
+2. Configure sua chave API:
 
-   - Crie uma variável de ambiente `GEMINI_API_KEY` com sua chave API do Google Gemini
+   - Crie um arquivo `.env` na raiz com:
+     ```
+     GEMINI_API_KEY=sua_chave_aqui
+     ```
 
 3. Execute o projeto:
-   - Use um servidor local como Live Server
-   - Ou abra o arquivo index.html diretamente no navegador
+   - Abra `index.html` diretamente no navegador
+   - Ou use um servidor local como Live Server
 
 ## 🛠️ Tecnologias Utilizadas
 
 ### Frontend
 
-- HTML5 & CSS3
-- JavaScript (Vanilla)
-- Service Workers para PWA
-- CSS Modular
+- HTML5 & CSS3 (CSS Modular)
+- JavaScript Vanilla (ES Modules)
+- Bootstrap 5
+- Service Workers (PWA)
 
 ### Backend & Integrações
 
-- Vercel Serverless Functions
 - Google Gemini API
-- Local Storage para persistência
+- Vercel Serverless Functions
+- Local Storage para persistência local
 
-## 📂 Estrutura do Projeto
+## 📂 Estrutura do Projeto Atualizada
 
 ```
 .
-├── assets/
-│   ├── css/
-│   │   ├── base/          # Estilos base e variáveis
-│   │   ├── components/    # Estilos de componentes
-│   │   ├── layout/        # Estilos de layout
-│   │   └── utils/         # Utilidades CSS
-│   ├── img/
-│   │   └── icons/         # Ícones e favicon
-│   └── js/
-│       ├── components/    # Componentes JavaScript
-│       ├── config/        # Configurações
-│       ├── services/      # Serviços e integrações
-│       └── utils/         # Utilitários JavaScript
-├── pages/                 # Páginas estáticas
-├── api/                   # Funções serverless
+├── api/                   # Funções serverless (Vercel)
+│   └── getApiKey.js       # Endpoint para API Key
+├── assets/                # Recursos estáticos
+│   ├── css/               # Estilos CSS modularizados
+│   │   ├── base/          # Reset, variáveis, tipografia
+│   │   ├── components/    # Componentes UI
+│   │   ├── layout/        # Layout principal
+│   │   └── utils/         # Utilitários CSS
+│   └── img/               # Imagens e ícones
+│       ├── favicon/       # Favicons e ícones PWA
+│       └── *.svg          # Imagens SVG
 ├── docs/                  # Documentação
-└── sw.js                  # Service Worker
+│   ├── LICENSE            # Licença MIT
+│   └── README.md          # Este arquivo
+├── js/                    # Lógica da aplicação
+│   ├── modules/           # Módulos JavaScript
+│   │   ├── accessibility.js # Controles de acessibilidade
+│   │   ├── api.js         # Integração com APIs
+│   │   ├── dom.js         # Manipulação do DOM
+│   │   ├── events.js      # Gerenciamento de eventos
+│   │   ├── gemini.js      # Integração com Gemini AI
+│   │   └── ui.js          # Componentes de interface
+│   └── app.js             # Ponto de entrada principal
+├── pages/                 # Páginas adicionais
+│   ├── css/               # Estilos específicos de páginas
+│   ├── sobre.html         # Página "Sobre"
+│   ├── privacy.html       # Política de privacidade
+│   └── terms-of-service.html # Termos de serviço
+├── .gitignore             # Arquivos ignorados pelo Git
+├── 404.html               # Página de erro 404
+├── favicon.ico            # Favicon padrão
+├── index.html             # Página principal
+├── manifest.json          # Configuração PWA
+├── package.json           # Configuração do projeto
+├── robots.txt             # Instruções para crawlers
+├── sitemap.xml            # Mapa do site
+└── sw.js                  # Service Worker (PWA)
 ```
 
-## 💡 Funcionalidades
+## 💡 Funcionalidades Principais
 
 ### Análise de Conteúdo
 
-- Verificação de credibilidade de textos
-- Identificação de padrões suspeitos
-- Sugestões de fontes confiáveis
-- Histórico de verificações
+- Verificação de credibilidade em tempo real
+- Pontuação de confiabilidade
+- Identificação de elementos suspeitos
+- Histórico de verificações locais
 
-### Recursos PWA
+### Experiência do Usuário
+
+- Interface totalmente responsiva
+- Modo claro/escuro
+- Controles de acessibilidade:
+  - Ajuste de contraste
+  - Tamanho da fonte
+  - Fonte para dislexia
+  - Redução de movimento
+
+### PWA (Progressive Web App)
 
 - Funcionamento offline
-- Instalável no dispositivo
-- Tema claro/escuro
-- Interface responsiva
+- Instalação em dispositivos
+- Atualizações automáticas
+- Tela de carregamento personalizada
 
-### Segurança e Privacidade
+## 🤝 Como Contribuir
 
-- Proteção de dados em trânsito
-- Sem armazenamento de dados sensíveis
-- Política de privacidade clara
-- Termos de serviço transparentes
-
-## 🤝 Contribuindo
-
-1. Fork o projeto
-2. Crie sua branch: `git checkout -b feature/NovaFuncionalidade`
-3. Commit suas mudanças: `git commit -m 'Adiciona Nova Funcionalidade'`
-4. Push para a branch: `git push origin feature/NovaFuncionalidade`
+1. Faça um fork do projeto
+2. Crie uma branch: `git checkout -b feature/nova-funcionalidade`
+3. Commit suas mudanças: `git commit -m 'Adiciona nova funcionalidade'`
+4. Push para a branch: `git push origin feature/nova-funcionalidade`
 5. Abra um Pull Request
 
-### Guidelines para Contribuição
+### Diretrizes de Código
 
-- Mantenha a estrutura CSS modular
-- Siga os padrões de nomenclatura existentes
-- Teste em diferentes navegadores
-- Mantenha a compatibilidade PWA
+- Sempre documente novas funções
+- Mantenha a estrutura modular
+- Teste em múltiplos navegadores
+- Respeite as convenções existentes
 
 ## 📄 Licença
 
-Este projeto está licenciado sob a MIT License - veja o arquivo [LICENSE](docs/LICENSE) para detalhes.
+Este projeto está licenciado sob a [MIT License](docs/LICENSE).
 
 ## 👤 Autor
 
@@ -128,16 +154,7 @@ Este projeto está licenciado sob a MIT License - veja o arquivo [LICENSE](docs/
 - LinkedIn: [@luis-tei](https://www.linkedin.com/in/luis-tei/)
 - GitHub: [@LuisT-ls](https://github.com/LuisT-ls)
 - Email: luishg213@outlook.com
-- Instagram: [@luis.tei](https://www.instagram.com/luis.tei)
 
 ---
 
-## 🌟 Apoie o Projeto | Support the Project
-
-⭐ Star no GitHub | GitHub Star: [Fake News Detector](https://github.com/LuisT-ls/FakeLumos)
-
-💝 Contribua | Contribute: [Open Issues](https://github.com/LuisT-ls/FakeLumos/issues)
-
-> **Nota**: Esta ferramenta é um auxílio e não substitui a verificação humana cuidadosa. Sempre verifique múltiplas fontes confiáveis.
-
-> **Note**: This tool is an aid and does not replace careful human verification. Always check multiple reliable sources.
+> **Nota importante**: Esta ferramenta é um auxílio à verificação de informações e não substitui a análise crítica e consulta a fontes confiáveis.
