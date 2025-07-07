@@ -13,18 +13,12 @@
       http-equiv="Permissions-Policy"
       content="unload=(self), interest-cohort=()"
     />
-    
+
     <!-- Favicon -->
     <link
       rel="apple-touch-icon"
       sizes="180x180"
       href="./assets/img/favicon/apple-touch-icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="192x192"
-      href="./assets/img/favicon/android-chrome-192x192.png"
     />
     <link
       rel="icon"
@@ -40,8 +34,6 @@
     />
 
     <!-- Preconnect -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
       rel="stylesheet"
@@ -195,7 +187,32 @@
     />
 
     <!-- CSS Principal -->
-    <link href="assets/css/main.css" rel="stylesheet" media="all" />
+    <link
+      href="assets/css/main.css"
+      rel="stylesheet"
+      onerror="this.onerror=null;this.href='fallback-styles.css';"
+      media="all"
+    />
+
+    <!-- CSS Cards -->
+    <link
+      rel="preload"
+      href="./assets/css/modules/components/cards.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <link
+      rel="preload"
+      href="/assets/css/modules/components/buttons.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="/assets/css/modules/components/buttons.css"
+      />
+    </noscript>
 
     <style>
       body {
@@ -946,11 +963,194 @@
       </div>
     </div>
 
-    <!-- Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Menu de Acessibilidade -->
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="accessibilityMenu"
+      aria-labelledby="accessibilityMenuLabel"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="accessibilityMenuLabel">
+          <i class="fas fa-universal-access me-2"></i>
+          Acessibilidade
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Fechar"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <!-- Contraste -->
+        <div class="mb-4">
+          <h6 class="mb-3">Contraste</h6>
+          <div class="d-flex flex-wrap gap-2">
+            <button class="btn btn-outline-primary" data-contrast="normal">
+              Normal
+            </button>
+            <button class="btn btn-outline-primary" data-contrast="high">
+              Alto Contraste
+            </button>
+            <button
+              class="btn btn-outline-primary"
+              data-contrast="black-yellow"
+            >
+              Preto/Amarelo
+            </button>
+            <button
+              class="btn btn-outline-primary"
+              data-contrast="yellow-black"
+            >
+              Amarelo/Preto
+            </button>
+          </div>
+        </div>
+
+        <!-- Tamanho da Fonte -->
+        <div class="mb-4">
+          <h6 class="mb-3">Tamanho da Fonte</h6>
+          <div class="d-flex gap-2">
+            <button class="btn btn-outline-primary" data-font-action="decrease">
+              <i class="fas fa-minus"></i> A-
+            </button>
+            <button class="btn btn-outline-primary" data-font-action="reset">
+              A
+            </button>
+            <button class="btn btn-outline-primary" data-font-action="increase">
+              <i class="fas fa-plus"></i> A+
+            </button>
+          </div>
+        </div>
+
+        <!-- Espaçamento de Texto -->
+        <div class="mb-4">
+          <h6 class="mb-3">Espaçamento de Texto</h6>
+          <div class="d-flex gap-2">
+            <button class="btn btn-outline-primary" data-spacing="normal">
+              Normal
+            </button>
+            <button class="btn btn-outline-primary" data-spacing="large">
+              Médio
+            </button>
+            <button class="btn btn-outline-primary" data-spacing="larger">
+              Ampliado
+            </button>
+          </div>
+        </div>
+
+        <!-- Destacar Links -->
+        <div class="mb-4">
+          <h6 class="mb-3">Links</h6>
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="highlightLinksToggle"
+            />
+            <label class="form-check-label" for="highlightLinksToggle">
+              Destacar Links
+            </label>
+          </div>
+        </div>
+
+        <!-- Fonte para Dislexia -->
+        <div class="mb-4">
+          <h6 class="mb-3">Leitura Facilitada</h6>
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="dyslexicFontToggle"
+            />
+            <label class="form-check-label" for="dyslexicFontToggle">
+              Fonte para Dislexia
+            </label>
+          </div>
+        </div>
+
+        <!-- Animações Reduzidas -->
+        <div class="mb-4">
+          <h6 class="mb-3">Animações</h6>
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="reducedMotionToggle"
+            />
+            <label class="form-check-label" for="reducedMotionToggle">
+              Reduzir Animações
+            </label>
+          </div>
+        </div>
+
+        <!-- Cursor Ampliado -->
+        <div class="mb-4">
+          <h6 class="mb-3">Cursor</h6>
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="largeCursorToggle"
+            />
+            <label class="form-check-label" for="largeCursorToggle">
+              Cursor Ampliado
+            </label>
+          </div>
+        </div>
+
+        <!-- Resetar configurações -->
+        <div class="mt-5 text-center">
+          <button id="resetAccessibilityBtn" class="btn btn-outline-danger">
+            <i class="fas fa-redo me-2"></i>
+            Restaurar Configurações Padrão
+          </button>
+        </div>
+
+        <!-- Atalhos de Teclado -->
+        <div class="mt-4">
+          <h6 class="mb-2">Atalhos de Teclado</h6>
+          <ul class="list-unstyled small">
+            <li class="mb-1">
+              <span class="badge bg-light text-dark">Ctrl+Alt+C</span> -
+              Alternar Contraste
+            </li>
+            <li class="mb-1">
+              <span class="badge bg-light text-dark">Ctrl+Alt+F</span> -
+              Alternar Fonte para Dislexia
+            </li>
+            <li class="mb-1">
+              <span class="badge bg-light text-dark">Ctrl+Alt++</span> -
+              Aumentar Fonte
+            </li>
+            <li class="mb-1">
+              <span class="badge bg-light text-dark">Ctrl+Alt+-</span> -
+              Diminuir Fonte
+            </li>
+            <li class="mb-1">
+              <span class="badge bg-light text-dark">Ctrl+Alt+0</span> - Resetar
+              Fonte
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Link de Acessibilidade para Pular para o Conteúdo Principal -->
+    <a href="#main-content" class="skip-link"
+      >Pular para o conteúdo principal</a
+    >
+
+    <!-- Scripts -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      defer
+    ></script>
 
     <!-- Script principal da aplicação (Tipo módulo) -->
     <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/translations.js"></script>
 
     <!-- Service Worker -->
     <script>
@@ -968,6 +1168,31 @@
       }
     </script>
 
+    <!-- Script de otimização de renderização -->
+    <script type="module">
+      // Registra um paint timing observer
+      if ('PerformanceObserver' in window) {
+        const observer = new PerformanceObserver(list => {
+          for (const entry of list.getEntries()) {
+            if (entry.entryType === 'largest-contentful-paint') {
+              console.log('LCP:', entry.startTime)
+            }
+          }
+        })
+        observer.observe({ entryTypes: ['largest-contentful-paint'] })
+      }
+
+      // Otimiza carregamento de recursos
+      document.addEventListener('DOMContentLoaded', () => {
+        // Carrega recursos não críticos após o conteúdo principal
+        const deferredStyles = document.querySelectorAll('link[media="print"]')
+        deferredStyles.forEach(style => {
+          style.media = 'all'
+        })
+      })
+    </script>
+
     <!-- Script de Analytics -->
+     
   </body>
 </html>
