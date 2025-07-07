@@ -67,7 +67,7 @@ async function checkWithGemini(text) {
 
     // Linguagem atual
     const currentLang = document.documentElement.lang || 'pt'
-    const promptLang = currentLang === 'pt' ? 'em português' : 'in English'
+    const promptLang = 'em português'
 
     // Data atual para comparação
     const currentDate = new Date()
@@ -81,25 +81,25 @@ async function checkWithGemini(text) {
     Data atual: ${currentDate.toISOString()}
     Texto para análise: "${text}"
 
-Return only a valid JSON object with this exact structure, without any additional text:
-{
-  "score": [0-1],
-  "confiabilidade": [0-1],
-  "classificacao": ["Comprovadamente Verdadeiro", "Parcialmente Verdadeiro", "Não Verificável", "Provavelmente Falso", "Comprovadamente Falso"],
-  "explicacao_score": "string",
-  "elementos_verdadeiros": ["array"],
-  "elementos_falsos": ["array"],
-  "elementos_suspeitos": ["array"],
-  "fontes_confiaveis": ["array"],
-  "indicadores_desinformacao": ["array"],
-  "analise_detalhada": "string",
-  "recomendacoes": ["array"],
-  "limitacao_temporal": {
-    "afeta_analise": boolean,
-    "elementos_nao_verificaveis": ["array"],
-    "sugestoes_verificacao": ["array"]
-  }
-}`
+    Retorne APENAS um objeto JSON válido com esta estrutura exata, sem nenhum texto adicional:
+    {
+      "score": [0-1],
+      "confiabilidade": [0-1],
+      "classificacao": ["Comprovadamente Verdadeiro", "Parcialmente Verdadeiro", "Não Verificável", "Provavelmente Falso", "Comprovadamente Falso"],
+      "explicacao_score": "string",
+      "elementos_verdadeiros": ["array"],
+      "elementos_falsos": ["array"],
+      "elementos_suspeitos": ["array"],
+      "fontes_confiaveis": ["array"],
+      "indicadores_desinformacao": ["array"],
+      "analise_detalhada": "string",
+      "recomendacoes": ["array"],
+      "limitacao_temporal": {
+        "afeta_analise": boolean,
+        "elementos_nao_verificaveis": ["array"],
+        "sugestoes_verificacao": ["array"]
+      }
+    }`
 
     const requestBody = {
       contents: [{ parts: [{ text: prompt }] }],
