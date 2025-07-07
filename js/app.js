@@ -3,6 +3,16 @@
  * Inicializa todos os módulos e coordena os componentes da aplicação.
  */
 
+// Variável para evitar inicialização duplicada
+let adsInitialized = false
+
+function initializeAds() {
+  if (!adsInitialized) {
+    // Seu código de inicialização de ads
+    adsInitialized = true
+  }
+}
+
 // Importação de módulos
 import {
   elements,
@@ -139,15 +149,18 @@ function initPerformanceObservers() {
  * Expõe funções para acesso global para uso no HTML
  */
 function exposeGlobalFunctions() {
-  console.log('Expondo funções globais')
+  if (!window.globalFunctionsExposed) {
+    console.log('Expondo funções globais')
 
-  // Expõe as funções de acessibilidade globalmente para uso em atributos HTML
-  window.setContrast = setContrast
-  window.changeFontSize = changeFontSize
-  window.changeLineSpacing = changeLineSpacing
-  window.toggleHighlightLinks = toggleHighlightLinks
-  window.toggleDyslexicFont = toggleDyslexicFont
-  window.toggleReducedMotion = toggleReducedMotion
-  window.toggleLargeCursor = toggleLargeCursor
-  window.resetAllAccessibilitySettings = resetAllAccessibilitySettings
+    // Expõe as funções de acessibilidade globalmente para uso em atributos HTML
+    window.setContrast = setContrast
+    window.changeFontSize = changeFontSize
+    window.changeLineSpacing = changeLineSpacing
+    window.toggleHighlightLinks = toggleHighlightLinks
+    window.toggleDyslexicFont = toggleDyslexicFont
+    window.toggleReducedMotion = toggleReducedMotion
+    window.toggleLargeCursor = toggleLargeCursor
+    window.resetAllAccessibilitySettings = resetAllAccessibilitySettings
+    window.globalFunctionsExposed = true
+  }
 }
