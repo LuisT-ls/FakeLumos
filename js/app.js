@@ -1,217 +1,132 @@
-// js/app.js - Arquivo principal da aplicação
-import { UIController } from './modules/ui/UIController.js'
-import { VerificationController } from './modules/verification/VerificationController.js'
-import { HistoryController } from './modules/history/HistoryController.js'
-import { ThemeController } from './modules/theme/ThemeController.js'
-import { ShareController } from './modules/share/ShareController.js'
-import { AccessibilityController } from './modules/accessibility/AccessibilityController.js'
-import { NotificationController } from './modules/notifications/NotificationController.js'
-import { ExpandableController } from './modules/ui/ExpandableController.js'
+/**
+ * app.js - Ponto de entrada principal da aplicação
+ * Inicializa todos os módulos e coordena os componentes da aplicação.
+ */
 
-class App {
-  constructor() {
-    this.controllers = {}
-    this.isInitialized = false
-  }
+// Importação de módulos
+import {
+  elements,
+  initializeDynamicElements,
+  setupExpandableSections,
+  initializeSkeletonElements
+} from './modules/dom.js'
 
-  async init() {
-    if (this.isInitialized) return
+import { setupEventListeners } from './modules/events.js'
+import { initThemeSwitch } from './modules/ui.js'
+import {
+  loadVerificationHistory,
+  setupHistoryEvents
+} from './modules/history.js'
+import {
+  loadAccessibilityPreferences,
+  setupAccessibilityListeners,
+  setContrast,
+  changeFontSize,
+  changeLineSpacing,
+  toggleHighlightLinks,
+  toggleDyslexicFont,
+  toggleReducedMotion,
+  toggleLargeCursor,
+  resetAllAccessibilitySettings
+} from './modules/accessibility.js'
 
-    try {
-      console.log('🚀 Iniciando aplicação...')
+/**
+ * Inicializa a aplicação quando o DOM é carregado
+ * Configura event listeners, carrega histórico e inicializa componentes
+ */
+document.addEventListener('DOMContentLoaded', initializeApp)
 
-      // Inicializar controladores de UI primeiro
-      this.controllers.ui = new UIController()
-      this.controllers.notification = new NotificationController()
-      this.controllers.theme = new ThemeController()
-      this.controllers.expandable = new ExpandableController()
+/**
+ * Função principal de inicialização da aplicação
+ */
+function initializeApp() {
+  // Verificar se já inicializamos antes (previne inicialização duplicada)
+  if (window.appInitialized) return
+  window.appInitialized = true
 
-      // Inicializar controladores de funcionalidades
-      this.controllers.verification = new VerificationController()
-      this.controllers.history = new HistoryController()
-      this.controllers.share = new ShareController()
-      this.controllers.accessibility = new AccessibilityController()
+  console.log('Inicializando aplicação...')
 
-      // Inicializar todos os controladores
-      await this.initializeControllers()
+  // Expor funções globalmente para acesso via HTML inline antes de qualquer outro setup
+  exposeGlobalFunctions()
 
-      // Configurar event listeners globais
-      this.setupGlobalListeners()
+  // Inicializar elementos do DOM
+  initializeDynamicElements()
+  initializeSkeletonElements()
 
-      // Carregar histórico inicial
-      this.controllers.history.loadHistory()
+  // Configurar temas e preferências
+  initThemeSwitch()
+  loadAccessibilityPreferences()
 
-      this.isInitialized = true
-      console.log('✅ Aplicação inicializada com sucesso!')
+  // Inicializar expandable sections
+  setupExpandableSections()
 
-      // Mostrar notificação de boas-vindas
-      this.controllers.notification.show(
-        'Bem-vindo ao Verificador de Fake News!',
-        'success',
-        3000
-      )
-    } catch (error) {
-      console.error('❌ Erro ao inicializar aplicação:', error)
-      this.controllers.notification?.show(
-        'Erro ao carregar a aplicação. Recarregue a página.',
-        'error'
-      )
-    }
-  }
+  // Carregar histórico
+  loadVerificationHistory()
 
-  async initializeControllers() {
-    const initPromises = Object.entries(this.controllers).map(
-      async ([name, controller]) => {
-        try {
-          if (controller.init) {
-            await controller.init()
-            console.log(`✅ ${name} inicializado`)
-          }
-        } catch (error) {
-          console.error(`❌ Erro ao inicializar ${name}:`, error)
-        }
-      }
-    )
+  // Configurar event listeners
+  setupEventListeners()
+  setupHistoryEvents()
+  setupAccessibilityListeners()
 
-    await Promise.all(initPromises)
-  }
+  // Registrar o Service Worker
+  registerServiceWorker()
+}
 
-  setupGlobalListeners() {
-    // Listener para verificação
-    document.getElementById('verifyButton')?.addEventListener('click', () => {
-      this.handleVerification()
-    })
-
-    // Listener para Enter no textarea
-    document.getElementById('userInput')?.addEventListener('keydown', e => {
-      if (e.key === 'Enter' && e.ctrlKey) {
-        this.handleVerification()
-      }
-    })
-
-    // Listener para limpar histórico
-    document
-      .getElementById('clearHistoryBtn')
-      ?.addEventListener('click', () => {
-        this.controllers.history.showClearConfirmation()
-      })
-
-    // Listener para confirmação de limpeza
-    document
-      .getElementById('confirmClearHistory')
-      ?.addEventListener('click', () => {
-        this.controllers.history.clearHistory()
-      })
-
-    // Listeners para compartilhamento
-    document.querySelectorAll('[data-share]').forEach(button => {
-      button.addEventListener('click', e => {
-        const platform = e.target.closest('[data-share]').dataset.share
-        this.controllers.share.share(platform)
-      })
-    })
-
-    // Listener para erros globais
-    window.addEventListener('error', e => {
-      console.error('Erro global:', e.error)
-      this.controllers.notification?.show(
-        'Ocorreu um erro inesperado. Tente novamente.',
-        'error'
-      )
-    })
-
-    // Listener para mudanças de conectividade
-    window.addEventListener('online', () => {
-      this.controllers.notification?.show(
-        'Conexão restaurada!',
-        'success',
-        2000
-      )
-    })
-
-    window.addEventListener('offline', () => {
-      this.controllers.notification?.show(
-        'Sem conexão com a internet',
-        'warning',
-        3000
-      )
-    })
-  }
-
-  async handleVerification() {
-    const input = document.getElementById('userInput')
-    const text = input?.value?.trim()
-
-    if (!text) {
-      this.controllers.notification.show(
-        'Por favor, digite um texto para verificar.',
-        'warning'
-      )
-      input?.focus()
-      return
-    }
-
-    if (text.length < 10) {
-      this.controllers.notification.show(
-        'O texto deve ter pelo menos 10 caracteres.',
-        'warning'
-      )
-      return
-    }
-
-    try {
-      // Verificar o texto
-      const result = await this.controllers.verification.verify(text)
-
-      if (result) {
-        // Salvar no histórico
-        this.controllers.history.addVerification(text, result)
-
-        // Mostrar resultado
-        this.controllers.ui.showResult(result)
-
-        // Limpar campo de entrada
-        input.value = ''
-
-        // Scroll para o resultado
-        document.getElementById('result-section')?.scrollIntoView({
-          behavior: 'smooth'
+/**
+ * Registra o Service Worker para funcionalidades offline
+ */
+function registerServiceWorker() {
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker
+        .register('/sw.js')
+        .then(registration => {
+          console.log('ServiceWorker registrado com sucesso')
         })
-      }
-    } catch (error) {
-      console.error('Erro na verificação:', error)
-      this.controllers.notification.show(
-        'Erro ao verificar o texto. Tente novamente.',
-        'error'
-      )
-    }
-  }
-
-  // Método para expor controladores globalmente (útil para debug)
-  getController(name) {
-    return this.controllers[name]
-  }
-
-  // Método para cleanup (útil para testes)
-  destroy() {
-    Object.values(this.controllers).forEach(controller => {
-      if (controller.destroy) {
-        controller.destroy()
-      }
+        .catch(error => {
+          console.error('Erro no registro do ServiceWorker:', error)
+        })
     })
-    this.isInitialized = false
   }
 }
 
-// Inicializar aplicação quando DOM estiver pronto
-document.addEventListener('DOMContentLoaded', async () => {
-  try {
-    window.app = new App()
-    await window.app.init()
-  } catch (error) {
-    console.error('Erro fatal ao inicializar aplicação:', error)
+/**
+ * Inicializa observadores de performance
+ */
+function initPerformanceObservers() {
+  // Registra um paint timing observer
+  if ('PerformanceObserver' in window) {
+    const observer = new PerformanceObserver(list => {
+      for (const entry of list.getEntries()) {
+        if (entry.entryType === 'largest-contentful-paint') {
+          console.log('LCP:', entry.startTime)
+        }
+      }
+    })
+    observer.observe({ entryTypes: ['largest-contentful-paint'] })
   }
-})
+}
 
-// Exportar para uso em outros módulos se necessário
-export default App
+/**
+ * Expõe funções para acesso global para uso no HTML
+ * IMPORTANTE: Essa função deve ser chamada antes de qualquer outro setup
+ */
+function exposeGlobalFunctions() {
+  console.log('Exposing global functions')
+
+  // Expõe as funções de acessibilidade globalmente para uso em atributos HTML
+  window.setContrast = setContrast
+  window.changeFontSize = changeFontSize
+  window.changeLineSpacing = changeLineSpacing
+  window.toggleHighlightLinks = toggleHighlightLinks
+  window.toggleDyslexicFont = toggleDyslexicFont
+  window.toggleReducedMotion = toggleReducedMotion
+  window.toggleLargeCursor = toggleLargeCursor
+  window.resetAllAccessibilitySettings = resetAllAccessibilitySettings
+}
+
+// Iniciar observadores de performance
+initPerformanceObservers()
+
+// Expor funções imediatamente para que onclick, etc. funcionem
+exposeGlobalFunctions()
