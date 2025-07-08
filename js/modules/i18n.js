@@ -6,15 +6,19 @@ let translations = {}
 const fallbackTranslations = {
   'pt-BR': {
     home: {
-      title: 'Detecte Fake News com IA',
-      subtitle: 'Verifique a credibilidade de notícias em segundos',
+      'home.title': 'Detecte Fake News com IA',
+      'home.subtitle': 'Verifique a credibilidade de notícias em segundos',
       verify_button: 'Verificar Agora',
-      how_it_works: 'Como Funciona',
-      tips_title: 'Dicas para Identificar Fake News',
-      history_title: 'Histórico de Verificações',
+      'home.how_it_works': 'Como Funciona',
+      'home.tips_title': 'Dicas para Identificar Fake News',
+      'home.history_title': 'Histórico de Verificações',
       clear_history: 'Limpar Histórico',
       result_title: 'Resultado da Análise',
-      share_title: 'Compartilhe esta verificação:'
+      share_title: 'Compartilhe esta verificação:',
+      'how_it_works.discover': 'Descubra como funciona nossa análise',
+      'how_it_works.title': 'Como Funciona',
+      'how_it_works.subtitle':
+        'Nossa tecnologia de IA analisa o conteúdo em três etapas simples'
     },
     common: {
       language: 'Português',
@@ -122,31 +126,27 @@ const fallbackTranslations = {
 
 export async function loadTranslations(lang = 'pt-BR') {
   try {
-    // Carrega home.json
-    const homeResponse = await fetch(`/locales/${lang}/home.json`)
-    const homeTranslations = homeResponse.ok ? await homeResponse.json() : {}
+    // Tenta carregar tanto o formato antigo quanto o novo
+    const responses = await Promise.all([
+      fetch(`/locales/${lang}/home.json`),
+      fetch(`/locales/${lang}/common.json`).catch(() => null)
+    ])
 
-    // Carrega common.json
-    let commonTranslations = {}
-    try {
-      const commonResponse = await fetch(`/locales/${lang}/common.json`)
-      if (commonResponse.ok) {
-        commonTranslations = await commonResponse.json()
-      }
-    } catch (e) {
-      console.log(`common.json not found for ${lang}`)
-    }
+    const [homeRes, commonRes] = responses
+    const homeTranslations = homeRes.ok ? await homeRes.json() : {}
+    const commonTranslations = commonRes?.ok ? await commonRes.json() : {}
 
-    // Combina fallback, common e home translations
+    // Combina traduções com fallback
     translations = {
-      ...(fallbackTranslations[lang] || fallbackTranslations['pt-BR']),
+      ...fallbackTranslations[lang],
       ...commonTranslations,
-      ...homeTranslations
+      ...homeTranslations,
+      // Converte estrutura antiga para nova (se necessário)
+      ...convertLegacyTranslations(homeTranslations)
     }
 
     currentLanguage = lang
     document.documentElement.lang = lang
-
     return true
   } catch (error) {
     console.error('Failed to load translations:', error)
@@ -155,33 +155,46 @@ export async function loadTranslations(lang = 'pt-BR') {
   }
 }
 
+// Helper para compatibilidade com versões antigas
+function convertLegacyTranslations(translations) {
+  const converted = {}
+  for (const key in translations) {
+    if (key.startsWith('home.')) {
+      converted[key.replace('home.', '')] = translations[key]
+    }
+  }
+  return converted
+}
+
 export function t(key, params = {}) {
-  const keys = key.split('.')
-  let value = translations
+  // Tenta encontrar a tradução em vários formatos
+  const possibleKeys = [
+    key,
+    key.replace('how_it_works.', 'home.how_it_works.'),
+    key.replace('home.', '')
+  ]
 
-  for (const k of keys) {
-    value = value?.[k]
-    if (value === undefined) {
-      console.warn(`Translation missing for key: ${key}`)
-      return key // Retorna a chave se não encontrar tradução
+  for (const k of possibleKeys) {
+    const keys = k.split('.')
+    let value = translations
+    let found = true
+
+    for (const part of keys) {
+      if (value[part] === undefined) {
+        found = false
+        break
+      }
+      value = value[part]
+    }
+
+    if (found && typeof value === 'string') {
+      return Object.entries(params).reduce((str, [k, v]) => {
+        return str.replace(new RegExp(`\\{${k}\\}`, 'g'), v)
+      }, value)
     }
   }
 
-  if (typeof value === 'string') {
-    // Primeiro substitui os parâmetros
-    let result = Object.entries(params).reduce((str, [k, v]) => {
-      return str.replace(new RegExp(`\\{${k}\\}`, 'g'), v)
-    }, value)
-
-    // Depois permite HTML seguro
-    if (result.includes('<') || result.includes('>')) {
-      const temp = document.createElement('div')
-      temp.innerHTML = result
-      return temp.textContent ? result : key // Retorna com HTML se for seguro
-    }
-    return result
-  }
-
+  console.warn(`Translation key not found: ${key}`)
   return key
 }
 
