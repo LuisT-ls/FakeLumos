@@ -1,7 +1,11 @@
 {
-  "home": {
-    "title": "Detecta Fake News con IA",
-    "subtitle": "Verifica la credibilidad de noticias en segundos"
-  },
-  "language": "Español"
+  "title": "Detecta Fake News con IA",
+  "subtitle": "Verifica la credibilidad de noticias en segundos",
+  "verify_button": "Verificar Ahora",
+  "how_it_works": "Cómo Funciona",
+  "tips_title": "Consejos para Identificar Fake News",
+  "history_title": "Historial de Verificaciones",
+  "clear_history": "Limpiar Historial",
+  "result_title": "Resultado del Análisis",
+  "share_title": "Comparte esta verificación:"
 }

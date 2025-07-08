@@ -1,7 +1,11 @@
 {
-  "home": {
-    "title": "Detect Fake News with AI",
-    "subtitle": "Check news credibility in seconds"
-  },
-  "language": "English"
+  "title": "Detect Fake News with AI",
+  "subtitle": "Check news credibility in seconds",
+  "verify_button": "Verify Now",
+  "how_it_works": "How It Works",
+  "tips_title": "Tips to Identify Fake News",
+  "history_title": "Verification History",
+  "clear_history": "Clear History",
+  "result_title": "Analysis Result",
+  "share_title": "Share this verification:"
 }

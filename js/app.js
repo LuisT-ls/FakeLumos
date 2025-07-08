@@ -97,29 +97,43 @@ async function initLanguage() {
  * Atualiza a UI para o idioma atual
  */
 function updateUIForLanguage() {
-  // Atualiza todos os elementos com data-i18n
+  // Atualiza texto em elementos com data-i18n
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n')
     const text = t(key)
     if (text !== key) {
-      // Só atualiza se encontrou a tradução
       el.textContent = text
     }
   })
 
-  // Atualiza placeholders e titles
+  // Atualiza placeholders
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
     const key = el.getAttribute('data-i18n-placeholder')
     el.placeholder = t(key)
   })
 
+  // Atualiza titles
   document.querySelectorAll('[data-i18n-title]').forEach(el => {
     const key = el.getAttribute('data-i18n-title')
     el.title = t(key)
   })
 
+  // Atualiza aria-labels
+  document.querySelectorAll('[data-i18n-aria-label]').forEach(el => {
+    const key = el.getAttribute('data-i18n-aria-label')
+    el.setAttribute('aria-label', t(key))
+  })
+
   // Atualiza o atributo lang do HTML
   document.documentElement.lang = getCurrentLanguage()
+
+  // Atualiza botões de idioma ativos
+  document.querySelectorAll('[data-lang]').forEach(btn => {
+    btn.classList.toggle(
+      'active',
+      btn.getAttribute('data-lang') === getCurrentLanguage()
+    )
+  })
 }
 
 /**

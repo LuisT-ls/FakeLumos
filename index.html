@@ -85,10 +85,7 @@
       property="og:description"
       content="Ferramenta online para ajudar na identificação de fake news e desinformação. Verifique a veracidade de notícias rapidamente."
     />
-    <link
-      as="image"
-      href="https://fakelumos.vercel.app/imagem-preview.jpg"
-    />
+    <link as="image" href="https://fakelumos.vercel.app/imagem-preview.jpg" />
     <meta property="og:url" content="https://fakelumos.vercel.app/" />
     <meta property="og:type" content="website" />
 
@@ -531,7 +528,7 @@
         <!-- Área de Verificação -->
         <section class="col-lg-8">
           <article class="bg-white rounded-3 shadow-lg p-4 mb-5">
-            <h2 class="h4 mb-4">
+            <h2 class="h4 mb-4" data-i18n="home.how_it_works">
               <i class="fas fa-search me-2"></i>
               Verificar Conteúdo
             </h2>
@@ -552,7 +549,7 @@
                 class="btn btn-primary btn-lg px-5"
                 aria-label="Verificar texto"
               >
-                <span>Verificar Agora</span>
+                <span data-i18n="home.verify_button">Verificar Agora</span>
                 <div
                   class="spinner-border spinner-border-sm ms-2 d-none"
                   role="status"
@@ -569,10 +566,14 @@
             class="bg-white rounded-3 shadow-lg p-4 mb-5 d-none"
             aria-live="polite"
           >
-            <h2 class="h4 mb-4">Resultado da Análise</h2>
+            <h2 class="h4 mb-4" data-i18n="home.result_title">
+              Resultado da Análise
+            </h2>
             <div id="result"></div>
             <div class="mt-4">
-              <h3 class="h5 mb-3">Compartilhe esta verificação:</h3>
+              <h3 class="h5 mb-3" data-i18n="home.share_title">
+                Compartilhe esta verificação:
+              </h3>
               <menu class="share-buttons d-flex gap-2 justify-content-center">
                 <button class="btn btn-outline-primary" data-share="twitter">
                   <i class="fab fa-twitter me-2"></i>Twitter
@@ -593,16 +594,18 @@
             class="bg-white rounded-3 shadow-lg p-4 mb-5"
           >
             <div class="d-flex justify-content-between align-items-center mb-4">
-              <h2 class="h4 mb-0">
+              <h2 class="h4 mb-0" data-i18n="home.history_title">
                 <i class="fas fa-history me-2"></i>
                 Histórico de Verificações
               </h2>
               <button
                 id="clearHistoryBtn"
-                class="btn btn-outline-danger btn-sm d-flex align-items-center"
+                class="btn btn-outline-danger btn-sm"
               >
                 <i class="fas fa-trash-alt"></i>
-                <span class="btn-text ms-2">Limpar Histórico</span>
+                <span class="btn-text ms-2" data-i18n="home.clear_history"
+                  >Limpar Histórico</span
+                >
               </button>
             </div>
             <div id="verificationsHistory" class="list-group">
@@ -614,7 +617,9 @@
         <!-- Dicas -->
         <aside id="dicas" class="col-lg-8 mb-5">
           <div class="bg-white rounded-3 shadow-lg p-4">
-            <h2 class="h4 mb-4">Dicas para Identificar Fake News</h2>
+            <h2 class="h4 mb-4" data-i18n="home.tips_title">
+              Dicas para Identificar Fake News
+            </h2>
             <div class="accordion" id="accordionTips">
               <div class="accordion-item">
                 <h3 class="accordion-header">
@@ -858,8 +863,7 @@
         <div class="row align-items-center">
           <div class="col-md-6 text-center text-md-start">
             <p class="mb-0">
-              &#169; 2025 Fake Lumos. Todos os direitos
-              reservados.
+              &#169; 2025 Fake Lumos. Todos os direitos reservados.
             </p>
           </div>
           <div class="col-md-6 text-center text-md-end">
