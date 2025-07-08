@@ -20,6 +20,27 @@ const fallbackTranslations = {
       language: 'Português',
       loading: 'Carregando...',
       close: 'Fechar'
+    },
+    how_it_works: {
+      discover: 'Descubra como funciona nossa análise',
+      title: 'Como Funciona',
+      subtitle:
+        'Nossa tecnologia de IA analisa o conteúdo em três etapas simples',
+      step1: {
+        title: 'Cole o Texto',
+        description:
+          'Insira o conteúdo que deseja verificar no campo abaixo<br />Quanto mais completo o texto, mais precisa será a análise.'
+      },
+      step2: {
+        title: 'Análise Automática',
+        description:
+          'Nossa IA analisa o conteúdo em busca de sinais de desinformação'
+      },
+      step3: {
+        title: 'Receba o Resultado',
+        description:
+          'Obtenha uma análise detalhada sobre a credibilidade do conteúdo'
+      }
     }
   },
   en: {
@@ -38,6 +59,24 @@ const fallbackTranslations = {
       language: 'English',
       loading: 'Loading...',
       close: 'Close'
+    },
+    how_it_works: {
+      discover: 'Discover how our analysis works',
+      title: 'How It Works',
+      subtitle: 'Our AI technology analyzes content in three simple steps',
+      step1: {
+        title: 'Paste the Text',
+        description:
+          'Insert the content you want to verify in the field below<br />The more complete the text, the more accurate the analysis will be.'
+      },
+      step2: {
+        title: 'Automatic Analysis',
+        description: 'Our AI analyzes the content for signs of misinformation'
+      },
+      step3: {
+        title: 'Get the Result',
+        description: "Get a detailed analysis about the content's credibility"
+      }
     }
   },
   es: {
@@ -56,6 +95,27 @@ const fallbackTranslations = {
       language: 'Español',
       loading: 'Cargando...',
       close: 'Cerrar'
+    },
+    how_it_works: {
+      discover: 'Descubre cómo funciona nuestro análisis',
+      title: 'Cómo Funciona',
+      subtitle:
+        'Nuestra tecnología de IA analiza el contenido en tres pasos simples',
+      step1: {
+        title: 'Pega el Texto',
+        description:
+          'Inserta el contenido que deseas verificar en el campo abajo<br />Cuanto más completo sea el texto, más precisa será el análisis.'
+      },
+      step2: {
+        title: 'Análisis Automático',
+        description:
+          'Nuestra IA analiza el contenido en busca de señales de desinformación'
+      },
+      step3: {
+        title: 'Recibe el Resultado',
+        description:
+          'Obtén un análisis detallado sobre la credibilidad del contenido'
+      }
     }
   }
 }
@@ -108,9 +168,18 @@ export function t(key, params = {}) {
   }
 
   if (typeof value === 'string') {
-    return Object.entries(params).reduce((str, [k, v]) => {
+    // Primeiro substitui os parâmetros
+    let result = Object.entries(params).reduce((str, [k, v]) => {
       return str.replace(new RegExp(`\\{${k}\\}`, 'g'), v)
     }, value)
+
+    // Depois permite HTML seguro
+    if (result.includes('<') || result.includes('>')) {
+      const temp = document.createElement('div')
+      temp.innerHTML = result
+      return temp.textContent ? result : key // Retorna com HTML se for seguro
+    }
+    return result
   }
 
   return key

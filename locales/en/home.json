@@ -2,7 +2,23 @@
   "title": "Detect Fake News with AI",
   "subtitle": "Check news credibility in seconds",
   "verify_button": "Verify Now",
-  "how_it_works": "How It Works",
+  "how_it_works": {
+    "discover": "Discover how our analysis works",
+    "title": "How It Works",
+    "subtitle": "Our AI technology analyzes content in three simple steps",
+    "step1": {
+      "title": "Paste the Text",
+      "description": "Insert the content you want to verify in the field below<br />The more complete the text, the more accurate the analysis will be."
+    },
+    "step2": {
+      "title": "Automatic Analysis",
+      "description": "Our AI analyzes the content for signs of misinformation"
+    },
+    "step3": {
+      "title": "Get the Result",
+      "description": "Get a detailed analysis about the content's credibility"
+    }
+  },
   "tips_title": "Tips to Identify Fake News",
   "history_title": "Verification History",
   "clear_history": "Clear History",

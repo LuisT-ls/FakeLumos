@@ -102,7 +102,12 @@ function updateUIForLanguage() {
     const key = el.getAttribute('data-i18n')
     const text = t(key)
     if (text !== key) {
-      el.textContent = text
+      // Verifica se o texto contém HTML
+      if (text.includes('<') && text.includes('>')) {
+        el.innerHTML = text
+      } else {
+        el.textContent = text
+      }
     }
   })
 

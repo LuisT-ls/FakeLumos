@@ -2,7 +2,23 @@
   "title": "Detecte Fake News com IA",
   "subtitle": "Verifique a credibilidade de notícias em segundos",
   "verify_button": "Verificar Agora",
-  "how_it_works": "Como Funciona",
+  "how_it_works": {
+    "discover": "Descubra como funciona nossa análise",
+    "title": "Como Funciona",
+    "subtitle": "Nossa tecnologia de IA analisa o conteúdo em três etapas simples",
+    "step1": {
+      "title": "Cole o Texto",
+      "description": "Insira o conteúdo que deseja verificar no campo abaixo<br />Quanto mais completo o texto, mais precisa será a análise."
+    },
+    "step2": {
+      "title": "Análise Automática",
+      "description": "Nossa IA analisa o conteúdo em busca de sinais de desinformação"
+    },
+    "step3": {
+      "title": "Receba o Resultado",
+      "description": "Obtenha uma análise detalhada sobre a credibilidade do conteúdo"
+    }
+  },
   "tips_title": "Dicas para Identificar Fake News",
   "history_title": "Histórico de Verificações",
   "clear_history": "Limpar Histórico",
