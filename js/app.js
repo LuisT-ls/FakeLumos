@@ -98,18 +98,26 @@ async function initLanguage() {
  */
 function updateUIForLanguage() {
   // Atualiza texto em elementos com data-i18n
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n')
-    const text = t(key)
-    if (text !== key) {
-      // Verifica se o texto contém HTML
-      if (text.includes('<') && text.includes('>')) {
-        el.innerHTML = text
+  setTimeout(() => {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n')
+      const text = t(key)
+
+      if (text !== key) {
+        if (text.includes('<') && text.includes('>')) {
+          el.innerHTML = text
+        } else {
+          el.textContent = text
+        }
       } else {
-        el.textContent = text
+        // Fallback adicional
+        const fallback = t(key.replace('how_it_works.', 'home.how_it_works.'))
+        if (fallback !== key) {
+          el.textContent = fallback
+        }
       }
-    }
-  })
+    })
+  }, 100)
 
   // Atualiza placeholders
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {

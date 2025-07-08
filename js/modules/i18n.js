@@ -125,11 +125,19 @@ const fallbackTranslations = {
 }
 
 export async function loadTranslations(lang = 'pt-BR') {
+  console.log(`Tentando carregar traduções para: ${lang}`)
+
   try {
-    // Tenta carregar tanto o formato antigo quanto o novo
+    // Verifica se já está carregado
     const responses = await Promise.all([
-      fetch(`/locales/${lang}/home.json`),
-      fetch(`/locales/${lang}/common.json`).catch(() => null)
+      fetch(`/locales/${lang}/home.json`).then(res => {
+        console.log(`Status home.json: ${res.status}`) // Log do status
+        return res
+      }),
+      fetch(`/locales/${lang}/common.json`).catch(() => {
+        console.log(`Falha ao carregar common.json`) // Log de falha
+        return null
+      })
     ])
 
     const [homeRes, commonRes] = responses
@@ -167,11 +175,15 @@ function convertLegacyTranslations(translations) {
 }
 
 export function t(key, params = {}) {
-  // Tenta encontrar a tradução em vários formatos
+  if (!translations || !translations[key]) {
+    console.warn(`Translation not loaded for key: ${key}`)
+  }
   const possibleKeys = [
     key,
     key.replace('how_it_works.', 'home.how_it_works.'),
-    key.replace('home.', '')
+    key.replace('home.', ''),
+    `home.${key}`,
+    `how_it_works.${key}`
   ]
 
   for (const k of possibleKeys) {
@@ -187,10 +199,14 @@ export function t(key, params = {}) {
       value = value[part]
     }
 
-    if (found && typeof value === 'string') {
-      return Object.entries(params).reduce((str, [k, v]) => {
-        return str.replace(new RegExp(`\\{${k}\\}`, 'g'), v)
-      }, value)
+    if (found) {
+      if (typeof value === 'string') {
+        return Object.entries(params).reduce((str, [k, v]) => {
+          return str.replace(new RegExp(`\\{${k}\\}`, 'g'), v)
+        }, value)
+      } else if (typeof value === 'object' && value.title) {
+        return value.title
+      }
     }
   }
 
