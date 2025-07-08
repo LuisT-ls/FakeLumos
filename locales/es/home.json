@@ -8,7 +8,7 @@
     "subtitle": "Nuestra tecnología de IA analiza el contenido en tres pasos simples",
     "step1": {
       "title": "Pega el Texto",
-      "description": "Inserta el contenido que deseas verificar en el campo abajo<br />Cuanto más completo sea el texto, más precisa será el análisis."
+      "description": "Inserta el contenido que deseas verificar en el campo abajo\nCuanto más completo sea el texto, más precisa será el análisis."
     },
     "step2": {
       "title": "Análisis Automático",
@@ -23,5 +23,59 @@
   "history_title": "Historial de Verificaciones",
   "clear_history": "Limpiar Historial",
   "result_title": "Resultado del Análisis",
-  "share_title": "Comparte esta verificación:"
+  "share_title": "Comparte esta verificación:",
+  "tips": {
+    "title": "Consejos para Identificar Fake News",
+    "check_source": "Verifica la Fuente",
+    "check_source_content": {
+      "intro": "Antes de compartir una noticia, considera:",
+      "items": [
+        "Verifica si el sitio web es conocido y confiable",
+        "Busca información sobre el autor de la noticia",
+        "Comprueba si otros medios respetados publicaron el mismo contenido",
+        "Desconfía de sitios con nombres muy similares a portales conocidos"
+      ]
+    },
+    "analyze_date": "Analiza la Fecha",
+    "analyze_date_content": {
+      "intro": "La fecha de publicación es crucial:",
+      "items": [
+        "Verifica cuándo se publicó originalmente la noticia",
+        "Presta atención a contenido antiguo que se comparte como nuevo",
+        "Considera si el contexto temporal tiene sentido",
+        "Busca actualizaciones más recientes sobre el tema"
+      ]
+    },
+    "research_sources": "Investiga Otras Fuentes",
+    "research_sources_content": {
+      "intro": "Compara la información:",
+      "items": [
+        "Busca la misma noticia en diferentes medios de comunicación",
+        "Consulta agencias de verificación de hechos",
+        "Verifica si hay consenso entre fuentes confiables",
+        "Desconfía cuando solo un sitio informa algo \"bomba\""
+      ]
+    },
+    "warning_signs": "Identifica Señales de Alerta",
+    "warning_signs_content": {
+      "intro": "Presta atención a estas señales:",
+      "items": [
+        "Títulos muy llamativos o alarmistas",
+        "Errores de ortografía y formato",
+        "Solicitudes urgentes de compartir",
+        "Uso excesivo de puntuación (!!! ???)",
+        "Afirmaciones muy extremas o improbables"
+      ]
+    },
+    "check_media": "Verifica Imágenes y Videos",
+    "check_media_content": {
+      "intro": "Al analizar contenido visual:",
+      "items": [
+        "Haz una búsqueda inversa de la imagen en Google",
+        "Verifica si la imagen fue manipulada o sacada de contexto",
+        "Busca la fuente original del video",
+        "Observa detalles como fecha, lugar y elementos visuales que puedan indicar manipulación"
+      ]
+    }
+  }
 }

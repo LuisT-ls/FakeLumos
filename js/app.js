@@ -173,6 +173,12 @@ function setupLanguageSwitcher() {
   })
 }
 
+// Traduz a seção de dicas
+const tipsSection = document.querySelector('#dicas')
+if (tipsSection) {
+  translateNestedElements(tipsSection, 'tips')
+}
+
 /**
  * Registra o Service Worker
  */

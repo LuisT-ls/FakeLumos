@@ -634,10 +634,12 @@
         <!-- Dicas -->
         <aside id="dicas" class="col-lg-8 mb-5">
           <div class="bg-white rounded-3 shadow-lg p-4">
-            <h2 class="h4 mb-4" data-i18n="home.tips_title">
+            <h2 class="h4 mb-4" data-i18n="tips.title">
               Dicas para Identificar Fake News
             </h2>
             <div class="accordion" id="accordionTips">
+
+              <!-- Verifique a Fonte -->
               <div class="accordion-item">
                 <h3 class="accordion-header">
                   <button
@@ -647,7 +649,7 @@
                     data-bs-target="#collapseOne"
                   >
                     <i class="fas fa-search me-2"></i>
-                    Verifique a Fonte
+                    <span data-i18n="tips.check_source">Verifique a Fonte</span>
                   </button>
                 </h3>
                 <div
@@ -656,15 +658,21 @@
                   data-bs-parent="#accordionTips"
                 >
                   <div class="accordion-body">
-                    <p>Antes de compartilhar uma notícia, considere:</p>
+                    <p data-i18n="tips.check_source_content.intro">
+                      Antes de compartilhar uma notícia, considere:
+                    </p>
                     <ul class="mb-0">
-                      <li>Verifique se o site é conhecido e confiável</li>
-                      <li>Procure informações sobre o autor da notícia</li>
-                      <li>
+                      <li data-i18n="tips.check_source_content.items[0]">
+                        Verifique se o site é conhecido e confiável
+                      </li>
+                      <li data-i18n="tips.check_source_content.items[1]">
+                        Procure informações sobre o autor da notícia
+                      </li>
+                      <li data-i18n="tips.check_source_content.items[2]">
                         Confira se outros veículos respeitados também publicaram
                         o mesmo conteúdo
                       </li>
-                      <li>
+                      <li data-i18n="tips.check_source_content.items[3]">
                         Desconfie de sites com nomes muito similares a portais
                         conhecidos
                       </li>
@@ -673,6 +681,7 @@
                 </div>
               </div>
 
+              <!-- Analise a Data -->
               <div class="accordion-item">
                 <h3 class="accordion-header">
                   <button
@@ -682,7 +691,7 @@
                     data-bs-target="#collapseTwo"
                   >
                     <i class="fas fa-calendar-alt me-2"></i>
-                    Analise a Data
+                    <span data-i18n="tips.analyze_date">Analise a Data</span>
                   </button>
                 </h3>
                 <div
@@ -691,22 +700,29 @@
                   data-bs-parent="#accordionTips"
                 >
                   <div class="accordion-body">
-                    <p>A data de publicação é crucial:</p>
+                    <p data-i18n="tips.analyze_date_content.intro">
+                      A data de publicação é crucial:
+                    </p>
                     <ul class="mb-0">
-                      <li>
+                      <li data-i18n="tips.analyze_date_content.items[0]">
                         Verifique quando a notícia foi publicada originalmente
                       </li>
-                      <li>
+                      <li data-i18n="tips.analyze_date_content.items[1]">
                         Fique atento a conteúdos antigos sendo repostados como
                         novos
                       </li>
-                      <li>Considere se o contexto temporal faz sentido</li>
-                      <li>Busque atualizações mais recentes sobre o assunto</li>
+                      <li data-i18n="tips.analyze_date_content.items[2]">
+                        Considere se o contexto temporal faz sentido
+                      </li>
+                      <li data-i18n="tips.analyze_date_content.items[3]">
+                        Busque atualizações mais recentes sobre o assunto
+                      </li>
                     </ul>
                   </div>
                 </div>
               </div>
 
+              <!-- Pesquise em Outras Fontes -->
               <div class="accordion-item">
                 <h3 class="accordion-header">
                   <button
@@ -716,7 +732,9 @@
                     data-bs-target="#collapseThree"
                   >
                     <i class="fas fa-newspaper me-2"></i>
-                    Pesquise em Outras Fontes
+                    <span data-i18n="tips.research_sources"
+                      >Pesquise em Outras Fontes</span
+                    >
                   </button>
                 </h3>
                 <div
@@ -725,15 +743,21 @@
                   data-bs-parent="#accordionTips"
                 >
                   <div class="accordion-body">
-                    <p>Compare as informações:</p>
+                    <p data-i18n="tips.research_sources_content.intro">
+                      Compare as informações:
+                    </p>
                     <ul class="mb-0">
-                      <li>
+                      <li data-i18n="tips.research_sources_content.items[0]">
                         Procure a mesma notícia em diferentes veículos de
                         comunicação
                       </li>
-                      <li>Consulte agências de fact-checking</li>
-                      <li>Verifique se há consenso entre fontes confiáveis</li>
-                      <li>
+                      <li data-i18n="tips.research_sources_content.items[1]">
+                        Consulte agências de fact-checking
+                      </li>
+                      <li data-i18n="tips.research_sources_content.items[2]">
+                        Verifique se há consenso entre fontes confiáveis
+                      </li>
+                      <li data-i18n="tips.research_sources_content.items[3]">
                         Desconfie quando apenas um site está noticiando algo
                         "bombástico"
                       </li>
@@ -742,6 +766,7 @@
                 </div>
               </div>
 
+              <!-- Identifique Sinais de Alerta -->
               <div class="accordion-item">
                 <h3 class="accordion-header">
                   <button
@@ -751,7 +776,9 @@
                     data-bs-target="#collapseFour"
                   >
                     <i class="fas fa-exclamation-triangle me-2"></i>
-                    Identifique Sinais de Alerta
+                    <span data-i18n="tips.warning_signs"
+                      >Identifique Sinais de Alerta</span
+                    >
                   </button>
                 </h3>
                 <div
@@ -760,18 +787,31 @@
                   data-bs-parent="#accordionTips"
                 >
                   <div class="accordion-body">
-                    <p>Fique atento a estes sinais:</p>
+                    <p data-i18n="tips.warning_signs_content.intro">
+                      Fique atento a estes sinais:
+                    </p>
                     <ul class="mb-0">
-                      <li>Títulos muito chamativos ou alarmistas</li>
-                      <li>Erros de português e formatação</li>
-                      <li>Pedidos urgentes de compartilhamento</li>
-                      <li>Uso excessivo de pontuação (!!! ???)</li>
-                      <li>Afirmações muito extremas ou improváveis</li>
+                      <li data-i18n="tips.warning_signs_content.items[0]">
+                        Títulos muito chamativos ou alarmistas
+                      </li>
+                      <li data-i18n="tips.warning_signs_content.items[1]">
+                        Erros de português e formatação
+                      </li>
+                      <li data-i18n="tips.warning_signs_content.items[2]">
+                        Pedidos urgentes de compartilhamento
+                      </li>
+                      <li data-i18n="tips.warning_signs_content.items[3]">
+                        Uso excessivo de pontuação (!!! ???)
+                      </li>
+                      <li data-i18n="tips.warning_signs_content.items[4]">
+                        Afirmações muito extremas ou improváveis
+                      </li>
                     </ul>
                   </div>
                 </div>
               </div>
 
+              <!-- Verifique Imagens e Vídeos -->
               <div class="accordion-item">
                 <h3 class="accordion-header">
                   <button
@@ -781,7 +821,9 @@
                     data-bs-target="#collapseFive"
                   >
                     <i class="fas fa-image me-2"></i>
-                    Verifique Imagens e Vídeos
+                    <span data-i18n="tips.check_media"
+                      >Verifique Imagens e Vídeos</span
+                    >
                   </button>
                 </h3>
                 <div
@@ -790,15 +832,21 @@
                   data-bs-parent="#accordionTips"
                 >
                   <div class="accordion-body">
-                    <p>Ao analisar conteúdo visual:</p>
+                    <p data-i18n="tips.check_media_content.intro">
+                      Ao analisar conteúdo visual:
+                    </p>
                     <ul class="mb-0">
-                      <li>Faça uma busca reversa da imagem no Google</li>
-                      <li>
+                      <li data-i18n="tips.check_media_content.items[0]">
+                        Faça uma busca reversa da imagem no Google
+                      </li>
+                      <li data-i18n="tips.check_media_content.items[1]">
                         Verifique se a imagem foi manipulada ou tirada de
                         contexto
                       </li>
-                      <li>Procure a fonte original do vídeo</li>
-                      <li>
+                      <li data-i18n="tips.check_media_content.items[2]">
+                        Procure a fonte original do vídeo
+                      </li>
+                      <li data-i18n="tips.check_media_content.items[3]">
                         Observe detalhes como data, local e elementos visuais
                         que possam indicar manipulação
                       </li>

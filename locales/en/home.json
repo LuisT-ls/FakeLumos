@@ -8,7 +8,7 @@
     "subtitle": "Our AI technology analyzes content in three simple steps",
     "step1": {
       "title": "Paste the Text",
-      "description": "Insert the content you want to verify in the field below<br />The more complete the text, the more accurate the analysis will be."
+      "description": "Insert the content you want to verify in the field below\nThe more complete the text, the more accurate the analysis will be."
     },
     "step2": {
       "title": "Automatic Analysis",
@@ -24,5 +24,59 @@
   "clear_history": "Clear History",
   "verify_content_title": "Verify Content",
   "result_title": "Analysis Result",
-  "share_title": "Share this verification:"
+  "share_title": "Share this verification:",
+  "tips": {
+    "title": "Tips to Identify Fake News",
+    "check_source": "Check the Source",
+    "check_source_content": {
+      "intro": "Before sharing news, consider:",
+      "items": [
+        "Check if the website is known and reliable",
+        "Look for information about the news author",
+        "Verify if other respected outlets published the same content",
+        "Be wary of sites with names very similar to known portals"
+      ]
+    },
+    "analyze_date": "Analyze the Date",
+    "analyze_date_content": {
+      "intro": "The publication date is crucial:",
+      "items": [
+        "Check when the news was originally published",
+        "Watch for old content being reposted as new",
+        "Consider if the temporal context makes sense",
+        "Look for more recent updates on the subject"
+      ]
+    },
+    "research_sources": "Research Other Sources",
+    "research_sources_content": {
+      "intro": "Compare the information:",
+      "items": [
+        "Look for the same news in different media outlets",
+        "Consult fact-checking agencies",
+        "Check if there's consensus among reliable sources",
+        "Be suspicious when only one site is reporting something \"bombshell\""
+      ]
+    },
+    "warning_signs": "Identify Warning Signs",
+    "warning_signs_content": {
+      "intro": "Watch for these signs:",
+      "items": [
+        "Very flashy or alarmist headlines",
+        "Grammar and formatting errors",
+        "Urgent requests to share",
+        "Excessive use of punctuation (!!! ???)",
+        "Very extreme or unlikely claims"
+      ]
+    },
+    "check_media": "Check Images and Videos",
+    "check_media_content": {
+      "intro": "When analyzing visual content:",
+      "items": [
+        "Do a reverse image search on Google",
+        "Check if the image was manipulated or taken out of context",
+        "Look for the original source of the video",
+        "Observe details like date, location and visual elements that may indicate manipulation"
+      ]
+    }
+  }
 }

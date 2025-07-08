@@ -175,21 +175,32 @@ function convertLegacyTranslations(translations) {
 }
 
 export function t(key, params = {}) {
-  // Verifica se a chave é válida
+  // Verifica se as traduções foram carregadas
+  if (!translations) {
+    console.warn('Translations not loaded yet')
+    return key
+  }
+
+  // Possíveis variações da chave para tentar encontrar a tradução
   const possibleKeys = [
     key,
     `home.${key}`,
     `how_it_works.${key}`,
+    `tips.${key}`,
     key.replace('how_it_works.', 'home.how_it_works.'),
-    key.replace('home.', '')
+    key.replace('home.', ''),
+    key.replace('tips.', 'home.tips.')
   ]
 
+  // Tenta encontrar a tradução em todas as variações possíveis
   for (const k of possibleKeys) {
     const keys = k.split('.')
     let value = translations
     let found = true
 
+    // Navega através do objeto de traduções
     for (const part of keys) {
+      // Verifica se a parte atual existe
       if (value[part] === undefined) {
         found = false
         break
@@ -197,19 +208,60 @@ export function t(key, params = {}) {
       value = value[part]
     }
 
+    // Se encontrou a tradução
     if (found) {
+      // Retorna string com parâmetros substituídos
       if (typeof value === 'string') {
         return Object.entries(params).reduce((str, [k, v]) => {
           return str.replace(new RegExp(`\\{${k}\\}`, 'g'), v)
         }, value)
-      } else if (typeof value === 'object' && value.title) {
-        return value.title // Para estruturas aninhadas
+      }
+      // Retorna array (para listas)
+      else if (Array.isArray(value)) {
+        return value
+      }
+      // Retorna objeto completo (para estruturas complexas)
+      else if (typeof value === 'object') {
+        return value
       }
     }
   }
 
+  // Fallback: retorna a própria chave se não encontrar tradução
   console.warn(`Translation key not found: ${key}`)
   return key
+}
+
+export function translateNestedElements(parentElement, translationKey) {
+  const translatedContent = t(translationKey)
+
+  if (
+    typeof translatedContent === 'object' &&
+    !Array.isArray(translatedContent)
+  ) {
+    Object.keys(translatedContent).forEach(key => {
+      const elements = parentElement.querySelectorAll(
+        `[data-i18n="${translationKey}.${key}"]`
+      )
+
+      elements.forEach(el => {
+        const value = translatedContent[key]
+
+        if (Array.isArray(value)) {
+          // Para arrays (como items[]), atualizamos os <li>
+          const listItems = el.querySelectorAll('li')
+          listItems.forEach((li, index) => {
+            if (value[index]) {
+              li.textContent = value[index]
+            }
+          })
+        } else {
+          // Para strings normais
+          el.textContent = value
+        }
+      })
+    })
+  }
 }
 
 export function getCurrentLanguage() {
