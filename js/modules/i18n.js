@@ -175,15 +175,13 @@ function convertLegacyTranslations(translations) {
 }
 
 export function t(key, params = {}) {
-  if (!translations || !translations[key]) {
-    console.warn(`Translation not loaded for key: ${key}`)
-  }
+  // Verifica se a chave é válida
   const possibleKeys = [
     key,
-    key.replace('how_it_works.', 'home.how_it_works.'),
-    key.replace('home.', ''),
     `home.${key}`,
-    `how_it_works.${key}`
+    `how_it_works.${key}`,
+    key.replace('how_it_works.', 'home.how_it_works.'),
+    key.replace('home.', '')
   ]
 
   for (const k of possibleKeys) {
@@ -205,7 +203,7 @@ export function t(key, params = {}) {
           return str.replace(new RegExp(`\\{${k}\\}`, 'g'), v)
         }, value)
       } else if (typeof value === 'object' && value.title) {
-        return value.title
+        return value.title // Para estruturas aninhadas
       }
     }
   }
