@@ -25,6 +25,7 @@
 @import url('./modules/components/theme-toggle.css');
 @import url('./modules/components/cards.css');
 @import url('./modules/components/expandable.css');
+@import url('./modules/components/language.css');
 
 /* FEATURES - Funcionalidades específicas */
 /* Arquivos de features serão importados aqui conforme necessário */

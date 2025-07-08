@@ -3,19 +3,6 @@
  * Inicializa todos os módulos e coordena os componentes da aplicação.
  */
 
-// Variável para evitar inicialização duplicada
-let adsInitialized = false
-
-function initializeAds() {
-  if (!adsInitialized) {
-    console.log('Inicializando anúncios...')
-    // Seu código de inicialização de ads aqui
-    adsInitialized = true
-  } else {
-    console.log('Anúncios já inicializados - chamada ignorada')
-  }
-}
-
 // Importação de módulos
 import {
   elements,
@@ -43,12 +30,13 @@ import {
   resetAllAccessibilitySettings
 } from './modules/accessibility.js'
 
+import { loadTranslations, t, getCurrentLanguage } from './modules/i18n.js'
+
 // Expõe funções imediatamente para que onclick, etc. funcionem
 exposeGlobalFunctions()
 
 /**
  * Inicializa a aplicação quando o DOM é carregado
- * Configura event listeners, carrega histórico e inicializa componentes
  */
 document.addEventListener('DOMContentLoaded', initializeApp)
 
@@ -57,47 +45,109 @@ document.addEventListener('DOMContentLoaded', initializeApp)
  */
 async function initializeApp() {
   try {
-    // Verificar se já inicializamos antes (previne inicialização duplicada)
-    if (window.appInitialized) {
-      console.warn('A aplicação já foi inicializada')
-      return
-    }
-
-    // Marca como inicializado
+    if (window.appInitialized) return
     window.appInitialized = true
-    console.log('Inicializando aplicação...')
 
-    // Inicializar elementos do DOM
+    // 1. Carrega traduções primeiro
+    await initLanguage()
+
+    // 2. Inicializa o resto da aplicação
     initializeDynamicElements()
     initializeSkeletonElements()
-
-    // Configurar temas e preferências
     initThemeSwitch()
     loadAccessibilityPreferences()
-
-    // Inicializar expandable sections
     setupExpandableSections()
-
-    // Carregar histórico (pode ser assíncrono)
     await loadVerificationHistory()
-
-    // Configurar event listeners
     setupEventListeners()
     setupHistoryEvents()
     setupAccessibilityListeners()
-
-    // Registrar o Service Worker
+    setupLanguageSwitcher()
     registerServiceWorker()
-
-    // Iniciar observadores de performance
     initPerformanceObservers()
+
+    // Força atualização inicial da UI
+    updateUIForLanguage()
   } catch (error) {
-    console.error('Erro durante a inicialização da aplicação:', error)
+    console.error('Erro na inicialização:', error)
   }
 }
 
 /**
- * Registra o Service Worker para funcionalidades offline
+ * Inicializa o sistema de idiomas
+ */
+async function initLanguage() {
+  try {
+    const savedLang = localStorage.getItem('preferredLanguage')
+    const browserLang = navigator.language || navigator.userLanguage
+    const langToLoad =
+      savedLang ||
+      (browserLang.startsWith('pt')
+        ? 'pt-BR'
+        : browserLang.startsWith('es')
+        ? 'es'
+        : 'en')
+
+    await loadTranslations(langToLoad)
+  } catch (error) {
+    console.error('Error loading language:', error)
+  }
+}
+
+/**
+ * Atualiza a UI para o idioma atual
+ */
+function updateUIForLanguage() {
+  // Atualiza todos os elementos com data-i18n
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n')
+    const text = t(key)
+    if (text !== key) {
+      // Só atualiza se encontrou a tradução
+      el.textContent = text
+    }
+  })
+
+  // Atualiza placeholders e titles
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder')
+    el.placeholder = t(key)
+  })
+
+  document.querySelectorAll('[data-i18n-title]').forEach(el => {
+    const key = el.getAttribute('data-i18n-title')
+    el.title = t(key)
+  })
+
+  // Atualiza o atributo lang do HTML
+  document.documentElement.lang = getCurrentLanguage()
+}
+
+/**
+ * Configura o seletor de idiomas
+ */
+function setupLanguageSwitcher() {
+  document.querySelectorAll('[data-lang]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const lang = btn.getAttribute('data-lang')
+      localStorage.setItem('preferredLanguage', lang)
+
+      try {
+        await loadTranslations(lang)
+        updateUIForLanguage()
+
+        // Atualiza estado ativo dos botões
+        document.querySelectorAll('[data-lang]').forEach(b => {
+          b.classList.toggle('active', b.getAttribute('data-lang') === lang)
+        })
+      } catch (error) {
+        console.error('Error switching language:', error)
+      }
+    })
+  })
+}
+
+/**
+ * Registra o Service Worker
  */
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
@@ -105,11 +155,7 @@ function registerServiceWorker() {
       .register('/sw.js')
       .then(registration => {
         console.log('ServiceWorker registrado com sucesso:', registration.scope)
-
-        // Verifica se há atualizações
-        registration.update().then(() => {
-          console.log('Verificando atualizações do Service Worker')
-        })
+        registration.update()
       })
       .catch(error => {
         console.error('Erro no registro do ServiceWorker:', error)
@@ -123,20 +169,16 @@ function registerServiceWorker() {
 function initPerformanceObservers() {
   if (!('PerformanceObserver' in window)) return
 
-  // Observador para LCP (Largest Contentful Paint)
   const lcpObserver = new PerformanceObserver(list => {
-    const entries = list.getEntries()
-    entries.forEach(entry => {
+    list.getEntries().forEach(entry => {
       console.log('LCP:', entry.startTime)
     })
   })
   lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] })
 
-  // Observador para erros de recursos
   const resourceObserver = new PerformanceObserver(list => {
     list.getEntries().forEach(entry => {
       if (entry.decodedBodySize > 500000) {
-        // 500KB
         console.warn(
           'Recurso grande carregado:',
           entry.name,
@@ -149,13 +191,10 @@ function initPerformanceObservers() {
 }
 
 /**
- * Expõe funções para acesso global para uso no HTML
+ * Expõe funções para acesso global
  */
 function exposeGlobalFunctions() {
   if (!window.globalFunctionsExposed) {
-    console.log('Expondo funções globais')
-
-    // Expõe as funções de acessibilidade globalmente para uso em atributos HTML
     window.setContrast = setContrast
     window.changeFontSize = changeFontSize
     window.changeLineSpacing = changeLineSpacing

@@ -1,0 +1,14 @@
+{
+  "language": "Español",
+  "actions": {
+    "verify": "Verificar",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "share": "Compartir",
+    "clear": "Limpiar"
+  },
+  "accessibility": {
+    "toggle_dark_mode": "Alternar modo oscuro",
+    "accessibility_menu": "Menú de Accesibilidad"
+  }
+}

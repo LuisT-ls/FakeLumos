@@ -14,6 +14,14 @@
       content="unload=(self), interest-cohort=()"
     />
 
+    <!-- Preload Locales -->
+    <link
+      rel="preload"
+      href="/locales/pt-BR/common.json"
+      as="fetch"
+      crossorigin="anonymous"
+    />
+
     <!-- Favicon -->
     <link
       rel="apple-touch-icon"
@@ -344,7 +352,32 @@
           <span class="ms-2">Fake Lumos</span>
         </a>
 
-        <!-- Dark Mode Toggle (visível em mobile) -->
+        <!-- Seletor de Idiomas (novo) -->
+        <div class="language-selector order-lg-1 mx-3">
+          <button
+            data-lang="pt-BR"
+            aria-label="Português"
+            class="btn btn-icon btn-outline-light"
+          >
+            <img src="/assets/img/flags/br.svg" alt="Português" width="20" />
+          </button>
+          <button
+            data-lang="en"
+            aria-label="English"
+            class="btn btn-icon btn-outline-light mx-2"
+          >
+            <img src="/assets/img/flags/us.svg" alt="English" width="20" />
+          </button>
+          <button
+            data-lang="es"
+            aria-label="Español"
+            class="btn btn-icon btn-outline-light"
+          >
+            <img src="/assets/img/flags/es.svg" alt="Español" width="20" />
+          </button>
+        </div>
+
+        <!-- Dark Mode e Acessibilidade -->
         <div class="d-flex align-items-center order-lg-last">
           <button
             id="themeSwitcher"
@@ -396,9 +429,11 @@
     <!-- Header Principal -->
     <header class="py-4 text-center header-gradient">
       <div class="container">
-        <h1 class="h2 fw-bold text-white mb-2">Detecte Fake News com IA</h1>
+        <h1 class="h2 fw-bold text-white mb-2" data-i18n="home.title">
+          Detecte Fake News com IA
+        </h1>
         <div class="critical-content">
-          <p class="lead text-white-50 mb-0 small">
+          <p class="lead text-white-50 mb-0 small" data-i18n="home.subtitle">
             Verifique a credibilidade de notícias em segundos
           </p>
         </div>
