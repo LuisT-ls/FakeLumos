@@ -24,17 +24,18 @@
   "clear_history": "Limpar Histórico",
   "result_title": "Resultado da Análise",
   "share_title": "Compartilhe esta verificação:",
+  "verify_content_title": "Verificar Conteúdo",
   "tips": {
     "title": "Dicas para Identificar Fake News",
     "check_source": "Verifique a Fonte",
     "check_source_content": {
       "intro": "Antes de compartilhar uma notícia, considere:",
-      "items": [
-        "Verifique se o site é conhecido e confiável",
-        "Procure informações sobre o autor da notícia",
-        "Confira se outros veículos respeitados também publicaram o mesmo conteúdo",
-        "Desconfie de sites com nomes muito similares a portais conhecidos"
-      ]
+      "items": {
+        "0": "Verifique se o site é conhecido e confiável",
+        "1": "Procure informações sobre o autor da notícia",
+        "2": "Confira se outros veículos respeitados também publicaram o mesmo conteúdo",
+        "3": "Desconfie de sites com nomes muito similares a portais conhecidos"
+      }
     },
     "analyze_date": "Analise a Data",
     "analyze_date_content": {

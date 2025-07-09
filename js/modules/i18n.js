@@ -127,31 +127,31 @@ const fallbackTranslations = {
 function translateNestedElements(parentElement, translationKey) {
   const translatedContent = t(translationKey)
 
-  if (
-    typeof translatedContent === 'object' &&
-    !Array.isArray(translatedContent)
-  ) {
-    Object.keys(translatedContent).forEach(key => {
-      const elements = parentElement.querySelectorAll(
-        `[data-i18n="${translationKey}.${key}"]`
-      )
-
-      elements.forEach(el => {
-        const value = translatedContent[key]
-
-        if (Array.isArray(value)) {
-          const listItems = el.querySelectorAll('li')
-          listItems.forEach((li, index) => {
-            if (value[index]) {
-              li.textContent = value[index]
-              li.setAttribute('data-i18n', `${translationKey}.${key}[${index}]`)
-            }
-          })
-        } else {
-          el.textContent = value
+  if (typeof translatedContent === 'object' && translatedContent !== null) {
+    if (Array.isArray(translatedContent)) {
+      // Process arrays (for lists)
+      const listItems = parentElement.querySelectorAll('li')
+      listItems.forEach((item, index) => {
+        if (translatedContent[index]) {
+          item.textContent = translatedContent[index]
         }
       })
-    })
+    } else {
+      // Process nested objects
+      Object.keys(translatedContent).forEach(key => {
+        const elements = parentElement.querySelectorAll(
+          `[data-i18n="${translationKey}.${key}"]`
+        )
+        elements.forEach(el => {
+          const value = translatedContent[key]
+          if (typeof value === 'object' && value !== null) {
+            translateNestedElements(el, `${translationKey}.${key}`)
+          } else {
+            el.textContent = value
+          }
+        })
+      })
+    }
   }
 }
 
@@ -159,29 +159,28 @@ export async function loadTranslations(lang = 'pt-BR') {
   console.log(`Tentando carregar traduções para: ${lang}`)
 
   try {
-    // Verifica se já está carregado
-    const responses = await Promise.all([
-      fetch(`/locales/${lang}/home.json`).then(res => {
-        console.log(`Status home.json: ${res.status}`) // Log do status
-        return res
-      }),
-      fetch(`/locales/${lang}/common.json`).catch(() => {
-        console.log(`Falha ao carregar common.json`) // Log de falha
-        return null
-      })
-    ])
+    // Limpa as traduções atuais
+    translations = {}
 
-    const [homeRes, commonRes] = responses
-    const homeTranslations = homeRes.ok ? await homeRes.json() : {}
-    const commonTranslations = commonRes?.ok ? await commonRes.json() : {}
+    // Carrega fallback primeiro
+    translations = { ...fallbackTranslations[lang] }
 
-    // Combina traduções com fallback
-    translations = {
-      ...fallbackTranslations[lang],
-      ...commonTranslations,
-      ...homeTranslations,
-      // Converte estrutura antiga para nova (se necessário)
-      ...convertLegacyTranslations(homeTranslations)
+    // Tenta carregar arquivos externos
+    const [homeRes, commonRes] = await Promise.all(
+      [
+        fetch(`/locales/${lang}/home.json`),
+        fetch(`/locales/${lang}/common.json`)
+      ].map(p => p.catch(() => null))
+    )
+
+    if (homeRes?.ok) {
+      const homeTranslations = await homeRes.json()
+      translations = { ...translations, ...homeTranslations }
+    }
+
+    if (commonRes?.ok) {
+      const commonTranslations = await commonRes.json()
+      translations = { ...translations, ...commonTranslations }
     }
 
     currentLanguage = lang
@@ -211,30 +210,39 @@ export function t(key, params = {}) {
     return key
   }
 
-  // Verifica primeiro se a chave existe exatamente como está
-  if (key.includes('tips.')) {
-    const directValue = getNestedValue(translations, key)
-    if (directValue !== undefined) {
-      return processTranslationValue(directValue, params)
-    }
+  // Normaliza a chave (converte items[0] para items.0)
+  const normalizedKey = key.replace(/\[(\d+)\]/g, '.$1')
+
+  // Busca direta
+  const directValue = getNestedValue(translations, normalizedKey)
+  if (directValue !== undefined) {
+    return processTranslationValue(directValue, params)
   }
 
   // Tenta variações da chave
   const possibleKeys = [
-    key,
-    `home.${key}`,
-    `how_it_works.${key}`,
-    `tips.${key}`,
-    key.replace('how_it_works.', 'home.how_it_works.'),
-    key.replace('home.', ''),
-    key.replace('tips.', 'home.tips.')
-  ]
+    `home.${normalizedKey}`,
+    `how_it_works.${normalizedKey}`,
+    `tips.${normalizedKey}`,
+    normalizedKey.replace('how_it_works.', 'home.how_it_works.'),
+    normalizedKey.replace('home.', ''),
+    normalizedKey.replace('tips.', 'home.tips.')
+  ].filter(k => k !== normalizedKey)
 
   for (const k of possibleKeys) {
     const value = getNestedValue(translations, k)
     if (value !== undefined) {
       return processTranslationValue(value, params)
     }
+  }
+
+  // Fallback
+  const fallbackValue = getNestedValue(
+    fallbackTranslations[currentLanguage],
+    normalizedKey
+  )
+  if (fallbackValue !== undefined) {
+    return processTranslationValue(fallbackValue, params)
   }
 
   console.warn(`Translation key not found: ${key}`)

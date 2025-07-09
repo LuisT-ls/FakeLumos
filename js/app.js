@@ -102,33 +102,44 @@ async function initLanguage() {
  * Atualiza a UI para o idioma atual
  */
 function updateUIForLanguage() {
-  // Atualiza elementos simples
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n')
-    const text = t(key)
+    const translation = t(key)
 
-    // Verifica se é um objeto complexo (não processa aqui)
-    if (typeof text === 'object' && text !== null && !Array.isArray(text))
-      return
+    // Preserva ícones e estrutura
+    if (el.children.length > 0) {
+      const fragment = document.createDocumentFragment()
+      let hasIcon = false
 
-    // Processa strings
-    if (typeof text === 'string' && text !== key) {
-      el.textContent = text
-    }
-    // Processa arrays (para listas)
-    else if (Array.isArray(text)) {
-      if (el.tagName === 'UL' || el.tagName === 'OL') {
-        const items = el.querySelectorAll('li')
-        items.forEach((item, index) => {
-          if (text[index]) {
-            item.textContent = text[index]
+      // Preserva ícones e elementos não-texto
+      Array.from(el.childNodes).forEach(child => {
+        if (child.nodeType === Node.ELEMENT_NODE) {
+          if (child.classList?.contains('fa')) {
+            // Preserva ícones FontAwesome
+            fragment.appendChild(child.cloneNode(true))
+            hasIcon = true
           }
-        })
+        }
+      })
+
+      // Adiciona tradução
+      if (typeof translation === 'string') {
+        if (hasIcon) {
+          fragment.appendChild(document.createTextNode(' ' + translation))
+        } else {
+          fragment.appendChild(document.createTextNode(translation))
+        }
+        el.innerHTML = ''
+        el.appendChild(fragment)
       }
+    }
+    // Processa strings normais
+    else if (typeof translation === 'string') {
+      el.textContent = translation
     }
   })
 
-  // Processa seções com elementos aninhados (dicas)
+  // Processa seções aninhadas
   const tipsSection = document.querySelector('#dicas')
   if (tipsSection) {
     translateNestedElements(tipsSection, 'tips')

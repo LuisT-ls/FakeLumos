@@ -24,58 +24,59 @@
   "clear_history": "Limpiar Historial",
   "result_title": "Resultado del Análisis",
   "share_title": "Comparte esta verificación:",
+  "verify_content_title": "Verificar Contenido",
   "tips": {
     "title": "Consejos para Identificar Fake News",
     "check_source": "Verifica la Fuente",
     "check_source_content": {
       "intro": "Antes de compartir una noticia, considera:",
-      "items": [
-        "Verifica si el sitio web es conocido y confiable",
-        "Busca información sobre el autor de la noticia",
-        "Comprueba si otros medios respetados publicaron el mismo contenido",
-        "Desconfía de sitios con nombres muy similares a portales conocidos"
-      ]
+      "items": {
+        "0": "Verifica si el sitio web es conocido y confiable",
+        "1": "Busca información sobre el autor de la noticia",
+        "2": "Comprueba si otros medios respetados publicaron el mismo contenido",
+        "3": "Desconfía de sitios con nombres muy similares a portales conocidos"
+      }
     },
     "analyze_date": "Analiza la Fecha",
     "analyze_date_content": {
       "intro": "La fecha de publicación es crucial:",
-      "items": [
-        "Verifica cuándo se publicó originalmente la noticia",
-        "Presta atención a contenido antiguo que se comparte como nuevo",
-        "Considera si el contexto temporal tiene sentido",
-        "Busca actualizaciones más recientes sobre el tema"
-      ]
+      "items": {
+        "0": "Verifica cuándo se publicó originalmente la noticia",
+        "1": "Presta atención a contenido antiguo que se comparte como nuevo",
+        "2": "Considera si el contexto temporal tiene sentido",
+        "3": "Busca actualizaciones más recientes sobre el tema"
+      }
     },
     "research_sources": "Investiga Otras Fuentes",
     "research_sources_content": {
       "intro": "Compara la información:",
-      "items": [
-        "Busca la misma noticia en diferentes medios de comunicación",
-        "Consulta agencias de verificación de hechos",
-        "Verifica si hay consenso entre fuentes confiables",
-        "Desconfía cuando solo un sitio informa algo \"bomba\""
-      ]
+      "items": {
+        "0": "Busca la misma noticia en diferentes medios de comunicación",
+        "1": "Consulta agencias de verificación de hechos",
+        "2": "Verifica si hay consenso entre fuentes confiables",
+        "3": "Desconfía cuando solo un sitio informa algo \"bomba\""
+      }
     },
     "warning_signs": "Identifica Señales de Alerta",
     "warning_signs_content": {
       "intro": "Presta atención a estas señales:",
-      "items": [
-        "Títulos muy llamativos o alarmistas",
-        "Errores de ortografía y formato",
-        "Solicitudes urgentes de compartir",
-        "Uso excesivo de puntuación (!!! ???)",
-        "Afirmaciones muy extremas o improbables"
-      ]
+      "items": {
+        "0": "Títulos muy llamativos o alarmistas",
+        "1": "Errores de ortografía y formato",
+        "2": "Solicitudes urgentes de compartir",
+        "3": "Uso excesivo de puntuación (!!! ???)",
+        "4": "Afirmaciones muy extremas o improbables"
+      }
     },
     "check_media": "Verifica Imágenes y Videos",
     "check_media_content": {
       "intro": "Al analizar contenido visual:",
-      "items": [
-        "Haz una búsqueda inversa de la imagen en Google",
-        "Verifica si la imagen fue manipulada o sacada de contexto",
-        "Busca la fuente original del video",
-        "Observa detalles como fecha, lugar y elementos visuales que puedan indicar manipulación"
-      ]
+      "items": {
+        "0": "Haz una búsqueda inversa de la imagen en Google",
+        "1": "Verifica si la imagen fue manipulada o sacada de contexto",
+        "2": "Busca la fuente original del video",
+        "3": "Observa detalles como fecha, lugar y elementos visuales que puedan indicar manipulación"
+      }
     }
   }
 }
