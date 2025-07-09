@@ -30,7 +30,12 @@ import {
   resetAllAccessibilitySettings
 } from './modules/accessibility.js'
 
-import { loadTranslations, t, getCurrentLanguage } from './modules/i18n.js'
+import {
+  t,
+  getCurrentLanguage,
+  loadTranslations,
+  translateNestedElements
+} from './modules/i18n.js'
 
 // Expõe funções imediatamente para que onclick, etc. funcionem
 exposeGlobalFunctions()
@@ -103,13 +108,15 @@ function updateUIForLanguage() {
     const text = t(key)
 
     // Verifica se é um objeto complexo (não processa aqui)
-    if (typeof text === 'object' && text !== null) return
+    if (typeof text === 'object' && text !== null && !Array.isArray(text))
+      return
 
-    // Processa strings e arrays
+    // Processa strings
     if (typeof text === 'string' && text !== key) {
-      el.textContent = text // Usamos textContent em vez de innerHTML para segurança
-    } else if (Array.isArray(text)) {
-      // Para arrays, assumimos que é uma lista <li>
+      el.textContent = text
+    }
+    // Processa arrays (para listas)
+    else if (Array.isArray(text)) {
       if (el.tagName === 'UL' || el.tagName === 'OL') {
         const items = el.querySelectorAll('li')
         items.forEach((item, index) => {
@@ -121,7 +128,7 @@ function updateUIForLanguage() {
     }
   })
 
-  // Processa seções com elementos aninhados
+  // Processa seções com elementos aninhados (dicas)
   const tipsSection = document.querySelector('#dicas')
   if (tipsSection) {
     translateNestedElements(tipsSection, 'tips')
@@ -150,12 +157,6 @@ function setupLanguageSwitcher() {
       }
     })
   })
-}
-
-// Traduz a seção de dicas
-const tipsSection = document.querySelector('#dicas')
-if (tipsSection) {
-  translateNestedElements(tipsSection, 'tips')
 }
 
 /**

@@ -206,13 +206,20 @@ function convertLegacyTranslations(translations) {
 }
 
 export function t(key, params = {}) {
-  // Verifica se as traduções foram carregadas
   if (!translations) {
     console.warn('Translations not loaded yet')
     return key
   }
 
-  // Possíveis variações da chave para tentar encontrar a tradução
+  // Verifica primeiro se a chave existe exatamente como está
+  if (key.includes('tips.')) {
+    const directValue = getNestedValue(translations, key)
+    if (directValue !== undefined) {
+      return processTranslationValue(directValue, params)
+    }
+  }
+
+  // Tenta variações da chave
   const possibleKeys = [
     key,
     `home.${key}`,
@@ -223,46 +230,38 @@ export function t(key, params = {}) {
     key.replace('tips.', 'home.tips.')
   ]
 
-  // Tenta encontrar a tradução em todas as variações possíveis
   for (const k of possibleKeys) {
-    const keys = k.split('.')
-    let value = translations
-    let found = true
-
-    // Navega através do objeto de traduções
-    for (const part of keys) {
-      // Verifica se a parte atual existe
-      if (value[part] === undefined) {
-        found = false
-        break
-      }
-      value = value[part]
-    }
-
-    // Se encontrou a tradução
-    if (found) {
-      // Retorna string com parâmetros substituídos
-      if (typeof value === 'string') {
-        return Object.entries(params).reduce((str, [k, v]) => {
-          return str.replace(new RegExp(`\\{${k}\\}`, 'g'), v)
-        }, value)
-      }
-      // Retorna array (para listas)
-      else if (Array.isArray(value)) {
-        return value
-      }
-      // Retorna objeto completo (para estruturas complexas)
-      else if (typeof value === 'object') {
-        return value
-      }
+    const value = getNestedValue(translations, k)
+    if (value !== undefined) {
+      return processTranslationValue(value, params)
     }
   }
 
-  // Fallback: retorna a própria chave se não encontrar tradução
   console.warn(`Translation key not found: ${key}`)
   return key
+}
+
+// Funções auxiliares
+function getNestedValue(obj, path) {
+  return path.split('.').reduce((acc, part) => {
+    if (Array.isArray(acc) && /^\d+$/.test(part)) {
+      return acc[parseInt(part)]
+    }
+    return acc && acc[part]
+  }, obj)
+}
+
+function processTranslationValue(value, params) {
+  if (typeof value === 'string') {
+    return Object.entries(params).reduce((str, [k, v]) => {
+      return str.replace(new RegExp(`\\{${k}\\}`, 'g'), v)
+    }, value)
+  }
+  return value
 }
 
 export function getCurrentLanguage() {
   return currentLanguage
 }
+
+export { translateNestedElements }
