@@ -97,56 +97,35 @@ async function initLanguage() {
  * Atualiza a UI para o idioma atual
  */
 function updateUIForLanguage() {
-  // Atualiza texto em elementos com data-i18n
-  setTimeout(() => {
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n')
-      const text = t(key)
+  // Atualiza elementos simples
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n')
+    const text = t(key)
 
-      if (text !== key) {
-        if (text.includes('<') && text.includes('>')) {
-          el.innerHTML = text
-        } else {
-          el.textContent = text
-        }
-      } else {
-        // Fallback adicional
-        const fallback = t(key.replace('how_it_works.', 'home.how_it_works.'))
-        if (fallback !== key) {
-          el.textContent = fallback
-        }
+    // Verifica se é um objeto complexo (não processa aqui)
+    if (typeof text === 'object' && text !== null) return
+
+    // Processa strings e arrays
+    if (typeof text === 'string' && text !== key) {
+      el.textContent = text // Usamos textContent em vez de innerHTML para segurança
+    } else if (Array.isArray(text)) {
+      // Para arrays, assumimos que é uma lista <li>
+      if (el.tagName === 'UL' || el.tagName === 'OL') {
+        const items = el.querySelectorAll('li')
+        items.forEach((item, index) => {
+          if (text[index]) {
+            item.textContent = text[index]
+          }
+        })
       }
-    })
-  }, 100)
-
-  // Atualiza placeholders
-  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-    const key = el.getAttribute('data-i18n-placeholder')
-    el.placeholder = t(key)
+    }
   })
 
-  // Atualiza titles
-  document.querySelectorAll('[data-i18n-title]').forEach(el => {
-    const key = el.getAttribute('data-i18n-title')
-    el.title = t(key)
-  })
-
-  // Atualiza aria-labels
-  document.querySelectorAll('[data-i18n-aria-label]').forEach(el => {
-    const key = el.getAttribute('data-i18n-aria-label')
-    el.setAttribute('aria-label', t(key))
-  })
-
-  // Atualiza o atributo lang do HTML
-  document.documentElement.lang = getCurrentLanguage()
-
-  // Atualiza botões de idioma ativos
-  document.querySelectorAll('[data-lang]').forEach(btn => {
-    btn.classList.toggle(
-      'active',
-      btn.getAttribute('data-lang') === getCurrentLanguage()
-    )
-  })
+  // Processa seções com elementos aninhados
+  const tipsSection = document.querySelector('#dicas')
+  if (tipsSection) {
+    translateNestedElements(tipsSection, 'tips')
+  }
 }
 
 /**

@@ -124,6 +124,37 @@ const fallbackTranslations = {
   }
 }
 
+function translateNestedElements(parentElement, translationKey) {
+  const translatedContent = t(translationKey)
+
+  if (
+    typeof translatedContent === 'object' &&
+    !Array.isArray(translatedContent)
+  ) {
+    Object.keys(translatedContent).forEach(key => {
+      const elements = parentElement.querySelectorAll(
+        `[data-i18n="${translationKey}.${key}"]`
+      )
+
+      elements.forEach(el => {
+        const value = translatedContent[key]
+
+        if (Array.isArray(value)) {
+          const listItems = el.querySelectorAll('li')
+          listItems.forEach((li, index) => {
+            if (value[index]) {
+              li.textContent = value[index]
+              li.setAttribute('data-i18n', `${translationKey}.${key}[${index}]`)
+            }
+          })
+        } else {
+          el.textContent = value
+        }
+      })
+    })
+  }
+}
+
 export async function loadTranslations(lang = 'pt-BR') {
   console.log(`Tentando carregar traduções para: ${lang}`)
 
@@ -230,38 +261,6 @@ export function t(key, params = {}) {
   // Fallback: retorna a própria chave se não encontrar tradução
   console.warn(`Translation key not found: ${key}`)
   return key
-}
-
-export function translateNestedElements(parentElement, translationKey) {
-  const translatedContent = t(translationKey)
-
-  if (
-    typeof translatedContent === 'object' &&
-    !Array.isArray(translatedContent)
-  ) {
-    Object.keys(translatedContent).forEach(key => {
-      const elements = parentElement.querySelectorAll(
-        `[data-i18n="${translationKey}.${key}"]`
-      )
-
-      elements.forEach(el => {
-        const value = translatedContent[key]
-
-        if (Array.isArray(value)) {
-          // Para arrays (como items[]), atualizamos os <li>
-          const listItems = el.querySelectorAll('li')
-          listItems.forEach((li, index) => {
-            if (value[index]) {
-              li.textContent = value[index]
-            }
-          })
-        } else {
-          // Para strings normais
-          el.textContent = value
-        }
-      })
-    })
-  }
 }
 
 export function getCurrentLanguage() {
