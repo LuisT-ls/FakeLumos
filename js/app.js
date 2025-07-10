@@ -123,6 +123,21 @@ function updateUIForLanguage() {
       return
     }
 
+    // Caso especial para elementos de navegação
+    if (el.classList.contains('nav-link')) {
+      updateNavLink(el, translation)
+      return
+    }
+
+    // Caso especial para botões com ícones
+    if (el.classList.contains('btn-icon')) {
+      updateIconButton(el, translation)
+      return
+    }
+
+    // Processamento padrão
+    processElementTranslation(el, translation)
+
     // Processa elementos com filhos (preserva ícones)
     if (el.children.length > 0) {
       const fragment = document.createDocumentFragment()
@@ -168,6 +183,92 @@ function updateUIForLanguage() {
   if (tipsSection) {
     translateNestedElements(tipsSection, 'tips')
   }
+}
+
+function updateNavLink(navLink, translation) {
+  if (typeof translation !== 'string') return
+
+  // Preserva a estrutura: <i> + texto
+  const icon = navLink.querySelector('i')
+  const textSpan = navLink.querySelector('span')
+
+  if (icon && textSpan) {
+    textSpan.textContent = translation
+  } else {
+    navLink.innerHTML = `
+      ${icon ? icon.outerHTML : ''}
+      <span>${translation}</span>
+    `
+  }
+}
+
+function updateIconButton(button, translation) {
+  if (typeof translation !== 'string') return
+
+  // Mantém o ícone e atualiza apenas o aria-label
+  button.setAttribute('aria-label', translation)
+}
+
+function processElementTranslation(el, translation) {
+  // Caso especial para listas
+  if (el.tagName === 'UL' || el.tagName === 'OL') {
+    processListItems(el, translation)
+    return
+  }
+
+  // Elementos com filhos (preserva estrutura)
+  if (el.children.length > 0) {
+    const fragment = document.createDocumentFragment()
+    let hasPreservedElements = false
+
+    // Preserva elementos não-texto
+    Array.from(el.childNodes).forEach(child => {
+      if (child.nodeType === Node.ELEMENT_NODE) {
+        fragment.appendChild(child.cloneNode(true))
+        hasPreservedElements = true
+      }
+    })
+
+    // Adiciona tradução se for string
+    if (typeof translation === 'string') {
+      if (hasPreservedElements) {
+        fragment.appendChild(document.createTextNode(' ' + translation))
+      } else {
+        fragment.appendChild(document.createTextNode(translation))
+      }
+    }
+
+    el.innerHTML = ''
+    el.appendChild(fragment)
+  }
+  // Elementos de texto simples
+  else if (typeof translation === 'string') {
+    el.textContent = translation
+  }
+}
+
+function processListItems(listEl, translation) {
+  if (!translation || typeof translation !== 'object') return
+
+  const items = listEl.querySelectorAll('li')
+  items.forEach((item, index) => {
+    const itemKey = `${listEl.getAttribute('data-i18n')}.${index}`
+    const itemTranslation = t(itemKey)
+
+    if (itemTranslation && typeof itemTranslation === 'string') {
+      // Preserva a estrutura interna do <li> se existir
+      if (item.children.length > 0) {
+        const textElements = item.querySelectorAll('span, p')
+        if (textElements.length > 0) {
+          textElements[0].textContent = itemTranslation
+        } else {
+          item.innerHTML = itemTranslation
+        }
+      } else {
+        item.textContent = itemTranslation
+      }
+    }
+  })
 }
 
 /**

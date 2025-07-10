@@ -347,10 +347,10 @@
       <div class="container">
         <a class="navbar-brand" href="/">
           <i class="fas fa-shield-alt"></i>
-          <span class="ms-2">Fake Lumos</span>
+          <span class="ms-2" data-i18n="nav.brand">Fake Lumos</span>
         </a>
 
-        <!-- Seletor de Idiomas (novo) -->
+        <!-- Seletor de Idiomas -->
         <div class="language-selector order-lg-1 mx-3">
           <button
             data-lang="pt-BR"
@@ -381,6 +381,7 @@
             id="themeSwitcher"
             class="btn btn-icon btn-outline-light me-2"
             aria-label="Alternar modo escuro"
+            data-i18n="nav.theme_switcher"
           >
             <i class="fas fa-moon"></i>
           </button>
@@ -391,6 +392,7 @@
             aria-label="Menu de Acessibilidade"
             data-bs-toggle="offcanvas"
             data-bs-target="#accessibilityMenu"
+            data-i18n="nav.accessibility_menu"
           >
             <i class="fas fa-universal-access"></i>
           </button>
@@ -400,9 +402,6 @@
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
           >
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -411,13 +410,30 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link" href="#como-funciona">Como Funciona</a>
+              <a
+                class="nav-link"
+                href="#como-funciona"
+                data-i18n="nav.how_it_works"
+              >
+                <i class="fas fa-info-circle me-1"></i>
+                <span>Como Funciona</span>
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#dicas">Dicas</a>
+              <a class="nav-link" href="#dicas" data-i18n="nav.tips">
+                <i class="fas fa-lightbulb me-1"></i>
+                <span>Dicas</span>
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/pages/sobre.html">Sobre</a>
+              <a
+                class="nav-link"
+                href="/pages/sobre.html"
+                data-i18n="nav.about"
+              >
+                <i class="fas fa-info me-1"></i>
+                <span>Sobre</span>
+              </a>
             </li>
           </ul>
         </div>

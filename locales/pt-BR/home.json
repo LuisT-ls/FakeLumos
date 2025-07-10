@@ -1,4 +1,12 @@
 {
+  "nav": {
+    "brand": "Fake Lumos",
+    "how_it_works": "Como Funciona",
+    "tips": "Dicas",
+    "about": "Sobre",
+    "theme_switcher": "Alternar tema",
+    "accessibility_menu": "Acessibilidade"
+  },
   "title": "Detecte Fake News com IA",
   "subtitle": "Verifique a credibilidade de notícias em segundos",
   "verify_button": "Verificar Agora",
