@@ -99,5 +99,55 @@
     "terms_of_service": "Términos de Servicio",
     "contact": "Contacto",
     "copyright": "© 2025 Fake Lumos. Todos los derechos reservados."
+  },
+  "accessibility": {
+    "menu_title": "Accesibilidad",
+    "close": "Cerrar",
+    "contrast": {
+      "title": "Contraste",
+      "normal": "Normal",
+      "high": "Alto Contraste",
+      "black_yellow": "Negro/Amarillo",
+      "yellow_black": "Amarillo/Negro"
+    },
+    "font_size": {
+      "title": "Tamaño de Fuente",
+      "decrease": "A-",
+      "reset": "A",
+      "increase": "A+"
+    },
+    "text_spacing": {
+      "title": "Espaciado de Texto",
+      "normal": "Normal",
+      "medium": "Medio",
+      "large": "Ampliado"
+    },
+    "links": {
+      "title": "Enlaces",
+      "highlight": "Resaltar Enlaces"
+    },
+    "reading": {
+      "title": "Lectura Facilitada",
+      "dyslexic_font": "Fuente para Dislexia"
+    },
+    "animations": {
+      "title": "Animaciones",
+      "reduce_motion": "Reducir Animaciones"
+    },
+    "cursor": {
+      "title": "Cursor",
+      "large_cursor": "Cursor Ampliado"
+    },
+    "reset": {
+      "button": "Restaurar Configuraciones Predeterminadas"
+    },
+    "keyboard_shortcuts": {
+      "title": "Atajos de Teclado",
+      "toggle_contrast": "Alternar Contraste",
+      "toggle_dyslexic_font": "Alternar Fuente para Dislexia",
+      "increase_font": "Aumentar Fuente",
+      "decrease_font": "Disminuir Fuente",
+      "reset_font": "Restablecer Fuente"
+    }
   }
 }

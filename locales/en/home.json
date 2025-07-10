@@ -99,5 +99,55 @@
     "terms_of_service": "Terms of Service",
     "contact": "Contact",
     "copyright": "© 2025 Fake Lumos. All rights reserved."
+  },
+  "accessibility": {
+    "menu_title": "Accessibility",
+    "close": "Close",
+    "contrast": {
+      "title": "Contrast",
+      "normal": "Normal",
+      "high": "High Contrast",
+      "black_yellow": "Black/Yellow",
+      "yellow_black": "Yellow/Black"
+    },
+    "font_size": {
+      "title": "Font Size",
+      "decrease": "A-",
+      "reset": "A",
+      "increase": "A+"
+    },
+    "text_spacing": {
+      "title": "Text Spacing",
+      "normal": "Normal",
+      "medium": "Medium",
+      "large": "Large"
+    },
+    "links": {
+      "title": "Links",
+      "highlight": "Highlight Links"
+    },
+    "reading": {
+      "title": "Reading Assistance",
+      "dyslexic_font": "Dyslexic Font"
+    },
+    "animations": {
+      "title": "Animations",
+      "reduce_motion": "Reduce Animations"
+    },
+    "cursor": {
+      "title": "Cursor",
+      "large_cursor": "Large Cursor"
+    },
+    "reset": {
+      "button": "Restore Default Settings"
+    },
+    "keyboard_shortcuts": {
+      "title": "Keyboard Shortcuts",
+      "toggle_contrast": "Toggle Contrast",
+      "toggle_dyslexic_font": "Toggle Dyslexic Font",
+      "increase_font": "Increase Font",
+      "decrease_font": "Decrease Font",
+      "reset_font": "Reset Font"
+    }
   }
 }
