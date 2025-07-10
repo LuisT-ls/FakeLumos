@@ -107,6 +107,18 @@ function updateUIForLanguage() {
     const key = el.getAttribute('data-i18n')
     const translation = t(key)
 
+    // Atualiza placeholders
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const placeholderKey = el.getAttribute('data-i18n-placeholder')
+      const placeholderTranslation = t(placeholderKey)
+      if (
+        placeholderTranslation &&
+        typeof placeholderTranslation === 'string'
+      ) {
+        el.setAttribute('placeholder', placeholderTranslation)
+      }
+    })
+
     // Caso especial para listas (ul/ol)
     if (el.tagName === 'UL' || el.tagName === 'OL') {
       // Se a tradução for um array ou objeto, processa os itens

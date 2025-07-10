@@ -27,6 +27,8 @@
       "description": "Get a detailed analysis about the content's credibility"
     }
   },
+  "textarea_label": "Type or paste the text you want to verify here:",
+  "textarea_placeholder": "Example: The COVID-19 vaccine contains microchips...",
   "tips_title": "Tips to Identify Fake News",
   "history_title": "Verification History",
   "clear_history": "Clear History",

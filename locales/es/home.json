@@ -27,6 +27,8 @@
       "description": "Obtén un análisis detallado sobre la credibilidad del contenido"
     }
   },
+  "textarea_label": "Escriba o pegue aquí el texto que desea verificar:",
+  "textarea_placeholder": "Ejemplo: La vacuna contra COVID-19 contiene microchips...",
   "tips_title": "Consejos para Identificar Fake News",
   "history_title": "Historial de Verificaciones",
   "clear_history": "Limpiar Historial",
