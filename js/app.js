@@ -102,44 +102,68 @@ async function initLanguage() {
  * Atualiza a UI para o idioma atual
  */
 function updateUIForLanguage() {
+  // Processa todos os elementos com data-i18n
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n')
     const translation = t(key)
 
-    // Preserva ícones e estrutura
+    // Caso especial para listas (ul/ol)
+    if (el.tagName === 'UL' || el.tagName === 'OL') {
+      // Se a tradução for um array ou objeto, processa os itens
+      if (Array.isArray(translation) || typeof translation === 'object') {
+        const items = el.querySelectorAll('li')
+        items.forEach((item, index) => {
+          const itemKey = `${key}.${index}`
+          const itemTranslation = t(itemKey)
+          if (itemTranslation && typeof itemTranslation === 'string') {
+            item.textContent = itemTranslation
+          }
+        })
+      }
+      return
+    }
+
+    // Processa elementos com filhos (preserva ícones)
     if (el.children.length > 0) {
       const fragment = document.createDocumentFragment()
-      let hasIcon = false
+      let hasPreservedContent = false
 
-      // Preserva ícones e elementos não-texto
+      // Preserva ícones e elementos especiais
       Array.from(el.childNodes).forEach(child => {
         if (child.nodeType === Node.ELEMENT_NODE) {
-          if (child.classList?.contains('fa')) {
-            // Preserva ícones FontAwesome
+          // Preserva ícones Font Awesome e elementos com classes específicas
+          if (
+            child.classList?.contains('fa') ||
+            child.classList?.contains('preserve') ||
+            child.hasAttribute('data-no-translate')
+          ) {
             fragment.appendChild(child.cloneNode(true))
-            hasIcon = true
+            hasPreservedContent = true
           }
         }
       })
 
-      // Adiciona tradução
+      // Adiciona a tradução
       if (typeof translation === 'string') {
-        if (hasIcon) {
+        if (hasPreservedContent) {
+          // Adiciona espaço se já houver conteúdo preservado
           fragment.appendChild(document.createTextNode(' ' + translation))
         } else {
           fragment.appendChild(document.createTextNode(translation))
         }
-        el.innerHTML = ''
-        el.appendChild(fragment)
       }
+
+      // Aplica as mudanças
+      el.innerHTML = ''
+      el.appendChild(fragment)
     }
-    // Processa strings normais
+    // Processa elementos de texto simples
     else if (typeof translation === 'string') {
       el.textContent = translation
     }
   })
 
-  // Processa seções aninhadas
+  // Processa seções aninhadas (como as dicas)
   const tipsSection = document.querySelector('#dicas')
   if (tipsSection) {
     translateNestedElements(tipsSection, 'tips')

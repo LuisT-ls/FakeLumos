@@ -128,30 +128,36 @@ function translateNestedElements(parentElement, translationKey) {
   const translatedContent = t(translationKey)
 
   if (typeof translatedContent === 'object' && translatedContent !== null) {
-    if (Array.isArray(translatedContent)) {
-      // Process arrays (for lists)
-      const listItems = parentElement.querySelectorAll('li')
-      listItems.forEach((item, index) => {
-        if (translatedContent[index]) {
-          item.textContent = translatedContent[index]
+    // Processa objetos (seções com intro e items)
+    Object.keys(translatedContent).forEach(key => {
+      const elements = parentElement.querySelectorAll(
+        `[data-i18n="${translationKey}.${key}"]`
+      )
+
+      elements.forEach(el => {
+        const value = translatedContent[key]
+
+        // Se for um array (lista de itens)
+        if (Array.isArray(value)) {
+          if (el.tagName === 'UL' || el.tagName === 'OL') {
+            const items = el.querySelectorAll('li')
+            items.forEach((item, index) => {
+              if (value[index]) {
+                item.textContent = value[index]
+              }
+            })
+          }
+        }
+        // Se for um objeto (subseções)
+        else if (typeof value === 'object') {
+          translateNestedElements(el, `${translationKey}.${key}`)
+        }
+        // Se for texto simples
+        else {
+          el.textContent = value
         }
       })
-    } else {
-      // Process nested objects
-      Object.keys(translatedContent).forEach(key => {
-        const elements = parentElement.querySelectorAll(
-          `[data-i18n="${translationKey}.${key}"]`
-        )
-        elements.forEach(el => {
-          const value = translatedContent[key]
-          if (typeof value === 'object' && value !== null) {
-            translateNestedElements(el, `${translationKey}.${key}`)
-          } else {
-            el.textContent = value
-          }
-        })
-      })
-    }
+    })
   }
 }
 

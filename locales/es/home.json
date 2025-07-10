@@ -78,5 +78,16 @@
         "3": "Observa detalles como fecha, lugar y elementos visuales que puedan indicar manipulación"
       }
     }
+  },
+  "footer": {
+    "about_title": "Sobre el Proyecto",
+    "about_text": "Este proyecto fue desarrollado con la misión de combatir la desinformación y estimular el pensamiento crítico. Es el trabajo final de la disciplina 'Algoritmo, Política y Sociedad', impartida por el profesor Dr. Paulo Fonseca en la Universidad Federal de Bahía.",
+    "useful_links": "Enlaces Útiles",
+    "how_it_works": "Cómo Funciona",
+    "tips": "Consejos",
+    "privacy_policy": "Política de Privacidad",
+    "terms_of_service": "Términos de Servicio",
+    "contact": "Contacto",
+    "copyright": "© 2025 Fake Lumos. Todos los derechos reservados."
   }
 }

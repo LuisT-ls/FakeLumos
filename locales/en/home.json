@@ -78,5 +78,16 @@
         "3": "Observe details like date, location and visual elements that may indicate manipulation"
       }
     }
+  },
+  "footer": {
+    "about_title": "About the Project",
+    "about_text": "This project was developed with the mission to combat misinformation and stimulate critical thinking. It is the final work for the course 'Algorithm, Politics and Society', taught by Professor Dr. Paulo Fonseca at the Federal University of Bahia.",
+    "useful_links": "Useful Links",
+    "how_it_works": "How It Works",
+    "tips": "Tips",
+    "privacy_policy": "Privacy Policy",
+    "terms_of_service": "Terms of Service",
+    "contact": "Contact",
+    "copyright": "© 2025 Fake Lumos. All rights reserved."
   }
 }
