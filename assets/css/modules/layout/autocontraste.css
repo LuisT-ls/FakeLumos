@@ -126,6 +126,18 @@ body.dark-mode.highlight-links .navbar a.nav-link {
   color: #ffffff !important;
 }
 
+/* Exceção específica para o brand da navbar */
+body.highlight-links .navbar-brand {
+  color: #ffffff !important;
+  text-decoration: none !important;
+  font-weight: normal !important;
+}
+
+body.highlight-links .navbar-brand:hover {
+  color: #ffffff !important;
+  text-decoration: none !important;
+}
+
 /* Links no footer quando destacados */
 body.highlight-links footer a {
   color: #ffffff !important;
@@ -135,6 +147,18 @@ body.highlight-links footer a {
 body.highlight-links footer a:hover {
   transform: translateY(-2px);
   display: inline-block;
+}
+
+/* Esconder elementos de navegação por teclado que possam aparecer no footer */
+body.highlight-links footer .sr-only,
+body.highlight-links footer [aria-hidden='true'] {
+  display: none !important;
+}
+
+/* Garantir que apenas links visíveis sejam destacados no footer */
+body.highlight-links footer a:not(.sr-only):not([aria-hidden='true']) {
+  color: #ffffff !important;
+  text-decoration: underline !important;
 }
 
 /* Estilos para Foco */

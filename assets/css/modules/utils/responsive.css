@@ -98,25 +98,9 @@
   }
 
   #clearHistoryBtn {
-    display: flex;
-    align-items: center;
     justify-content: center;
     width: 40px;
     height: 40px;
-    padding: 0;
-    border-radius: 50%;
-  }
-
-  #clearHistoryBtn i {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  #history-section .d-flex {
-    align-items: center;
   }
 }
 
@@ -133,32 +117,6 @@
 
   .step-icon {
     margin-bottom: 1rem;
-  }
-}
-
-/* Extra small screens (480px and below) */
-@media (max-width: 480px) {
-  #clearHistoryBtn {
-    width: 44px;
-    height: 44px;
-    min-width: 44px;
-    min-height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    border-radius: 50%;
-  }
-
-  #clearHistoryBtn i {
-    font-size: 1rem;
-    margin: 0;
-    padding: 0;
-  }
-
-  #history-section .d-flex {
-    align-items: center;
-    justify-content: space-between;
   }
 }
 
