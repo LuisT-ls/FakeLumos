@@ -25,6 +25,56 @@ const fallbackTranslations = {
       loading: 'Carregando...',
       close: 'Fechar'
     },
+    accessibility: {
+      menu_title: 'Acessibilidade',
+      close: 'Fechar',
+      contrast: {
+        title: 'Contraste',
+        normal: 'Normal',
+        high: 'Alto Contraste',
+        black_yellow: 'Preto/Amarelo',
+        yellow_black: 'Amarelo/Preto'
+      },
+      font_size: {
+        title: 'Tamanho da Fonte',
+        decrease: 'A-',
+        reset: 'A',
+        increase: 'A+'
+      },
+      text_spacing: {
+        title: 'Espaçamento de Texto',
+        normal: 'Normal',
+        medium: 'Médio',
+        large: 'Ampliado'
+      },
+      links: {
+        title: 'Links',
+        highlight: 'Destacar Links'
+      },
+      reading: {
+        title: 'Leitura Facilitada',
+        dyslexic_font: 'Fonte para Dislexia'
+      },
+      animations: {
+        title: 'Animações',
+        reduce_motion: 'Reduzir Animações'
+      },
+      cursor: {
+        title: 'Cursor',
+        large_cursor: 'Cursor Ampliado'
+      },
+      reset: {
+        button: 'Restaurar Configurações Padrão'
+      },
+      keyboard_shortcuts: {
+        title: 'Atalhos de Teclado',
+        toggle_contrast: 'Alternar Contraste',
+        toggle_dyslexic_font: 'Alternar Fonte para Dislexia',
+        increase_font: 'Aumentar Fonte',
+        decrease_font: 'Diminuir Fonte',
+        reset_font: 'Resetar Fonte'
+      }
+    },
     how_it_works: {
       discover: 'Descubra como funciona nossa análise',
       title: 'Como Funciona',
@@ -64,6 +114,56 @@ const fallbackTranslations = {
       loading: 'Loading...',
       close: 'Close'
     },
+    accessibility: {
+      menu_title: 'Accessibility',
+      close: 'Close',
+      contrast: {
+        title: 'Contrast',
+        normal: 'Normal',
+        high: 'High Contrast',
+        black_yellow: 'Black/Yellow',
+        yellow_black: 'Yellow/Black'
+      },
+      font_size: {
+        title: 'Font Size',
+        decrease: 'A-',
+        reset: 'A',
+        increase: 'A+'
+      },
+      text_spacing: {
+        title: 'Text Spacing',
+        normal: 'Normal',
+        medium: 'Medium',
+        large: 'Large'
+      },
+      links: {
+        title: 'Links',
+        highlight: 'Highlight Links'
+      },
+      reading: {
+        title: 'Reading Assistance',
+        dyslexic_font: 'Dyslexic Font'
+      },
+      animations: {
+        title: 'Animations',
+        reduce_motion: 'Reduce Animations'
+      },
+      cursor: {
+        title: 'Cursor',
+        large_cursor: 'Large Cursor'
+      },
+      reset: {
+        button: 'Restore Default Settings'
+      },
+      keyboard_shortcuts: {
+        title: 'Keyboard Shortcuts',
+        toggle_contrast: 'Toggle Contrast',
+        toggle_dyslexic_font: 'Toggle Dyslexic Font',
+        increase_font: 'Increase Font',
+        decrease_font: 'Decrease Font',
+        reset_font: 'Reset Font'
+      }
+    },
     how_it_works: {
       discover: 'Discover how our analysis works',
       title: 'How It Works',
@@ -99,6 +199,56 @@ const fallbackTranslations = {
       language: 'Español',
       loading: 'Cargando...',
       close: 'Cerrar'
+    },
+    accessibility: {
+      menu_title: 'Accesibilidad',
+      close: 'Cerrar',
+      contrast: {
+        title: 'Contraste',
+        normal: 'Normal',
+        high: 'Alto Contraste',
+        black_yellow: 'Negro/Amarillo',
+        yellow_black: 'Amarillo/Negro'
+      },
+      font_size: {
+        title: 'Tamaño de Fuente',
+        decrease: 'A-',
+        reset: 'A',
+        increase: 'A+'
+      },
+      text_spacing: {
+        title: 'Espaciado de Texto',
+        normal: 'Normal',
+        medium: 'Medio',
+        large: 'Ampliado'
+      },
+      links: {
+        title: 'Enlaces',
+        highlight: 'Resaltar Enlaces'
+      },
+      reading: {
+        title: 'Lectura Facilitada',
+        dyslexic_font: 'Fuente para Dislexia'
+      },
+      animations: {
+        title: 'Animaciones',
+        reduce_motion: 'Reducir Animaciones'
+      },
+      cursor: {
+        title: 'Cursor',
+        large_cursor: 'Cursor Ampliado'
+      },
+      reset: {
+        button: 'Restaurar Configuraciones Predeterminadas'
+      },
+      keyboard_shortcuts: {
+        title: 'Atajos de Teclado',
+        toggle_contrast: 'Alternar Contraste',
+        toggle_dyslexic_font: 'Alternar Fuente para Dislexia',
+        increase_font: 'Aumentar Fuente',
+        decrease_font: 'Disminuir Fuente',
+        reset_font: 'Restablecer Fuente'
+      }
     },
     how_it_works: {
       discover: 'Descubre cómo funciona nuestro análisis',
@@ -230,9 +380,11 @@ export function t(key, params = {}) {
     `home.${normalizedKey}`,
     `how_it_works.${normalizedKey}`,
     `tips.${normalizedKey}`,
+    `accessibility.${normalizedKey}`,
     normalizedKey.replace('how_it_works.', 'home.how_it_works.'),
     normalizedKey.replace('home.', ''),
-    normalizedKey.replace('tips.', 'home.tips.')
+    normalizedKey.replace('tips.', 'home.tips.'),
+    normalizedKey.replace('accessibility.', '')
   ].filter(k => k !== normalizedKey)
 
   for (const k of possibleKeys) {
@@ -251,7 +403,10 @@ export function t(key, params = {}) {
     return processTranslationValue(fallbackValue, params)
   }
 
+  // Debug: log das chaves tentadas
   console.warn(`Translation key not found: ${key}`)
+  console.warn(`Tried keys: ${normalizedKey}, ${possibleKeys.join(', ')}`)
+  console.warn(`Current translations structure:`, translations)
   return key
 }
 
