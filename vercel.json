@@ -1,65 +1,10 @@
 {
-  "version": 2,
-  "functions": {},
   "routes": [
-    {
-      "src": "/sw.js",
-      "dest": "/sw.js",
-      "headers": {
-        "Cache-Control": "public, max-age=0, must-revalidate",
-        "Service-Worker-Allowed": "/",
-        "Content-Type": "application/javascript"
-      }
-    },
     {
       "src": "/locales/(.*)",
       "headers": {
         "Cache-Control": "public, max-age=31536000, immutable"
       }
-    },
-    {
-      "src": "/manifest.json",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable",
-        "Content-Type": "application/manifest+json"
-      }
-    },
-    {
-      "src": "/assets/(.*)",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable"
-      }
-    },
-    {
-      "src": "/js/(.*)",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable"
-      }
-    },
-    {
-      "src": "/pages/(.*)",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable"
-      }
-    }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        }
-      ]
     }
   ]
 }
