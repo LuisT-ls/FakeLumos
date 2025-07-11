@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teste Service Worker</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .status {
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+      }
+      .success {
+        background-color: #d4edda;
+        color: #155724;
+      }
+      .error {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+      .warning {
+        background-color: #fff3cd;
+        color: #856404;
+      }
+      button {
+        padding: 10px 20px;
+        margin: 5px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .btn-primary {
+        background-color: #007bff;
+        color: white;
+      }
+      .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Teste do Service Worker</h1>
+
+    <div id="status"></div>
+
+    <div>
+      <button class="btn-primary" onclick="checkSW()">
+        Verificar Service Worker
+      </button>
+      <button class="btn-secondary" onclick="clearCaches()">
+        Limpar Caches
+      </button>
+      <button class="btn-secondary" onclick="unregisterSW()">
+        Desregistrar SW
+      </button>
+    </div>
+
+    <div id="logs"></div>
+
+    <script>
+      function log(message, type = 'info') {
+        const logs = document.getElementById('logs')
+        const div = document.createElement('div')
+        div.className = `status ${type}`
+        div.textContent = `[${new Date().toLocaleTimeString()}] ${message}`
+        logs.appendChild(div)
+      }
+
+      async function checkSW() {
+        log('Verificando Service Worker...')
+
+        if (!('serviceWorker' in navigator)) {
+          log('Service Worker não é suportado neste navegador', 'error')
+          return
+        }
+
+        try {
+          const registration = await navigator.serviceWorker.getRegistration()
+
+          if (registration) {
+            log(`Service Worker registrado: ${registration.scope}`, 'success')
+            log(
+              `Estado: ${
+                registration.active ? registration.active.state : 'não ativo'
+              }`
+            )
+
+            if (registration.active) {
+              log('Service Worker está ativo e funcionando', 'success')
+            } else {
+              log('Service Worker não está ativo', 'warning')
+            }
+          } else {
+            log('Nenhum Service Worker registrado', 'error')
+          }
+        } catch (error) {
+          log(`Erro ao verificar Service Worker: ${error.message}`, 'error')
+        }
+      }
+
+      async function clearCaches() {
+        log('Limpando caches...')
+
+        if ('caches' in window) {
+          try {
+            const cacheNames = await caches.keys()
+            const oldCaches = cacheNames.filter(name =>
+              name.startsWith('fake-news-checker-')
+            )
+
+            for (const cacheName of oldCaches) {
+              await caches.delete(cacheName)
+              log(`Cache removido: ${cacheName}`, 'success')
+            }
+
+            log('Todos os caches foram limpos', 'success')
+          } catch (error) {
+            log(`Erro ao limpar caches: ${error.message}`, 'error')
+          }
+        } else {
+          log('Cache API não é suportada', 'warning')
+        }
+      }
+
+      async function unregisterSW() {
+        log('Desregistrando Service Worker...')
+
+        if ('serviceWorker' in navigator) {
+          try {
+            const registration = await navigator.serviceWorker.getRegistration()
+            if (registration) {
+              await registration.unregister()
+              log('Service Worker desregistrado com sucesso', 'success')
+            } else {
+              log('Nenhum Service Worker para desregistrar', 'warning')
+            }
+          } catch (error) {
+            log(
+              `Erro ao desregistrar Service Worker: ${error.message}`,
+              'error'
+            )
+          }
+        }
+      }
+
+      // Verificação automática ao carregar a página
+      window.addEventListener('load', () => {
+        log('Página carregada, verificando Service Worker...')
+        checkSW()
+      })
+    </script>
+  </body>
+</html>

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'fake-news-checker-v1'
+const CACHE_NAME = 'fake-news-checker-v2'
 const OFFLINE_URL = '/pages/offline.html'
 
 const CRITICAL_ASSETS = [
@@ -10,34 +10,44 @@ const CRITICAL_ASSETS = [
   OFFLINE_URL
 ]
 
-const SECONDARY_ASSETS = ['/js/app.js']
-
-const DEFERRED_ASSETS = [
-  'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js'
+const SECONDARY_ASSETS = [
+  '/js/app.js',
+  '/js/modules/dom.js',
+  '/js/modules/events.js',
+  '/js/modules/ui.js',
+  '/js/modules/history.js',
+  '/js/modules/accessibility.js',
+  '/js/modules/i18n.js',
+  '/js/modules/rendering.js',
+  '/js/modules/share.js',
+  '/js/modules/storage.js',
+  '/js/modules/utils.js'
 ]
 
 self.addEventListener('install', event => {
+  console.log('Service Worker instalando...')
   event.waitUntil(
     Promise.all([
       caches.open(`${CACHE_NAME}-critical`).then(cache => {
         console.log('Cacheando recursos críticos')
-        return cache.addAll(CRITICAL_ASSETS)
+        return cache.addAll(CRITICAL_ASSETS).catch(error => {
+          console.warn('Erro ao cachear recursos críticos:', error)
+        })
       }),
       caches.open(`${CACHE_NAME}-secondary`).then(cache => {
         console.log('Cacheando recursos secundários')
-        return cache.addAll(SECONDARY_ASSETS)
-      }),
-      caches.open(`${CACHE_NAME}-deferred`).then(cache => {
-        console.log('Cacheando recursos adiados')
-        return cache.addAll(DEFERRED_ASSETS)
+        return cache.addAll(SECONDARY_ASSETS).catch(error => {
+          console.warn('Erro ao cachear recursos secundários:', error)
+        })
       })
     ]).catch(error => {
-      console.error('Erro ao cachear assets:', error)
+      console.error('Erro geral ao cachear assets:', error)
     })
   )
 })
 
 self.addEventListener('activate', event => {
+  console.log('Service Worker ativando...')
   event.waitUntil(
     caches
       .keys()
@@ -54,6 +64,9 @@ self.addEventListener('activate', event => {
       .then(() => {
         return self.clients.claim()
       })
+      .catch(error => {
+        console.error('Erro na ativação do Service Worker:', error)
+      })
   )
 })
 
@@ -62,6 +75,11 @@ self.addEventListener('fetch', event => {
 
   // Ignorar solicitações de extensão do Chrome
   if (url.protocol === 'chrome-extension:') {
+    return
+  }
+
+  // Ignorar solicitações para recursos externos (CDNs)
+  if (url.hostname !== location.hostname) {
     return
   }
 
@@ -111,40 +129,42 @@ self.addEventListener('fetch', event => {
     return
   }
 
-  // Default strategy
-  event.respondWith(
-    caches.match(event.request).then(response => {
-      if (response) return response
+  // Default strategy - apenas para recursos locais
+  if (url.hostname === location.hostname) {
+    event.respondWith(
+      caches.match(event.request).then(response => {
+        if (response) return response
 
-      return fetch(event.request)
-        .then(response => {
-          if (
-            !response ||
-            response.status !== 200 ||
-            response.type !== 'basic'
-          ) {
+        return fetch(event.request)
+          .then(response => {
+            if (
+              !response ||
+              response.status !== 200 ||
+              response.type !== 'basic'
+            ) {
+              return response
+            }
+
+            // Apenas armazenar em cache recursos válidos e seguros
+            const url = new URL(response.url)
+            if (url.protocol === 'http:' || url.protocol === 'https:') {
+              const responseToCache = response.clone()
+              caches
+                .open(`${CACHE_NAME}-secondary`)
+                .then(cache => cache.put(event.request, responseToCache))
+                .catch(err => console.warn('Erro ao cachear:', err))
+            }
+
             return response
-          }
-
-          // Apenas armazenar em cache recursos válidos e seguros
-          const url = new URL(response.url)
-          if (url.protocol === 'http:' || url.protocol === 'https:') {
-            const responseToCache = response.clone()
-            caches
-              .open(`${CACHE_NAME}-deferred`)
-              .then(cache => cache.put(event.request, responseToCache))
-              .catch(err => console.warn('Erro ao cachear:', err))
-          }
-
-          return response
-        })
-        .catch(() => {
-          if (event.request.mode === 'navigate') {
-            return caches.match(OFFLINE_URL)
-          }
-        })
-    })
-  )
+          })
+          .catch(() => {
+            if (event.request.mode === 'navigate') {
+              return caches.match(OFFLINE_URL)
+            }
+          })
+      })
+    )
+  }
 })
 
 function fetchAndCache(request, cacheName) {
