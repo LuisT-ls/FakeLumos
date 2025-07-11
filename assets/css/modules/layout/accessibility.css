@@ -202,26 +202,12 @@ body.larger-spacing {
 }
 
 /* Suporte a Fonte para Dislexia */
-@font-face {
-  font-family: 'OpenDyslexic';
-  src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/openDyslexic-Regular.otf')
-    format('opentype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'OpenDyslexic';
-  src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/openDyslexic-Bold.otf')
-    format('opentype');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-
 body.dyslexic-font {
-  font-family: 'OpenDyslexic', Arial, sans-serif !important;
+  font-family: 'Comic Neue', 'Arial', 'Verdana', 'Helvetica', sans-serif !important;
+  font-size: 1.1em !important;
+  line-height: 1.6 !important;
+  letter-spacing: 0.05em !important;
+  word-spacing: 0.1em !important;
 }
 
 body.dyslexic-font h1,
@@ -238,7 +224,7 @@ body.dyslexic-font button,
 body.dyslexic-font input,
 body.dyslexic-font select,
 body.dyslexic-font textarea {
-  font-family: 'OpenDyslexic', Arial, sans-serif !important;
+  font-family: 'Comic Neue', 'Arial', 'Verdana', 'Helvetica', sans-serif !important;
 }
 
 /* ===================
@@ -550,30 +536,16 @@ body.yellow-black-contrast td {
 .skip-link {
   position: absolute;
   top: -40px;
-  left: 6px;
+  left: 0;
   background: var(--primary-color);
   color: white;
-  padding: 8px 16px;
-  text-decoration: none;
-  border-radius: 0 0 4px 4px;
+  padding: 8px;
   z-index: 9999;
   transition: top 0.3s;
-  font-weight: bold;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  display: none;
 }
 
 .skip-link:focus {
   top: 0;
-  display: block;
-}
-
-/* Garantir que o skip-link não apareça em locais indesejados */
-.skip-link {
-  position: absolute !important;
-  top: -40px !important;
-  left: 6px !important;
-  z-index: 9999 !important;
 }
 
 /* ===================
