@@ -1,11 +1,19 @@
 {
+  "version": 2,
   "routes": [
     {
       "src": "/sw.js",
+      "dest": "/sw.js",
       "headers": {
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        "Content-Type": "application/javascript",
-        "Service-Worker-Allowed": "/"
+        "Cache-Control": "public, max-age=0, must-revalidate",
+        "Service-Worker-Allowed": "/",
+        "Content-Type": "application/javascript"
+      }
+    },
+    {
+      "src": "/locales/(.*)",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
       }
     },
     {
@@ -13,12 +21,6 @@
       "headers": {
         "Cache-Control": "public, max-age=31536000, immutable",
         "Content-Type": "application/manifest+json"
-      }
-    },
-    {
-      "src": "/locales/(.*)",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable"
       }
     },
     {
@@ -36,21 +38,27 @@
     {
       "src": "/pages/(.*)",
       "headers": {
-        "Cache-Control": "public, max-age=3600"
-      }
-    },
-    {
-      "src": "/(.*)",
-      "headers": {
-        "X-Content-Type-Options": "nosniff",
-        "X-Frame-Options": "DENY",
-        "X-XSS-Protection": "1; mode=block"
+        "Cache-Control": "public, max-age=31536000, immutable"
       }
     }
   ],
-  "functions": {
-    "sw.js": {
-      "maxDuration": 10
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ]
     }
-  }
+  ]
 }

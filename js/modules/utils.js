@@ -98,78 +98,11 @@ export function isValidUrl(url) {
   }
 }
 
-/**
- * Limpa caches antigos e força atualização do Service Worker
- */
-export async function clearOldCaches() {
-  if ('caches' in window) {
-    try {
-      const cacheNames = await caches.keys()
-      const oldCaches = cacheNames.filter(
-        name => name.startsWith('fake-news-checker-') && !name.includes('v2')
-      )
-
-      await Promise.all(
-        oldCaches.map(cacheName => {
-          console.log('Removendo cache antigo:', cacheName)
-          return caches.delete(cacheName)
-        })
-      )
-
-      console.log('Caches antigos removidos com sucesso')
-    } catch (error) {
-      console.warn('Erro ao limpar caches antigos:', error)
-    }
-  }
-}
-
-/**
- * Força a atualização do Service Worker
- */
-export async function forceServiceWorkerUpdate() {
-  if ('serviceWorker' in navigator) {
-    try {
-      const registration = await navigator.serviceWorker.getRegistration()
-      if (registration) {
-        await registration.update()
-        console.log('Service Worker atualizado')
-      }
-    } catch (error) {
-      console.warn('Erro ao atualizar Service Worker:', error)
-    }
-  }
-}
-
-/**
- * Verifica se o Service Worker está funcionando corretamente
- */
-export async function checkServiceWorkerStatus() {
-  if ('serviceWorker' in navigator) {
-    try {
-      const registration = await navigator.serviceWorker.getRegistration()
-      if (registration && registration.active) {
-        console.log('Service Worker ativo:', registration.active.state)
-        return true
-      } else {
-        console.warn('Service Worker não está ativo')
-        return false
-      }
-    } catch (error) {
-      console.error('Erro ao verificar Service Worker:', error)
-      return false
-    }
-  }
-  return false
-}
-
 export default {
   formatDate,
   truncateText,
   isMobileDevice,
   debounce,
   getBrowserLanguage,
-  isValidUrl,
-  clearOldCaches,
-  forceServiceWorkerUpdate,
-  checkServiceWorkerStatus
+  isValidUrl
 }

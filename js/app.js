@@ -11,12 +11,6 @@ import {
   initializeSkeletonElements
 } from './modules/dom.js'
 
-import {
-  clearOldCaches,
-  forceServiceWorkerUpdate,
-  checkServiceWorkerStatus
-} from './modules/utils.js'
-
 import { setupEventListeners } from './modules/events.js'
 import { initThemeSwitch } from './modules/ui.js'
 import {
@@ -73,7 +67,7 @@ async function initializeApp() {
     setupHistoryEvents()
     setupAccessibilityListeners()
     setupLanguageSwitcher()
-    await registerServiceWorker()
+    registerServiceWorker()
     initPerformanceObservers()
 
     // Força atualização inicial da UI
@@ -316,55 +310,17 @@ function setupLanguageSwitcher() {
 /**
  * Registra o Service Worker
  */
-async function registerServiceWorker() {
+function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    try {
-      // Limpa caches antigos primeiro
-      await clearOldCaches()
-
-      // Verifica se já existe um Service Worker registrado
-      const registrations = await navigator.serviceWorker.getRegistrations()
-      for (const registration of registrations) {
-        if (registration.active) {
-          await registration.unregister()
-        }
-      }
-
-      // Registra o novo Service Worker
-      const registration = await navigator.serviceWorker.register('/sw.js', {
-        scope: '/',
-        updateViaCache: 'none'
+    navigator.serviceWorker
+      .register('/sw.js')
+      .then(registration => {
+        console.log('ServiceWorker registrado com sucesso:', registration.scope)
+        registration.update()
       })
-
-      console.log('ServiceWorker registrado com sucesso:', registration.scope)
-
-      // Força atualização se necessário
-      await registration.update()
-
-      // Listener para quando o Service Worker for atualizado
-      registration.addEventListener('updatefound', () => {
-        const newWorker = registration.installing
-        newWorker.addEventListener('statechange', () => {
-          if (
-            newWorker.state === 'installed' &&
-            navigator.serviceWorker.controller
-          ) {
-            console.log('Nova versão do Service Worker disponível')
-          }
-        })
+      .catch(error => {
+        console.error('Erro no registro do ServiceWorker:', error)
       })
-
-      // Verifica o status após um breve delay
-      setTimeout(async () => {
-        const isWorking = await checkServiceWorkerStatus()
-        if (!isWorking) {
-          console.warn('Service Worker pode não estar funcionando corretamente')
-        }
-      }, 2000)
-    } catch (error) {
-      console.error('Erro no registro do ServiceWorker:', error)
-      // Não falha a aplicação se o Service Worker não puder ser registrado
-    }
   }
 }
 

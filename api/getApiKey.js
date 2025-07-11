@@ -1,6 +1,6 @@
 // API para obter a chave API de forma segura
 // api/getApiKey
-export default function handler(req, res) {
+export default function getApiKey(req, res) {
   // Permitir requisições do mesmo domínio
   const allowedOrigin = 'https://fakelumos.vercel.app/'
 
