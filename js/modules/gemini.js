@@ -41,15 +41,19 @@ function ajustarGeminiComFontes(geminiResult, googleResults, textoOriginal) {
   if (!Array.isArray(googleResults) || googleResults.length === 0)
     return geminiResult
 
-  // Extrai datas do texto original (ex: 2025, 2020, 20/07/2025)
+  // Extrai datas do texto original (ex: 2025, 2020, 20/07/2025, abril de 2025)
   const datasInput = []
   const regexAno = /(20\d{2})/g
   const regexData = /(\d{1,2}\/\d{1,2}\/20\d{2})/g
+  const regexMesAno =
+    /((janeiro|fevereiro|março|abril|maio|junho|julho|agosto|setembro|outubro|novembro|dezembro) de (20\d{2}))/gi
   let match
   while ((match = regexAno.exec(textoOriginal)) !== null)
     datasInput.push(match[1])
   while ((match = regexData.exec(textoOriginal)) !== null)
     datasInput.push(match[1])
+  while ((match = regexMesAno.exec(textoOriginal)) !== null)
+    datasInput.push(match[0].toLowerCase())
 
   // Palavras-chave para confirmação de morte (pode expandir para outros casos)
   const palavrasChaveConfirmacao = [
@@ -67,22 +71,38 @@ function ajustarGeminiComFontes(geminiResult, googleResults, textoOriginal) {
     'morto',
     'confirmada a morte',
     'confirma morte',
-    'confirma óbito'
+    'confirma óbito',
+    'covid',
+    'covid-19',
+    'coronavírus',
+    'pandemia',
+    'mortes',
+    'óbitos',
+    'casos',
+    'faleceu',
+    'faleceu de covid',
+    'morreu de covid',
+    'mortes por covid',
+    'óbitos por covid'
   ]
 
   // Extrai possíveis nomes do texto original (exemplo simples)
   const nomesPossiveis = textoOriginal.match(/[A-Z][a-z]+\s[A-Z][a-z]+/g) || []
   const textoLower = textoOriginal.toLowerCase()
 
-  // Procura confirmação nas fontes, agora também checando datas
+  // Busca confirmação criteriosa: só confirma se a fonte mencionar explicitamente o mesmo mês/ano ou data
   const fonteConfirma = googleResults.find(item => {
     const titulo = item.title.toLowerCase()
     const snippet = item.snippet.toLowerCase()
-    // Checa se alguma data do input está presente na fonte
-    const contemData =
-      datasInput.length === 0 ||
-      datasInput.some(data => titulo.includes(data) || snippet.includes(data))
-    if (!contemData) return false
+    // Checa se alguma data/mês/ano do input está presente na fonte
+    let contemData = false
+    for (const data of datasInput) {
+      if (titulo.includes(data) || snippet.includes(data)) {
+        contemData = true
+        break
+      }
+    }
+    if (!contemData && datasInput.length > 0) return false
     // Checa se alguma palavra-chave aparece junto do nome
     return palavrasChaveConfirmacao.some(palavra => {
       if (titulo.includes(palavra) || snippet.includes(palavra)) {
@@ -98,6 +118,33 @@ function ajustarGeminiComFontes(geminiResult, googleResults, textoOriginal) {
       return false
     })
   })
+
+  // Se usuário forneceu ano > 2022, mês/ano ou data, e não há confirmação exata, resposta neutra
+  const anoFuturo = datasInput.some(data => {
+    const ano = data.match(/20\d{2}/)
+    return ano && parseInt(ano[0]) > 2022
+  })
+  if (!fonteConfirma && anoFuturo) {
+    return {
+      ...geminiResult,
+      classificacao: 'Não Verificável',
+      score: 0.3,
+      explicacao_score:
+        'Não há informações suficientes ou fontes confiáveis que confirmem a afirmação para o período exato informado.',
+      elementos_verdadeiros: [],
+      elementos_falsos: [],
+      elementos_suspeitos: [
+        'Não foi encontrada confirmação para a data/mês/ano informado nas fontes pesquisadas.'
+      ],
+      indicadores_desinformacao: [],
+      recomendacoes: [
+        'Aguarde a publicação de dados oficiais ou notícias confiáveis para o período informado.',
+        ...(geminiResult.recomendacoes || [])
+      ],
+      analise_detalhada:
+        'A análise não pôde ser realizada de forma conclusiva, pois não há fontes confiáveis que confirmem ou neguem a afirmação para o período exato informado pelo usuário.'
+    }
+  }
 
   if (fonteConfirma) {
     // Ajusta a resposta do Gemini
