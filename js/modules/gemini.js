@@ -41,6 +41,16 @@ function ajustarGeminiComFontes(geminiResult, googleResults, textoOriginal) {
   if (!Array.isArray(googleResults) || googleResults.length === 0)
     return geminiResult
 
+  // Extrai datas do texto original (ex: 2025, 2020, 20/07/2025)
+  const datasInput = []
+  const regexAno = /(20\d{2})/g
+  const regexData = /(\d{1,2}\/\d{1,2}\/20\d{2})/g
+  let match
+  while ((match = regexAno.exec(textoOriginal)) !== null)
+    datasInput.push(match[1])
+  while ((match = regexData.exec(textoOriginal)) !== null)
+    datasInput.push(match[1])
+
   // Palavras-chave para confirmação de morte (pode expandir para outros casos)
   const palavrasChaveConfirmacao = [
     'morre',
@@ -64,14 +74,18 @@ function ajustarGeminiComFontes(geminiResult, googleResults, textoOriginal) {
   const nomesPossiveis = textoOriginal.match(/[A-Z][a-z]+\s[A-Z][a-z]+/g) || []
   const textoLower = textoOriginal.toLowerCase()
 
-  // Procura confirmação nas fontes
+  // Procura confirmação nas fontes, agora também checando datas
   const fonteConfirma = googleResults.find(item => {
     const titulo = item.title.toLowerCase()
     const snippet = item.snippet.toLowerCase()
+    // Checa se alguma data do input está presente na fonte
+    const contemData =
+      datasInput.length === 0 ||
+      datasInput.some(data => titulo.includes(data) || snippet.includes(data))
+    if (!contemData) return false
     // Checa se alguma palavra-chave aparece junto do nome
     return palavrasChaveConfirmacao.some(palavra => {
       if (titulo.includes(palavra) || snippet.includes(palavra)) {
-        // Se nome está no texto original, exige que também esteja na fonte
         if (nomesPossiveis.length > 0) {
           return nomesPossiveis.some(
             nome =>
@@ -79,7 +93,6 @@ function ajustarGeminiComFontes(geminiResult, googleResults, textoOriginal) {
               snippet.includes(nome.toLowerCase())
           )
         }
-        // Se não achou nome, só palavra-chave já é indício
         return true
       }
       return false
