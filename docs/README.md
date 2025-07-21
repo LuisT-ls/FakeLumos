@@ -5,11 +5,12 @@
 [![Bootstrap 5](https://img.shields.io/badge/Bootstrap-5.3.0-purple.svg)](https://getbootstrap.com/)
 [![PWA Ready](https://img.shields.io/badge/PWA-Ready-blue.svg)](https://web.dev/progressive-web-apps/)
 
-Uma aplicação web moderna que utiliza Inteligência Artificial e a API do Google Gemini para detectar e analisar possíveis fake news em tempo real.
+Uma aplicação web moderna que utiliza Inteligência Artificial, a API do Google Gemini **e resultados de busca em tempo real do Google** para detectar e analisar possíveis fake news e fatos atuais.
 
 ## 🎯 Principais Destaques
 
 - ⚡ Análise em tempo real com IA avançada
+- 🌐 Verificação de fatos pós-2022 com busca automática no Google
 - 📱 Progressive Web App (PWA) instalável
 - 🎨 Interface moderna e responsiva
 - 🌓 Suporte a tema claro/escuro
@@ -107,6 +108,7 @@ cd FakeLumos
 ### Análise de Conteúdo
 
 - Verificação de credibilidade em tempo real
+- **Complementação e checagem de fatos com resultados de busca do Google**
 - Pontuação de confiabilidade
 - Identificação de elementos suspeitos
 - Histórico de verificações locais
@@ -157,4 +159,4 @@ Este projeto está licenciado sob a [MIT License](docs/LICENSE).
 
 ---
 
-> **Nota importante**: Esta ferramenta é um auxílio à verificação de informações e não substitui a análise crítica e consulta a fontes confiáveis.
+> **Nota importante**: Esta ferramenta é um auxílio à verificação de informações e não substitui a análise crítica e consulta a fontes confiáveis. Agora, além da análise por IA, utiliza também resultados de busca do Google para checagem de fatos atuais e pós-2022.
