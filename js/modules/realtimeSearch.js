@@ -33,7 +33,19 @@ const whitelist = [
   'inpe.br',
   'ibge.gov.br',
   'agencia.fiocruz.br',
-  'agencia.ibge.gov.br'
+  'agencia.ibge.gov.br',
+  'aosfatos.org',
+  'lupa.news',
+  'boatos.org',
+  'theintercept.com',
+  'dados.gov.br',
+  'ipea.gov.br',
+  'nasa.gov',
+  'unesco.org',
+  'revistapesquisa.fapesp.br',
+  'msdmanuals.com',
+  'tse.jus.br',
+  'stf.jus.br'
 ]
 
 // Lista de domínios irrelevantes (blacklist)
@@ -75,8 +87,37 @@ const blacklist = [
   'bilibili',
   'weibo',
   'vk.com',
-  'ok.ru'
+  'ok.ru',
+  // Novos domínios e padrões sugeridos
+  'revistaforum.com.br',
+  'metropoles.com',
+  'jovempan.com.br',
+  'discord.com',
+  '4chan.org',
+  '8kun.top',
+  // TLDs suspeitos
+  '.xyz',
+  '.click',
+  '.top',
+  '.online',
+  // Termos genéricos
+  'noticias',
+  'dicas',
+  'blog',
+  'info',
+  'web',
+  'viral'
 ]
+
+function isBlacklisted(link) {
+  const lower = link.toLowerCase()
+  // Verifica se o domínio ou termo está na blacklist
+  if (blacklist.some(bad => lower.includes(bad))) return true
+  // Verifica TLDs suspeitos
+  const tldsSuspeitos = ['.xyz', '.click', '.top', '.online']
+  if (tldsSuspeitos.some(tld => lower.endsWith(tld))) return true
+  return false
+}
 
 export async function searchGoogleCustom(query) {
   const apiKey = 'AIzaSyBCUCD3BN-tKrbR26AeeepxYSs8ihZp7dw'
@@ -103,10 +144,7 @@ export async function searchGoogleCustom(query) {
       // Se não sobrou nada na whitelist, aplica blacklist para remover irrelevantes
       if (results.length === 0) {
         results = data.items
-          .filter(
-            item =>
-              !blacklist.some(bad => item.link.toLowerCase().includes(bad))
-          )
+          .filter(item => !isBlacklisted(item.link))
           .map(item => ({
             title: item.title,
             link: item.link,
