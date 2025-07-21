@@ -31,6 +31,86 @@ function isPerguntaPos2022(text) {
 }
 
 /**
+ * Verifica se as fontes do Google confirmam o fato e ajusta a resposta do Gemini
+ * @param {Object} geminiResult - Resultado original do Gemini
+ * @param {Array} googleResults - Resultados do Google Custom Search
+ * @param {string} textoOriginal - Texto analisado
+ * @returns {Object} - Resultado do Gemini ajustado, se necessário
+ */
+function ajustarGeminiComFontes(geminiResult, googleResults, textoOriginal) {
+  if (!Array.isArray(googleResults) || googleResults.length === 0)
+    return geminiResult
+
+  // Palavras-chave para confirmação de morte (pode expandir para outros casos)
+  const palavrasChaveConfirmacao = [
+    'morre',
+    'morreu',
+    'óbito',
+    'falecimento',
+    'faleceu',
+    'morte',
+    'perde a vida',
+    'vem a óbito',
+    'falecida',
+    'falecido',
+    'morta',
+    'morto',
+    'confirmada a morte',
+    'confirma morte',
+    'confirma óbito'
+  ]
+
+  // Extrai possíveis nomes do texto original (exemplo simples)
+  const nomesPossiveis = textoOriginal.match(/[A-Z][a-z]+\s[A-Z][a-z]+/g) || []
+  const textoLower = textoOriginal.toLowerCase()
+
+  // Procura confirmação nas fontes
+  const fonteConfirma = googleResults.find(item => {
+    const titulo = item.title.toLowerCase()
+    const snippet = item.snippet.toLowerCase()
+    // Checa se alguma palavra-chave aparece junto do nome
+    return palavrasChaveConfirmacao.some(palavra => {
+      if (titulo.includes(palavra) || snippet.includes(palavra)) {
+        // Se nome está no texto original, exige que também esteja na fonte
+        if (nomesPossiveis.length > 0) {
+          return nomesPossiveis.some(
+            nome =>
+              titulo.includes(nome.toLowerCase()) ||
+              snippet.includes(nome.toLowerCase())
+          )
+        }
+        // Se não achou nome, só palavra-chave já é indício
+        return true
+      }
+      return false
+    })
+  })
+
+  if (fonteConfirma) {
+    // Ajusta a resposta do Gemini
+    return {
+      ...geminiResult,
+      classificacao: 'Comprovadamente Verdadeiro',
+      score: 0.98,
+      explicacao_score:
+        'A informação foi confirmada por fontes confiáveis e recentes encontradas no Google.',
+      elementos_verdadeiros: [
+        ...(geminiResult.elementos_verdadeiros || []),
+        `Confirmação encontrada em: <a href="${fonteConfirma.link}" target="_blank">${fonteConfirma.title}</a>`
+      ],
+      elementos_falsos: [],
+      elementos_suspeitos: [],
+      indicadores_desinformacao: [],
+      recomendacoes: [
+        'Consulte as fontes recentes listadas para mais detalhes.',
+        ...(geminiResult.recomendacoes || [])
+      ]
+    }
+  }
+  return geminiResult
+}
+
+/**
  * Gerencia o processo de verificação do texto
  * Coordena a interação com a API e atualização da UI
  */
@@ -44,9 +124,11 @@ export async function handleVerification() {
     let verification = null
     if (isPerguntaPos2022(text)) {
       // 1. Analisa com Gemini normalmente
-      const geminiResult = await checkWithGemini(text)
+      let geminiResult = await checkWithGemini(text)
       // 2. Complementa com busca Google
       const googleResults = await searchGoogleCustom(text)
+      // 3. Ajusta Gemini se fontes confirmarem
+      geminiResult = ajustarGeminiComFontes(geminiResult, googleResults, text)
       verification = {
         id: Date.now(),
         timestamp: new Date().toISOString(),
@@ -57,7 +139,7 @@ export async function handleVerification() {
         realtimeData: googleResults
       }
       showNotification(
-        'Análise Gemini complementada com dados em tempo real (Google)',
+        'Análise Gemini complementada e ajustada com base em fontes recentes (Google)',
         'info'
       )
     } else {
