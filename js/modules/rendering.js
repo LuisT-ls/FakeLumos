@@ -62,12 +62,13 @@ export function displayResults(verification) {
     Array.isArray(verification.realtimeData) &&
     verification.realtimeData.length > 0
   ) {
+    const topGoogleResults = verification.realtimeData.slice(0, 5)
     googleSection = `
       <div class="card mb-3">
         <div class="card-body">
           <h4 class="h6 mb-3"><i class="fab fa-google me-2"></i>Fontes Recentes (Google)</h4>
           <ul class="list-group list-group-flush">
-            ${verification.realtimeData
+            ${topGoogleResults
               .map(
                 item => `
               <li class="list-group-item">
