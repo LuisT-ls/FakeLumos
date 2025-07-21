@@ -56,6 +56,33 @@ export function displayResults(verification) {
     </div>`
     : ''
 
+  // Seção de fontes do Google
+  let googleSection = ''
+  if (
+    Array.isArray(verification.realtimeData) &&
+    verification.realtimeData.length > 0
+  ) {
+    googleSection = `
+      <div class="card mb-3">
+        <div class="card-body">
+          <h4 class="h6 mb-3"><i class="fab fa-google me-2"></i>Fontes Recentes (Google)</h4>
+          <ul class="list-group list-group-flush">
+            ${verification.realtimeData
+              .map(
+                item => `
+              <li class="list-group-item">
+                <a href="${item.link}" target="_blank" rel="noopener" class="fw-bold">${item.title}</a>
+                <div class="small text-muted">${item.snippet}</div>
+              </li>
+            `
+              )
+              .join('')}
+          </ul>
+        </div>
+      </div>
+    `
+  }
+
   elements.result.innerHTML = `
     <div class="result-card p-4 border rounded shadow-sm">
       ${temporalAlert}
@@ -87,6 +114,8 @@ export function displayResults(verification) {
           <p class="mb-0">${gemini.analise_detalhada}</p>
         </div>
       </div>
+
+      ${googleSection}
 
       <div class="feedback-section mt-4 text-center" data-verification-id="${
         verification.id

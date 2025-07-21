@@ -7,6 +7,28 @@ import { elements } from './dom.js'
 import { saveVerification } from './history.js'
 import { showNotification } from './ui.js'
 import { fetchApiKey } from './api.js'
+import { searchGoogleCustom } from './realtimeSearch.js'
+
+/**
+ * Detecta se a pergunta envolve fatos pós-2022
+ * @param {string} text
+ * @returns {boolean}
+ */
+function isPerguntaPos2022(text) {
+  const regexAno = /\b(202[3-9]|20[3-9][0-9]|21[0-9][0-9])\b/
+  const palavrasChave = [
+    'atualmente',
+    'hoje',
+    'neste ano',
+    'últimas notícias',
+    'recente',
+    'agora'
+  ]
+  if (regexAno.test(text.toLowerCase())) return true
+  if (palavrasChave.some(palavra => text.toLowerCase().includes(palavra)))
+    return true
+  return false
+}
 
 /**
  * Gerencia o processo de verificação do texto
@@ -19,15 +41,36 @@ export async function handleVerification() {
   showLoadingState(true)
 
   try {
-    const geminiResult = await checkWithGemini(text)
-    const verification = {
-      id: Date.now(),
-      timestamp: new Date().toISOString(),
-      text: text.substring(0, 200) + (text.length > 200 ? '...' : ''),
-      geminiAnalysis: geminiResult,
-      overallScore: geminiResult.score
+    let verification = null
+    if (isPerguntaPos2022(text)) {
+      // 1. Analisa com Gemini normalmente
+      const geminiResult = await checkWithGemini(text)
+      // 2. Complementa com busca Google
+      const googleResults = await searchGoogleCustom(text)
+      verification = {
+        id: Date.now(),
+        timestamp: new Date().toISOString(),
+        text: text.substring(0, 200) + (text.length > 200 ? '...' : ''),
+        geminiAnalysis: geminiResult,
+        overallScore: geminiResult.score,
+        realtimeSource: 'Google Custom Search',
+        realtimeData: googleResults
+      }
+      showNotification(
+        'Análise Gemini complementada com dados em tempo real (Google)',
+        'info'
+      )
+    } else {
+      // Fluxo padrão Gemini
+      const geminiResult = await checkWithGemini(text)
+      verification = {
+        id: Date.now(),
+        timestamp: new Date().toISOString(),
+        text: text.substring(0, 200) + (text.length > 200 ? '...' : ''),
+        geminiAnalysis: geminiResult,
+        overallScore: geminiResult.score
+      }
     }
-
     saveVerification(verification)
   } catch (error) {
     console.error('Erro durante a verificação:', error)
