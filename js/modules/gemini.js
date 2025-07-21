@@ -104,7 +104,8 @@ function ajustarGeminiComFontes(geminiResult, googleResults, textoOriginal) {
       recomendacoes: [
         'Consulte as fontes recentes listadas para mais detalhes.',
         ...(geminiResult.recomendacoes || [])
-      ]
+      ],
+      analise_detalhada: `A afirmação foi confirmada por fontes confiáveis e recentes, como <a href="${fonteConfirma.link}" target="_blank">${fonteConfirma.title}</a>. Recomenda-se consultar a fonte para mais detalhes e contexto.`
     }
   }
   return geminiResult
