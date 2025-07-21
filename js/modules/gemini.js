@@ -41,7 +41,7 @@ function ajustarGeminiComFontes(geminiResult, googleResults, textoOriginal) {
   if (!Array.isArray(googleResults) || googleResults.length === 0)
     return geminiResult
 
-  // Extrai datas do texto original (ex: 2025, 2020, 20/07/2025, abril de 2025)
+  // Extrai datas do texto original (ex: 2025, 2020, 20/07/2025, março de 2025)
   const datasInput = []
   const regexAno = /(20\d{2})/g
   const regexData = /(\d{1,2}\/\d{1,2}\/20\d{2})/g
@@ -55,7 +55,55 @@ function ajustarGeminiComFontes(geminiResult, googleResults, textoOriginal) {
   while ((match = regexMesAno.exec(textoOriginal)) !== null)
     datasInput.push(match[0].toLowerCase())
 
-  // Palavras-chave para confirmação de morte (pode expandir para outros casos)
+  // Extração de mês e ano para busca criteriosa
+  const meses = [
+    'janeiro',
+    'fevereiro',
+    'março',
+    'abril',
+    'maio',
+    'junho',
+    'julho',
+    'agosto',
+    'setembro',
+    'outubro',
+    'novembro',
+    'dezembro'
+  ]
+  let mesEncontrado = null
+  let anoEncontrado = null
+  for (const mes of meses) {
+    const regex = new RegExp(`${mes} de (20\\d{2})`, 'i')
+    const found = textoOriginal.match(regex)
+    if (found) {
+      mesEncontrado = mes
+      anoEncontrado = found[1]
+      break
+    }
+  }
+  // Também aceita formatos tipo 03/2025, mar/2025
+  if (!mesEncontrado) {
+    const regexNum = /(\d{1,2})\/(20\d{2})/
+    const found = textoOriginal.match(regexNum)
+    if (found) {
+      mesEncontrado = meses[parseInt(found[1], 10) - 1]
+      anoEncontrado = found[2]
+    }
+  }
+  // Gera padrões de busca para mês/ano
+  let padroesMesAno = []
+  if (mesEncontrado && anoEncontrado) {
+    const mesNum = (meses.indexOf(mesEncontrado) + 1)
+      .toString()
+      .padStart(2, '0')
+    padroesMesAno = [
+      `${mesEncontrado} de ${anoEncontrado}`,
+      `${mesNum}/${anoEncontrado}`,
+      `${mesEncontrado.slice(0, 3)}/${anoEncontrado}`
+    ]
+  }
+
+  // Palavras-chave para confirmação de morte e covid
   const palavrasChaveConfirmacao = [
     'morre',
     'morreu',
@@ -94,15 +142,18 @@ function ajustarGeminiComFontes(geminiResult, googleResults, textoOriginal) {
   const fonteConfirma = googleResults.find(item => {
     const titulo = item.title.toLowerCase()
     const snippet = item.snippet.toLowerCase()
-    // Checa se alguma data/mês/ano do input está presente na fonte
-    let contemData = false
-    for (const data of datasInput) {
-      if (titulo.includes(data) || snippet.includes(data)) {
-        contemData = true
-        break
-      }
+    // Checa se algum padrão de mês/ano está presente
+    let contemMesAno = false
+    if (padroesMesAno.length > 0) {
+      contemMesAno = padroesMesAno.some(
+        pat => titulo.includes(pat) || snippet.includes(pat)
+      )
+    } else if (datasInput.length > 0) {
+      contemMesAno = datasInput.some(
+        data => titulo.includes(data) || snippet.includes(data)
+      )
     }
-    if (!contemData && datasInput.length > 0) return false
+    if (!contemMesAno && padroesMesAno.length > 0) return false
     // Checa se alguma palavra-chave aparece junto do nome
     return palavrasChaveConfirmacao.some(palavra => {
       if (titulo.includes(palavra) || snippet.includes(palavra)) {
