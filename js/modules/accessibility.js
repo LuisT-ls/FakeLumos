@@ -12,8 +12,6 @@ let currentDyslexicMode = false
  * @param {string} type - Tipo de contraste (high/black-yellow/yellow-black/normal)
  */
 export function setContrast(type) {
-  console.log(`Definindo contraste: ${type}`)
-
   // Remove todas as classes de contraste
   document.body.classList.remove(
     'high-contrast',
@@ -44,7 +42,6 @@ export function setContrast(type) {
  * @param {string} action - Ação a ser executada (increase/decrease/reset)
  */
 export function changeFontSize(action) {
-  console.log(`Alterando tamanho da fonte: ${action}`)
   const prevSize = currentFontSize
 
   if (action === 'increase' && currentFontSize < 200) {
@@ -77,8 +74,6 @@ export function changeFontSize(action) {
  * @param {string} type - Tipo de espaçamento (large/larger/normal)
  */
 export function changeLineSpacing(type) {
-  console.log(`Alterando espaçamento: ${type}`)
-
   // Remove todas as classes de espaçamento
   document.body.classList.remove('large-spacing', 'larger-spacing')
 
@@ -99,7 +94,6 @@ export function changeLineSpacing(type) {
  * @param {boolean} enabled - Estado do destaque de links
  */
 export function toggleHighlightLinks(enabled) {
-  console.log(`Alterando destaque de links: ${enabled}`)
   if (enabled) {
     document.body.classList.add('highlight-links')
     localStorage.setItem('highlightLinks', 'true')
@@ -114,7 +108,6 @@ export function toggleHighlightLinks(enabled) {
  * @param {boolean} enabled - Estado da fonte para dislexia
  */
 export function toggleDyslexicFont(enabled) {
-  console.log(`Alterando fonte para dislexia: ${enabled}`)
   currentDyslexicMode = enabled
 
   if (enabled) {
@@ -131,8 +124,6 @@ export function toggleDyslexicFont(enabled) {
  * @param {boolean} enabled - Estado de animações reduzidas
  */
 export function toggleReducedMotion(enabled) {
-  console.log(`Alterando animações: ${enabled ? 'reduzidas' : 'normais'}`)
-
   if (enabled) {
     document.body.classList.add('reduced-motion')
     localStorage.setItem('reducedMotion', 'true')
@@ -147,8 +138,6 @@ export function toggleReducedMotion(enabled) {
  * @param {boolean} enabled - Estado do cursor ampliado
  */
 export function toggleLargeCursor(enabled) {
-  console.log(`Alterando cursor: ${enabled ? 'ampliado' : 'normal'}`)
-
   if (enabled) {
     document.body.classList.add('large-cursor')
     localStorage.setItem('largeCursor', 'true')
@@ -162,8 +151,6 @@ export function toggleLargeCursor(enabled) {
  * Carrega as preferências de acessibilidade salvas
  */
 export function loadAccessibilityPreferences() {
-  console.log('Carregando preferências de acessibilidade')
-
   // Carregar contraste
   const savedContrast = localStorage.getItem('contrast')
   if (savedContrast) {
@@ -238,7 +225,6 @@ export function loadAccessibilityPreferences() {
     window.matchMedia &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches
   ) {
-    console.log('Preferência do sistema por redução de movimento detectada')
     toggleReducedMotion(true)
     const toggle = document.getElementById('reducedMotionToggle')
     if (toggle) toggle.checked = true
@@ -249,7 +235,6 @@ export function loadAccessibilityPreferences() {
     window.matchMedia &&
     window.matchMedia('(prefers-contrast: more)').matches
   ) {
-    console.log('Preferência do sistema por alto contraste detectada')
     setContrast('high')
     const contrastButtons = document.querySelectorAll('button[data-contrast]')
     contrastButtons.forEach(button => {
@@ -264,8 +249,6 @@ export function loadAccessibilityPreferences() {
  * Configura os event listeners de acessibilidade
  */
 export function setupAccessibilityListeners() {
-  console.log('Configurando listeners de acessibilidade')
-
   // Botões de contraste
   const contrastButtons = document.querySelectorAll('[data-contrast]')
   contrastButtons.forEach(button => {
@@ -277,7 +260,6 @@ export function setupAccessibilityListeners() {
       button.classList.add('active')
       setContrast(type)
     })
-    console.log(`Botão de contraste configurado: ${type}`)
   })
 
   // Botões de tamanho de fonte
@@ -285,7 +267,6 @@ export function setupAccessibilityListeners() {
   fontSizeButtons.forEach(button => {
     const action = button.getAttribute('data-font-action')
     button.addEventListener('click', () => changeFontSize(action))
-    console.log(`Botão de tamanho de fonte configurado: ${action}`)
   })
 
   // Botões de espaçamento
@@ -299,7 +280,6 @@ export function setupAccessibilityListeners() {
       button.classList.add('active')
       changeLineSpacing(type)
     })
-    console.log(`Botão de espaçamento configurado: ${type}`)
   })
 
   // Toggle de destaque de links
@@ -308,7 +288,6 @@ export function setupAccessibilityListeners() {
     highlightLinksToggle.addEventListener('change', e =>
       toggleHighlightLinks(e.target.checked)
     )
-    console.log('Toggle de destaque de links configurado')
   }
 
   // Toggle de fonte para dislexia
@@ -317,7 +296,6 @@ export function setupAccessibilityListeners() {
     dyslexicFontToggle.addEventListener('change', e =>
       toggleDyslexicFont(e.target.checked)
     )
-    console.log('Toggle de fonte para dislexia configurado')
   }
 
   // Toggle de animações reduzidas
@@ -326,7 +304,6 @@ export function setupAccessibilityListeners() {
     reducedMotionToggle.addEventListener('change', e =>
       toggleReducedMotion(e.target.checked)
     )
-    console.log('Toggle de animações reduzidas configurado')
   }
 
   // Toggle de cursor ampliado
@@ -335,7 +312,6 @@ export function setupAccessibilityListeners() {
     largeCursorToggle.addEventListener('change', e =>
       toggleLargeCursor(e.target.checked)
     )
-    console.log('Toggle de cursor ampliado configurado')
   }
 
   // Botão de reset
@@ -433,8 +409,6 @@ export function setupAccessibilityListeners() {
  * Redefine todas as configurações de acessibilidade para os valores padrão
  */
 export function resetAllAccessibilitySettings() {
-  console.log('Redefinindo todas as configurações de acessibilidade')
-
   // Redefine contraste
   setContrast('normal')
 
