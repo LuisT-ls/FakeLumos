@@ -2,6 +2,7 @@
   "name": "projeto-web-modular",
   "version": "1.0.0",
   "description": "Projeto web com estrutura CSS modular",
+  "type": "module",
   "main": "index.html",
   "scripts": {
     "start": "python3 -m http.server 8000",
