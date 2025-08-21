@@ -32,6 +32,19 @@
   "tips_title": "Tips to Identify Fake News",
   "history_title": "Verification History",
   "clear_history": "Clear History",
+  "no_verifications": "No verifications performed",
+  "empty_history": {
+    "title": "Empty History",
+    "message": "No history to clear",
+    "description": "Perform some verifications first to build your history.",
+    "button": "Got it"
+  },
+  "history_cleared": "History cleared successfully!",
+  "feedback_thanks": "Thank you for your feedback!",
+  "connectivity": {
+    "offline": "You are offline. Some features may be unavailable.",
+    "online": "Connection restored!"
+  },
   "verify_content_title": "Verify Content",
   "result_title": "Analysis Result",
   "share_title": "Share this verification:",

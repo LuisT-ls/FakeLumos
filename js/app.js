@@ -15,7 +15,8 @@ import { setupEventListeners } from './modules/events.js'
 import { initThemeSwitch } from './modules/ui.js'
 import {
   loadVerificationHistory,
-  setupHistoryEvents
+  setupHistoryEvents,
+  updateHistoryDisplay
 } from './modules/history.js'
 import {
   loadAccessibilityPreferences,
@@ -219,6 +220,9 @@ function updateUIForLanguage() {
 
   // Atualiza o idioma do documento
   document.documentElement.lang = getCurrentLanguage()
+
+  // Atualiza o histórico para refletir a mudança de idioma
+  updateHistoryDisplay()
 }
 
 function updateNavLink(navLink, translation) {

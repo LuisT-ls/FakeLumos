@@ -32,6 +32,19 @@
   "tips_title": "Consejos para Identificar Fake News",
   "history_title": "Historial de Verificaciones",
   "clear_history": "Limpiar Historial",
+  "no_verifications": "Ninguna verificación realizada",
+  "empty_history": {
+    "title": "Historial Vacío",
+    "message": "No hay historial para limpiar",
+    "description": "Realice algunas verificaciones primero para construir su historial.",
+    "button": "Entendido"
+  },
+  "history_cleared": "¡Historial limpiado exitosamente!",
+  "feedback_thanks": "¡Gracias por tu comentario!",
+  "connectivity": {
+    "offline": "Estás desconectado. Algunas funciones pueden no estar disponibles.",
+    "online": "¡Conexión restaurada!"
+  },
   "result_title": "Resultado del Análisis",
   "share_title": "Comparte esta verificación:",
   "verify_content_title": "Verificar Contenido",

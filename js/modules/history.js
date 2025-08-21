@@ -7,6 +7,7 @@
 import { elements } from './dom.js'
 import { displayResults } from './rendering.js'
 import { showNotification } from './ui.js'
+import { t } from './i18n.js'
 
 // Estado global do histórico
 let verificationHistory = []
@@ -44,14 +45,15 @@ export function loadVerificationHistory() {
  * Atualiza a exibição do histórico na interface com animação
  * Exibe uma mensagem quando não há histórico ou lista as verificações realizadas
  */
-function updateHistoryDisplay() {
+export function updateHistoryDisplay() {
   // Se não houver histórico
   if (verificationHistory.length === 0) {
     // Animação de fade-out
     elements.verificationsHistory.style.opacity = '0'
     setTimeout(() => {
-      elements.verificationsHistory.innerHTML =
-        '<p class="text-center text-muted">Nenhuma verificação realizada</p>'
+      elements.verificationsHistory.innerHTML = `<p class="text-center text-muted">${t(
+        'no_verifications'
+      )}</p>`
       // Animação de fade-in
       elements.verificationsHistory.style.opacity = '1'
     }, 300)
@@ -121,9 +123,11 @@ export function handleClearHistory() {
             <div class="modal-header border-0">
               <h5 class="modal-title">
                 <i class="fas fa-info-circle text-info me-2"></i>
-                Histórico Vazio
+                ${t('empty_history.title')}
               </h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="${t(
+                'close'
+              )}"></button>
             </div>
             <div class="modal-body text-center py-4">
               <div class="mb-4">
@@ -132,13 +136,13 @@ export function handleClearHistory() {
                   <i class="fas fa-inbox fa-stack-1x fa-inverse"></i>
                 </span>
               </div>
-              <h6 class="mb-3">Não há histórico para apagar</h6>
-              <p class="text-muted mb-0">Realize algumas verificações primeiro para construir seu histórico.</p>
+              <h6 class="mb-3">${t('empty_history.message')}</h6>
+              <p class="text-muted mb-0">${t('empty_history.description')}</p>
             </div>
             <div class="modal-footer border-0 justify-content-center">
               <button type="button" class="btn btn-primary px-4" data-bs-dismiss="modal">
                 <i class="fas fa-check me-2"></i>
-                Entendi
+                ${t('empty_history.button')}
               </button>
             </div>
           </div>
@@ -186,7 +190,7 @@ export function clearHistory() {
   verificationHistory = []
   localStorage.removeItem('verificationHistory')
   updateHistoryDisplay()
-  showNotification('Histórico apagado com sucesso!', 'success')
+  showNotification(t('history_cleared'), 'success')
 }
 
 // Listener para o evento customizado de limpar histórico
@@ -223,5 +227,6 @@ export default {
   getScoreClass,
   handleClearHistory,
   clearHistory,
-  setupHistoryEvents
+  setupHistoryEvents,
+  updateHistoryDisplay
 }

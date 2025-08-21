@@ -9,6 +9,7 @@ import { shareContent } from './share.js'
 import { handleVerification } from './gemini.js'
 import { handleClearHistory } from './history.js'
 import { showNotification } from './ui.js'
+import { t } from './i18n.js'
 import {
   setContrast,
   changeFontSize,
@@ -81,7 +82,7 @@ export function handleFeedback(button, section) {
     section.innerHTML = `
       <div class="text-muted small">
         <i class="fas fa-check-circle text-success"></i>
-        Obrigado pelo seu feedback!
+        ${t('feedback_thanks')}
       </div>
     `
   }, 1000)
@@ -95,7 +96,7 @@ export function handleFeedback(button, section) {
  * @param {string} type - Tipo de feedback (positive/negative)
  */
 function submitFeedback(type) {
-  showNotification('Obrigado pelo seu feedback!', 'success')
+  showNotification(t('feedback_thanks'), 'success')
   console.log(`Feedback ${type} recebido e processado`)
 }
 
@@ -130,18 +131,16 @@ export function setupEventListeners() {
       if (modal) modal.hide()
 
       // Mostra notificação de sucesso
-      showNotification('Histórico apagado com sucesso!', 'success')
+      showNotification(t('history_cleared'), 'success')
     })
   }
 
   // Monitoramento de conectividade
   window.addEventListener('offline', () =>
-    showNotification(
-      'Você está offline. Algumas funcionalidades podem estar indisponíveis.'
-    )
+    showNotification(t('connectivity.offline'))
   )
   window.addEventListener('online', () =>
-    showNotification('Conexão restabelecida!')
+    showNotification(t('connectivity.online'))
   )
 
   // Configurar o toggle de destaque de links
