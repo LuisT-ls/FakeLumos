@@ -322,10 +322,11 @@ export async function loadTranslations(lang = 'pt-BR') {
     translations = { ...fallbackTranslations[lang] }
 
     // Tenta carregar arquivos externos
-    const [homeRes, commonRes] = await Promise.all(
+    const [homeRes, commonRes, sobreRes] = await Promise.all(
       [
         fetch(`/locales/${lang}/home.json`),
-        fetch(`/locales/${lang}/common.json`)
+        fetch(`/locales/${lang}/common.json`),
+        fetch(`/locales/${lang}/sobre.json`)
       ].map(p => p.catch(() => null))
     )
 
@@ -337,6 +338,11 @@ export async function loadTranslations(lang = 'pt-BR') {
     if (commonRes?.ok) {
       const commonTranslations = await commonRes.json()
       translations = { ...translations, ...commonTranslations }
+    }
+
+    if (sobreRes?.ok) {
+      const sobreTranslations = await sobreRes.json()
+      translations = { ...translations, ...sobreTranslations }
     }
 
     currentLanguage = lang

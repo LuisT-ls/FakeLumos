@@ -1,0 +1,78 @@
+{
+  "sobre": {
+    "title": "Sobre - Fake Lumos",
+    "meta": {
+      "description": "Saiba mais sobre o projeto Verificador de Fake News, sua missão, equipe e objetivos no combate à desinformação.",
+      "title": "Verificador de Fake News - Combatendo a Desinformação com IA",
+      "keywords": "fake news, verificador, fact checking, desinformação, notícias falsas, UFBA, inteligência artificial, verificação de notícias"
+    },
+    "header": {
+      "title": "Detecte Fake News com IA",
+      "subtitle": "Verifique a credibilidade de notícias em segundos"
+    },
+    "mission": {
+      "title": "Nossa Missão",
+      "content1": "O Fake Lumos nasceu da necessidade de combater a crescente onda de desinformação em nossa sociedade. Nossa missão é empoderar as pessoas com ferramentas e conhecimento para identificar e combater notícias falsas.",
+      "content2": "Através da combinação de tecnologia avançada e educação digital, buscamos criar um ambiente online mais confiável e transparente."
+    },
+    "vision": {
+      "title": "Nossa Visão",
+      "content1": "Aspiramos criar uma sociedade mais consciente e crítica em relação às informações que consome. Visualizamos um futuro onde cada cidadão tenha as ferramentas e o conhecimento necessários para distinguir fatos de ficção.",
+      "content2": "Queremos ser referência no combate à desinformação, contribuindo para um debate público mais saudável e baseado em fatos."
+    },
+    "history": {
+      "title": "História do Projeto",
+      "development": {
+        "title": "Início do Desenvolvimento",
+        "content": "O projeto começou como trabalho final na disciplina \"Algoritmo, Política e Sociedade\" na UFBA, sob orientação do Prof. Dr. Paulo Fonseca."
+      },
+      "ai": {
+        "title": "Desenvolvimento da IA",
+        "content": "Implementação de algoritmos de análise de texto e integração com APIs de fact-checking para melhorar a precisão das verificações."
+      },
+      "launch": {
+        "title": "Lançamento",
+        "content": "Disponibilização da ferramenta para o público, com foco em usabilidade e acessibilidade."
+      }
+    },
+    "team": {
+      "title": "Nossa Equipe",
+      "luis": {
+        "name": "Luís Teixeira",
+        "role": "Desenvolvedor Full-Stack e Estudante",
+        "linkedin": "Visite o perfil de LinkedIn de Luis Teixeira",
+        "github": "Visite o perfil de GitHub de Luis Teixeira"
+      },
+      "paulo": {
+        "name": "Prof. Dr. Paulo Fonseca",
+        "role": "Orientador do Projeto",
+        "linkedin": "Visite o perfil de LinkedIn de Dr. Paulo Fonseca"
+      }
+    },
+    "technologies": {
+      "title": "Tecnologias Utilizadas",
+      "bootstrap": {
+        "name": "Bootstrap",
+        "description": "Frontend"
+      },
+      "ml": {
+        "name": "Machine Learning",
+        "description": "Análise de Texto"
+      },
+      "apis": {
+        "name": "APIs",
+        "description": "Fact-checking"
+      },
+      "pwa": {
+        "name": "PWA",
+        "description": "Mobile-first"
+      }
+    },
+    "footer": {
+      "about": "Fake Lumos",
+      "description": "Combatendo a desinformação com tecnologia e análise crítica.",
+      "social": "Redes Sociais",
+      "copyright": "© 2025 Fake Lumos. Todos os direitos reservados."
+    }
+  }
+}

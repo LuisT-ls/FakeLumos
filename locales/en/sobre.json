@@ -1,0 +1,78 @@
+{
+  "sobre": {
+    "title": "About - Fake Lumos",
+    "meta": {
+      "description": "Learn more about the Fake News Verifier project, its mission, team and objectives in combating disinformation.",
+      "title": "Fake News Verifier - Combating Disinformation with AI",
+      "keywords": "fake news, verifier, fact checking, disinformation, false news, UFBA, artificial intelligence, news verification"
+    },
+    "header": {
+      "title": "Detect Fake News with AI",
+      "subtitle": "Check news credibility in seconds"
+    },
+    "mission": {
+      "title": "Our Mission",
+      "content1": "Fake Lumos was born from the need to combat the growing wave of disinformation in our society. Our mission is to empower people with tools and knowledge to identify and combat fake news.",
+      "content2": "Through the combination of advanced technology and digital education, we seek to create a more reliable and transparent online environment."
+    },
+    "vision": {
+      "title": "Our Vision",
+      "content1": "We aspire to create a more conscious and critical society regarding the information it consumes. We envision a future where every citizen has the tools and knowledge necessary to distinguish facts from fiction.",
+      "content2": "We want to be a reference in combating disinformation, contributing to a healthier and fact-based public debate."
+    },
+    "history": {
+      "title": "Project History",
+      "development": {
+        "title": "Development Start",
+        "content": "The project began as a final work in the 'Algorithm, Politics and Society' course at UFBA, under the guidance of Prof. Dr. Paulo Fonseca."
+      },
+      "ai": {
+        "title": "AI Development",
+        "content": "Implementation of text analysis algorithms and integration with fact-checking APIs to improve verification accuracy."
+      },
+      "launch": {
+        "title": "Launch",
+        "content": "Making the tool available to the public, with focus on usability and accessibility."
+      }
+    },
+    "team": {
+      "title": "Our Team",
+      "luis": {
+        "name": "Luís Teixeira",
+        "role": "Full-Stack Developer and Student",
+        "linkedin": "Visit Luis Teixeira's LinkedIn profile",
+        "github": "Visit Luis Teixeira's GitHub profile"
+      },
+      "paulo": {
+        "name": "Prof. Dr. Paulo Fonseca",
+        "role": "Project Advisor",
+        "linkedin": "Visit Dr. Paulo Fonseca's LinkedIn profile"
+      }
+    },
+    "technologies": {
+      "title": "Technologies Used",
+      "bootstrap": {
+        "name": "Bootstrap",
+        "description": "Frontend"
+      },
+      "ml": {
+        "name": "Machine Learning",
+        "description": "Text Analysis"
+      },
+      "apis": {
+        "name": "APIs",
+        "description": "Fact-checking"
+      },
+      "pwa": {
+        "name": "PWA",
+        "description": "Mobile-first"
+      }
+    },
+    "footer": {
+      "about": "Fake Lumos",
+      "description": "Combating disinformation with technology and critical analysis.",
+      "social": "Social Media",
+      "copyright": "© 2025 Fake Lumos. All rights reserved."
+    }
+  }
+}

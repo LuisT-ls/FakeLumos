@@ -6,6 +6,7 @@
     <meta
       name="description"
       content="Saiba mais sobre o projeto Verificador de Fake News, sua missão, equipe e objetivos no combate à desinformação."
+      data-i18n-content="sobre.meta.description"
     />
 
     <!-- Primary Meta Tags -->
@@ -14,6 +15,7 @@
     <meta
       name="title"
       content="Verificador de Fake News - Combatendo a Desinformação com IA"
+      data-i18n-content="sobre.meta.title"
     />
     <meta
       name="description"
@@ -22,6 +24,7 @@
     <meta
       name="keywords"
       content="fake news, verificador, fact checking, desinformação, notícias falsas, UFBA, inteligência artificial, verificação de notícias"
+      data-i18n-content="sobre.meta.keywords"
     />
     <meta name="author" content="Luís Antonio Souza Teixeira" />
     <meta name="robots" content="index, follow" />
@@ -69,7 +72,7 @@
       href="https://fakelumos.vercel.app/pages/sobre.html"
     />
 
-    <title>Sobre - Fake Lumos</title>
+    <title data-i18n="sobre.title">Sobre - Fake Lumos</title>
 
     <!-- Bootstrap e FontAwesome -->
     <link
@@ -80,6 +83,9 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
     />
+
+    <!-- CSS Principal com estilos de acessibilidade -->
+    <link href="/assets/css/main.css" rel="stylesheet" />
 
     <style>
       /* Navbar */
@@ -195,6 +201,13 @@
         z-index: 1000;
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
         transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        padding: 0 !important; /* Sobrescreve o padding do btn-lg */
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       #backToTopBtn:focus {
@@ -218,6 +231,155 @@
       ::-webkit-scrollbar-thumb:hover {
         background: #1e40af;
       }
+
+      /* Language Selector */
+      .language-selector {
+        display: flex;
+        align-items: center;
+      }
+
+      .language-selector button {
+        padding: 0.25rem 0.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: transparent;
+        color: white;
+        border-radius: 0.375rem;
+        transition: all 0.2s ease;
+      }
+
+      .language-selector button:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+
+      .language-selector button.active {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: white;
+      }
+
+      .language-selector img {
+        width: 20px;
+        height: 15px;
+        object-fit: cover;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 991.98px) {
+        .language-selector {
+          order: 2;
+          margin: 0.5rem 0;
+        }
+      }
+
+      /* Botão de tema */
+      #themeSwitcher {
+        transition: all 0.3s ease;
+      }
+
+      #themeSwitcher:hover {
+        transform: scale(1.1);
+      }
+
+      /* Botão de acessibilidade */
+      #accessibilityMenuBtn {
+        transition: all 0.3s ease;
+      }
+
+      #accessibilityMenuBtn:hover {
+        transform: scale(1.1);
+      }
+
+      /* Estilos para o menu de acessibilidade */
+      .offcanvas-body .btn-outline-primary.active {
+        background-color: #0d6efd;
+        color: white;
+        border-color: #0d6efd;
+      }
+
+      .offcanvas-body .form-check-input:checked {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+      }
+
+      .offcanvas-body .btn-outline-danger:hover {
+        background-color: #dc3545;
+        border-color: #dc3545;
+        color: white;
+      }
+
+      .offcanvas-body .badge {
+        font-size: 0.75em;
+        padding: 0.25em 0.5em;
+      }
+
+      .offcanvas-body h6 {
+        color: #495057;
+        font-weight: 600;
+      }
+
+      .offcanvas-body .form-check-label {
+        color: #495057;
+        font-weight: 500;
+      }
+
+      /* Link de acessibilidade para pular para o conteúdo */
+      .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 6px;
+        background: #2563eb;
+        color: white;
+        padding: 8px;
+        text-decoration: none;
+        border-radius: 4px;
+        z-index: 10000;
+        transition: top 0.3s;
+      }
+
+      .skip-link:focus {
+        top: 6px;
+      }
+
+      /* Dark mode styles */
+      [data-theme='dark'] {
+        --bg-primary: #1a1a1a;
+        --bg-secondary: #2d2d2d;
+        --text-primary: #ffffff;
+        --text-secondary: #b3b3b3;
+        --border-color: #404040;
+      }
+
+      [data-theme='dark'] body {
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+      }
+
+      [data-theme='dark'] .card {
+        background-color: var(--bg-secondary);
+        border-color: var(--border-color);
+      }
+
+      [data-theme='dark'] .text-muted {
+        color: var(--text-secondary) !important;
+      }
+
+      [data-theme='dark'] .offcanvas {
+        background-color: var(--bg-secondary);
+        color: var(--text-primary);
+      }
+
+      [data-theme='dark'] .offcanvas-body h6 {
+        color: var(--text-primary);
+      }
+
+      [data-theme='dark'] .offcanvas-body .form-check-label {
+        color: var(--text-primary);
+      }
+
+      [data-theme='dark'] .badge.bg-light {
+        background-color: var(--bg-primary) !important;
+        color: var(--text-primary) !important;
+      }
     </style>
   </head>
   <body>
@@ -226,19 +388,61 @@
       <div class="container">
         <a class="navbar-brand" href="/">
           <i class="fas fa-shield-alt"></i>
-          <span class="ms-2">Fake Lumos</span>
+          <span class="ms-2" data-i18n="nav.brand">Fake Lumos</span>
         </a>
 
-        <!-- Menu Hamburguer (visível em mobile) -->
+        <!-- Seletor de Idiomas -->
+        <div class="language-selector order-lg-1 mx-3">
+          <button
+            data-lang="pt-BR"
+            aria-label="Português"
+            class="btn btn-icon btn-outline-light"
+          >
+            <img src="/assets/img/flags/br.svg" alt="Português" width="20" />
+          </button>
+          <button
+            data-lang="en"
+            aria-label="English"
+            class="btn btn-icon btn-outline-light mx-2"
+          >
+            <img src="/assets/img/flags/us.svg" alt="English" width="20" />
+          </button>
+          <button
+            data-lang="es"
+            aria-label="Español"
+            class="btn btn-icon btn-outline-light"
+          >
+            <img src="/assets/img/flags/es.svg" alt="Español" width="20" />
+          </button>
+        </div>
+
+        <!-- Dark Mode e Acessibilidade -->
         <div class="d-flex align-items-center order-lg-last">
+          <button
+            id="themeSwitcher"
+            class="btn btn-icon btn-outline-light me-2"
+            aria-label="Alternar modo escuro"
+            data-i18n="nav.theme_switcher"
+          >
+            <i class="fas fa-moon"></i>
+          </button>
+
+          <button
+            id="accessibilityMenuBtn"
+            class="btn btn-icon btn-outline-light me-2"
+            aria-label="Menu de Acessibilidade"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#accessibilityMenu"
+            data-i18n="nav.accessibility_menu"
+          >
+            <i class="fas fa-universal-access"></i>
+          </button>
+
           <button
             class="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
           >
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -247,12 +451,30 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link" href="/index.html#como-funciona"
-                >Como Funciona</a
+              <a
+                class="nav-link"
+                href="/index.html#como-funciona"
+                data-i18n="nav.how_it_works"
               >
+                <i class="fas fa-info-circle me-1"></i>
+                <span>Como Funciona</span>
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/index.html#dicas">Dicas</a>
+              <a class="nav-link" href="/index.html#dicas" data-i18n="nav.tips">
+                <i class="fas fa-lightbulb me-1"></i>
+                <span>Dicas</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="/pages/sobre.html"
+                data-i18n="nav.about"
+              >
+                <i class="fas fa-info me-1"></i>
+                <span>Sobre</span>
+              </a>
             </li>
           </ul>
         </div>
@@ -262,29 +484,36 @@
     <!-- Header -->
     <header class="py-4 text-center header-gradient">
       <div class="container">
-        <h1 class="h2 fw-bold text-white mb-2">Detecte Fake News com IA</h1>
-        <p class="lead text-white-50 mb-0 small">
+        <h1 class="h2 fw-bold text-white mb-2" data-i18n="sobre.header.title">
+          Detecte Fake News com IA
+        </h1>
+        <p
+          class="lead text-white-50 mb-0 small"
+          data-i18n="sobre.header.subtitle"
+        >
           Verifique a credibilidade de notícias em segundos
         </p>
       </div>
     </header>
 
     <!-- Conteúdo Principal -->
-    <main class="container py-5">
+    <main id="main-content" class="container py-5">
       <!-- Missão e Visão -->
       <section class="mb-5">
         <div class="row">
           <div class="col-lg-6 mb-4">
             <div class="card h-100 mission-card">
               <div class="card-body">
-                <h2 class="h4 mb-4">Nossa Missão</h2>
-                <p>
-                  O Fake Lumos nasceu da necessidade de combater a
-                  crescente onda de desinformação em nossa sociedade. Nossa
-                  missão é empoderar as pessoas com ferramentas e conhecimento
-                  para identificar e combater notícias falsas.
+                <h2 class="h4 mb-4" data-i18n="sobre.mission.title">
+                  Nossa Missão
+                </h2>
+                <p data-i18n="sobre.mission.content1">
+                  O Fake Lumos nasceu da necessidade de combater a crescente
+                  onda de desinformação em nossa sociedade. Nossa missão é
+                  empoderar as pessoas com ferramentas e conhecimento para
+                  identificar e combater notícias falsas.
                 </p>
-                <p>
+                <p data-i18n="sobre.mission.content2">
                   Através da combinação de tecnologia avançada e educação
                   digital, buscamos criar um ambiente online mais confiável e
                   transparente.
@@ -295,14 +524,16 @@
           <div class="col-lg-6 mb-4">
             <div class="card h-100 mission-card">
               <div class="card-body">
-                <h2 class="h4 mb-4">Nossa Visão</h2>
-                <p>
+                <h2 class="h4 mb-4" data-i18n="sobre.vision.title">
+                  Nossa Visão
+                </h2>
+                <p data-i18n="sobre.vision.content1">
                   Aspiramos criar uma sociedade mais consciente e crítica em
                   relação às informações que consome. Visualizamos um futuro
                   onde cada cidadão tenha as ferramentas e o conhecimento
                   necessários para distinguir fatos de ficção.
                 </p>
-                <p>
+                <p data-i18n="sobre.vision.content2">
                   Queremos ser referência no combate à desinformação,
                   contribuindo para um debate público mais saudável e baseado em
                   fatos.
@@ -315,26 +546,34 @@
 
       <!-- História do Projeto -->
       <section class="mb-5">
-        <h2 class="h4 mb-4">História do Projeto</h2>
+        <h2 class="h4 mb-4" data-i18n="sobre.history.title">
+          História do Projeto
+        </h2>
         <div class="timeline">
           <div class="timeline-item">
-            <h3 class="h5">Início do Desenvolvimento</h3>
-            <p>
+            <h3 class="h5" data-i18n="sobre.history.development.title">
+              Início do Desenvolvimento
+            </h3>
+            <p data-i18n="sobre.history.development.content">
               O projeto começou como trabalho final na disciplina "Algoritmo,
               Política e Sociedade" na UFBA, sob orientação do Prof. Dr. Paulo
               Fonseca.
             </p>
           </div>
           <div class="timeline-item">
-            <h3 class="h5">Desenvolvimento da IA</h3>
-            <p>
+            <h3 class="h5" data-i18n="sobre.history.ai.title">
+              Desenvolvimento da IA
+            </h3>
+            <p data-i18n="sobre.history.ai.content">
               Implementação de algoritmos de análise de texto e integração com
               APIs de fact-checking para melhorar a precisão das verificações.
             </p>
           </div>
           <div class="timeline-item">
-            <h3 class="h5">Lançamento</h3>
-            <p>
+            <h3 class="h5" data-i18n="sobre.history.launch.title">
+              Lançamento
+            </h3>
+            <p data-i18n="sobre.history.launch.content">
               Disponibilização da ferramenta para o público, com foco em
               usabilidade e acessibilidade.
             </p>
@@ -344,23 +583,22 @@
 
       <!-- Equipe -->
       <section class="mb-5">
-        <h2 class="h4 mb-4">Nossa Equipe</h2>
+        <h2 class="h4 mb-4" data-i18n="sobre.team.title">Nossa Equipe</h2>
         <div class="row justify-content-center">
           <div class="col-md-4 text-center mb-4">
             <div class="team-member">
-              <img
-                src="/assets/img/luis.svg"
-                alt="Luís Antonio"
-                class="mb-3"
-              />
-              <h3 class="h5">Luís Teixeira</h3>
-              <p class="text-muted">Desenvolvedor Full-Stack e Estudante</p>
+              <img src="/assets/img/luis.svg" alt="Luís Antonio" class="mb-3" />
+              <h3 class="h5" data-i18n="sobre.team.luis.name">Luís Teixeira</h3>
+              <p class="text-muted" data-i18n="sobre.team.luis.role">
+                Desenvolvedor Full-Stack e Estudante
+              </p>
               <div class="social-links">
                 <a
                   href="https://www.linkedin.com/in/luis-tei/"
                   class="text-primary me-2"
                   target="_blank"
-                  aria-label="Visite o perfil de LinkedIn de Luis Teixeira"
+                  aria-label="sobre.team.luis.linkedin"
+                  data-i18n-aria-label="sobre.team.luis.linkedin"
                 >
                   <i class="fab fa-linkedin"></i>
                 </a>
@@ -368,7 +606,8 @@
                   href="https://github.com/LuisT-ls"
                   class="text-primary"
                   target="_blank"
-                  aria-label="Visite o perfil de GitHub de Luis Teixeira"
+                  aria-label="sobre.team.luis.github"
+                  data-i18n-aria-label="sobre.team.luis.github"
                 >
                   <i class="fab fa-github"></i>
                 </a>
@@ -382,14 +621,19 @@
                 alt="Dr. Paulo Fonseca"
                 class="mb-3"
               />
-              <h3 class="h5">Prof. Dr. Paulo Fonseca</h3>
-              <p class="text-muted">Orientador do Projeto</p>
+              <h3 class="h5" data-i18n="sobre.team.paulo.name">
+                Prof. Dr. Paulo Fonseca
+              </h3>
+              <p class="text-muted" data-i18n="sobre.team.paulo.role">
+                Orientador do Projeto
+              </p>
               <div class="social-links">
                 <a
                   href="https://www.linkedin.com/in/paulo-f-c-fonseca/"
                   class="text-primary me-2"
                   target="_blank"
-                  aria-label="Visite o perfil de LinkedIn de Dr. Paulo Fonseca"
+                  aria-label="sobre.team.paulo.linkedin"
+                  data-i18n-aria-label="sobre.team.paulo.linkedin"
                 >
                   <i class="fab fa-linkedin"></i>
                 </a>
@@ -401,7 +645,9 @@
 
       <!-- Tecnologias -->
       <section>
-        <h2 class="h4 mb-4">Tecnologias Utilizadas</h2>
+        <h2 class="h4 mb-4" data-i18n="sobre.technologies.title">
+          Tecnologias Utilizadas
+        </h2>
         <div class="row row-cols-2 row-cols-md-4 g-4">
           <div class="col">
             <div class="card h-100 text-center">
@@ -409,8 +655,15 @@
                 class="card-body d-flex flex-column align-items-center justify-content-center"
               >
                 <i class="fab fa-bootstrap fa-2x text-primary mb-3"></i>
-                <h3 class="h6">Bootstrap</h3>
-                <p class="small text-muted">Frontend</p>
+                <h3 class="h6" data-i18n="sobre.technologies.bootstrap.name">
+                  Bootstrap
+                </h3>
+                <p
+                  class="small text-muted"
+                  data-i18n="sobre.technologies.bootstrap.description"
+                >
+                  Frontend
+                </p>
               </div>
             </div>
           </div>
@@ -420,8 +673,15 @@
                 class="card-body d-flex flex-column align-items-center justify-content-center"
               >
                 <i class="fas fa-robot fa-2x text-primary mb-3"></i>
-                <h3 class="h6">Machine Learning</h3>
-                <p class="small text-muted">Análise de Texto</p>
+                <h3 class="h6" data-i18n="sobre.technologies.ml.name">
+                  Machine Learning
+                </h3>
+                <p
+                  class="small text-muted"
+                  data-i18n="sobre.technologies.ml.description"
+                >
+                  Análise de Texto
+                </p>
               </div>
             </div>
           </div>
@@ -431,8 +691,15 @@
                 class="card-body d-flex flex-column align-items-center justify-content-center"
               >
                 <i class="fas fa-database fa-2x text-primary mb-3"></i>
-                <h3 class="h6">APIs</h3>
-                <p class="small text-muted">Fact-checking</p>
+                <h3 class="h6" data-i18n="sobre.technologies.apis.name">
+                  APIs
+                </h3>
+                <p
+                  class="small text-muted"
+                  data-i18n="sobre.technologies.apis.description"
+                >
+                  Fact-checking
+                </p>
               </div>
             </div>
           </div>
@@ -442,8 +709,13 @@
                 class="card-body d-flex flex-column align-items-center justify-content-center"
               >
                 <i class="fas fa-mobile-alt fa-2x text-primary mb-3"></i>
-                <h3 class="h6">PWA</h3>
-                <p class="small text-muted">Mobile-first</p>
+                <h3 class="h6" data-i18n="sobre.technologies.pwa.name">PWA</h3>
+                <p
+                  class="small text-muted"
+                  data-i18n="sobre.technologies.pwa.description"
+                >
+                  Mobile-first
+                </p>
               </div>
             </div>
           </div>
@@ -456,13 +728,15 @@
       <div class="container">
         <div class="row">
           <div class="col-md-6 mb-3">
-            <h4 class="h5 mb-3">Fake Lumos</h4>
-            <p class="mb-0">
+            <h4 class="h5 mb-3" data-i18n="sobre.footer.about">Fake Lumos</h4>
+            <p class="mb-0" data-i18n="sobre.footer.description">
               Combatendo a desinformação com tecnologia e análise crítica.
             </p>
           </div>
           <div class="col-md-6 text-md-end">
-            <h4 class="h5 mb-3">Redes Sociais</h4>
+            <h4 class="h5 mb-3" data-i18n="sobre.footer.social">
+              Redes Sociais
+            </h4>
             <ul class="list-inline mb-0">
               <li class="list-inline-item">
                 <a
@@ -513,13 +787,262 @@
         </div>
         <hr class="my-4" />
         <div class="text-center">
-          <p class="mb-0">
-            &copy; <time datetime="2025">2025</time> Fake Lumos.
-            Todos os direitos reservados.
+          <p class="mb-0" data-i18n="sobre.footer.copyright">
+            &copy; <time datetime="2025">2025</time> Fake Lumos. Todos os
+            direitos reservados.
           </p>
         </div>
       </div>
     </footer>
+
+    <!-- Menu de Acessibilidade -->
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="accessibilityMenu"
+      aria-labelledby="accessibilityMenuLabel"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="accessibilityMenuLabel">
+          <i class="fas fa-universal-access me-2"></i>
+          <span data-i18n="accessibility.menu_title">Acessibilidade</span>
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          data-i18n-aria-label="accessibility.close"
+          aria-label="Fechar"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <!-- Contraste -->
+        <div class="mb-4">
+          <h6 class="mb-3" data-i18n="accessibility.contrast.title">
+            Contraste
+          </h6>
+          <div class="d-flex flex-wrap gap-2">
+            <button
+              class="btn btn-outline-primary"
+              data-contrast="normal"
+              data-i18n="accessibility.contrast.normal"
+            >
+              Normal
+            </button>
+            <button
+              class="btn btn-outline-primary"
+              data-contrast="high"
+              data-i18n="accessibility.contrast.high"
+            >
+              Alto Contraste
+            </button>
+            <button
+              class="btn btn-outline-primary"
+              data-contrast="black-yellow"
+              data-i18n="accessibility.contrast.black_yellow"
+            >
+              Preto/Amarelo
+            </button>
+            <button
+              class="btn btn-outline-primary"
+              data-contrast="yellow-black"
+              data-i18n="accessibility.contrast.yellow_black"
+            >
+              Amarelo/Preto
+            </button>
+          </div>
+        </div>
+
+        <!-- Tamanho da Fonte -->
+        <div class="mb-4">
+          <h6 class="mb-3" data-i18n="accessibility.font_size.title">
+            Tamanho da Fonte
+          </h6>
+          <div class="d-flex gap-2">
+            <button class="btn btn-outline-primary" data-font-action="decrease">
+              <i class="fas fa-minus"></i>
+              <span data-i18n="accessibility.font_size.decrease">A-</span>
+            </button>
+            <button
+              class="btn btn-outline-primary"
+              data-font-action="reset"
+              data-i18n="accessibility.font_size.reset"
+            >
+              A
+            </button>
+            <button class="btn btn-outline-primary" data-font-action="increase">
+              <i class="fas fa-plus"></i>
+              <span data-i18n="accessibility.font_size.increase">A+</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Espaçamento de Texto -->
+        <div class="mb-4">
+          <h6 class="mb-3" data-i18n="accessibility.text_spacing.title">
+            Espaçamento de Texto
+          </h6>
+          <div class="d-flex gap-2">
+            <button
+              class="btn btn-outline-primary"
+              data-spacing="normal"
+              data-i18n="accessibility.text_spacing.normal"
+            >
+              Normal
+            </button>
+            <button
+              class="btn btn-outline-primary"
+              data-spacing="larger"
+              data-i18n="accessibility.text_spacing.medium"
+            >
+              Médio
+            </button>
+            <button
+              class="btn btn-outline-primary"
+              data-spacing="large"
+              data-i18n="accessibility.text_spacing.large"
+            >
+              Ampliado
+            </button>
+          </div>
+        </div>
+
+        <!-- Destacar Links -->
+        <div class="mb-4">
+          <h6 class="mb-3" data-i18n="accessibility.links.title">Links</h6>
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="highlightLinksToggle"
+            />
+            <label
+              class="form-check-label"
+              for="highlightLinksToggle"
+              data-i18n="accessibility.links.highlight"
+            >
+              Destacar Links
+            </label>
+          </div>
+        </div>
+
+        <!-- Fonte para Dislexia -->
+        <div class="mb-4">
+          <h6 class="mb-3" data-i18n="accessibility.reading.title">
+            Leitura Facilitada
+          </h6>
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="dyslexicFontToggle"
+            />
+            <label
+              class="form-check-label"
+              for="dyslexicFontToggle"
+              data-i18n="accessibility.reading.dyslexic_font"
+            >
+              Fonte para Dislexia
+            </label>
+          </div>
+        </div>
+
+        <!-- Animações Reduzidas -->
+        <div class="mb-4">
+          <h6 class="mb-3" data-i18n="accessibility.animations.title">
+            Animações
+          </h6>
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="reducedMotionToggle"
+            />
+            <label
+              class="form-check-label"
+              for="reducedMotionToggle"
+              data-i18n="accessibility.animations.reduce_motion"
+            >
+              Reduzir Animações
+            </label>
+          </div>
+        </div>
+
+        <!-- Cursor Ampliado -->
+        <div class="mb-4">
+          <h6 class="mb-3" data-i18n="accessibility.cursor.title">Cursor</h6>
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="largeCursorToggle"
+            />
+            <label
+              class="form-check-label"
+              for="largeCursorToggle"
+              data-i18n="accessibility.cursor.large_cursor"
+            >
+              Cursor Ampliado
+            </label>
+          </div>
+        </div>
+
+        <!-- Resetar configurações -->
+        <div class="mt-5 text-center">
+          <button id="resetAccessibilityBtn" class="btn btn-outline-danger">
+            <i class="fas fa-redo me-2"></i>
+            <span data-i18n="accessibility.reset.button"
+              >Restaurar Configurações Padrão</span
+            >
+          </button>
+        </div>
+
+        <!-- Atalhos de Teclado -->
+        <div class="mt-4">
+          <h6 class="mb-2" data-i18n="accessibility.keyboard_shortcuts.title">
+            Atalhos de Teclado
+          </h6>
+          <ul class="list-unstyled small">
+            <li class="mb-1">
+              <span class="badge bg-light text-dark">Ctrl+Alt+C</span> -
+              <span data-i18n="accessibility.keyboard_shortcuts.toggle_contrast"
+                >Alternar Contraste</span
+              >
+            </li>
+            <li class="mb-1">
+              <span class="badge bg-light text-dark">Ctrl+Alt+F</span> -
+              <span
+                data-i18n="accessibility.keyboard_shortcuts.toggle_dyslexic_font"
+                >Alternar Fonte para Dislexia</span
+              >
+            </li>
+            <li class="mb-1">
+              <span class="badge bg-light text-dark">Ctrl+Alt++</span> -
+              <span data-i18n="accessibility.keyboard_shortcuts.increase_font"
+                >Aumentar Fonte</span
+              >
+            </li>
+            <li class="mb-1">
+              <span class="badge bg-light text-dark">Ctrl+Alt+-</span> -
+              <span data-i18n="accessibility.keyboard_shortcuts.decrease_font"
+                >Diminuir Fonte</span
+              >
+            </li>
+            <li class="mb-1">
+              <span class="badge bg-light text-dark">Ctrl+Alt+0</span> -
+              <span data-i18n="accessibility.keyboard_shortcuts.reset_font"
+                >Resetar Fonte</span
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Link de Acessibilidade para Pular para o Conteúdo Principal -->
+    <a href="#main-content" class="skip-link"
+      >Pular para o conteúdo principal</a
+    >
 
     <!-- Botão Flutuante "Voltar ao Topo" -->
     <button id="backToTopBtn" class="btn btn-primary btn-lg rounded-circle">
@@ -528,6 +1051,7 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="/js/sobre.js"></script>
 
     <script>
       // Referência ao botão

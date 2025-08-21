@@ -322,13 +322,17 @@ export function setupAccessibilityListeners() {
 
       // Mostrar confirmação de reset para o usuário
       const toast = document.getElementById('notificationToast')
-      const toastBody = toast.querySelector('.toast-body')
-
-      if (toast && toastBody) {
-        toastBody.textContent =
-          'Configurações de acessibilidade restauradas com sucesso.'
-        const bsToast = new bootstrap.Toast(toast)
-        bsToast.show()
+      if (toast) {
+        const toastBody = toast.querySelector('.toast-body')
+        if (toastBody) {
+          toastBody.textContent =
+            'Configurações de acessibilidade restauradas com sucesso.'
+          const bsToast = new bootstrap.Toast(toast)
+          bsToast.show()
+        }
+      } else {
+        // Se não houver toast, mostrar console.log como feedback
+        console.log('Configurações de acessibilidade restauradas com sucesso.')
       }
     })
   }

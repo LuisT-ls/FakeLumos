@@ -93,6 +93,9 @@ async function initLanguage() {
         : 'en')
 
     await loadTranslations(langToLoad)
+
+    // Atualiza a UI imediatamente após carregar as traduções
+    updateUIForLanguage()
   } catch (error) {
     console.error('Error loading language:', error)
   }
@@ -116,6 +119,24 @@ function updateUIForLanguage() {
         typeof placeholderTranslation === 'string'
       ) {
         el.setAttribute('placeholder', placeholderTranslation)
+      }
+    })
+
+    // Atualiza atributos aria-label
+    document.querySelectorAll('[data-i18n-aria-label]').forEach(el => {
+      const ariaLabelKey = el.getAttribute('data-i18n-aria-label')
+      const ariaLabelTranslation = t(ariaLabelKey)
+      if (ariaLabelTranslation && typeof ariaLabelTranslation === 'string') {
+        el.setAttribute('aria-label', ariaLabelTranslation)
+      }
+    })
+
+    // Atualiza atributos content de meta tags
+    document.querySelectorAll('[data-i18n-content]').forEach(el => {
+      const contentKey = el.getAttribute('data-i18n-content')
+      const contentTranslation = t(contentKey)
+      if (contentTranslation && typeof contentTranslation === 'string') {
+        el.setAttribute('content', contentTranslation)
       }
     })
 
@@ -195,6 +216,9 @@ function updateUIForLanguage() {
   if (tipsSection) {
     translateNestedElements(tipsSection, 'tips')
   }
+
+  // Atualiza o idioma do documento
+  document.documentElement.lang = getCurrentLanguage()
 }
 
 function updateNavLink(navLink, translation) {
@@ -304,6 +328,15 @@ function setupLanguageSwitcher() {
         console.error('Error switching language:', error)
       }
     })
+  })
+
+  // Marca o idioma ativo inicialmente
+  const currentLang = getCurrentLanguage()
+  document.querySelectorAll('[data-lang]').forEach(btn => {
+    btn.classList.toggle(
+      'active',
+      btn.getAttribute('data-lang') === currentLang
+    )
   })
 }
 
