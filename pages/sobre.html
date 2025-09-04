@@ -357,10 +357,37 @@
       [data-theme='dark'] .card {
         background-color: var(--bg-secondary);
         border-color: var(--border-color);
+        color: var(--text-primary);
+      }
+
+      [data-theme='dark'] .card-body {
+        color: var(--text-primary);
+      }
+
+      [data-theme='dark'] .card-body h2,
+      [data-theme='dark'] .card-body h3,
+      [data-theme='dark'] .card-body h4,
+      [data-theme='dark'] .card-body h5,
+      [data-theme='dark'] .card-body h6 {
+        color: var(--text-primary);
+      }
+
+      [data-theme='dark'] .card-body p {
+        color: var(--text-primary);
       }
 
       [data-theme='dark'] .text-muted {
         color: var(--text-secondary) !important;
+      }
+
+      [data-theme='dark'] .team-member h3,
+      [data-theme='dark'] .team-member p {
+        color: var(--text-primary);
+      }
+
+      [data-theme='dark'] .timeline-item h3,
+      [data-theme='dark'] .timeline-item p {
+        color: var(--text-primary);
       }
 
       [data-theme='dark'] .offcanvas {
@@ -379,6 +406,106 @@
       [data-theme='dark'] .badge.bg-light {
         background-color: var(--bg-primary) !important;
         color: var(--text-primary) !important;
+      }
+
+      /* Tecnologias cards no dark mode */
+      [data-theme='dark'] .card h3,
+      [data-theme='dark'] .card h6 {
+        color: var(--text-primary) !important;
+      }
+
+      [data-theme='dark'] .card .small {
+        color: var(--text-secondary) !important;
+      }
+
+      /* Missão e visão cards */
+      [data-theme='dark'] .mission-card {
+        background-color: var(--bg-secondary);
+        border-left-color: #60a5fa !important;
+      }
+
+      [data-theme='dark'] .mission-card .card-body {
+        color: var(--text-primary);
+      }
+
+      [data-theme='dark'] .mission-card h2,
+      [data-theme='dark'] .mission-card h4 {
+        color: var(--text-primary);
+      }
+
+      [data-theme='dark'] .mission-card p {
+        color: var(--text-primary);
+      }
+
+      /* Melhorar contraste geral no dark mode */
+      [data-theme='dark'] main {
+        color: var(--text-primary);
+      }
+
+      [data-theme='dark'] main h1,
+      [data-theme='dark'] main h2,
+      [data-theme='dark'] main h3,
+      [data-theme='dark'] main h4,
+      [data-theme='dark'] main h5,
+      [data-theme='dark'] main h6 {
+        color: var(--text-primary);
+      }
+
+      [data-theme='dark'] main p {
+        color: var(--text-primary);
+      }
+
+      /* Tecnologias section específica */
+      [data-theme='dark'] .row-cols-2 .card {
+        background-color: var(--bg-secondary);
+        border-color: var(--border-color);
+      }
+
+      [data-theme='dark'] .row-cols-2 .card-body {
+        color: var(--text-primary);
+      }
+
+      [data-theme='dark'] .row-cols-2 .card h3,
+      [data-theme='dark'] .row-cols-2 .card h6 {
+        color: var(--text-primary) !important;
+      }
+
+      [data-theme='dark'] .row-cols-2 .card .small {
+        color: var(--text-secondary) !important;
+      }
+
+      /* Timeline no dark mode */
+      [data-theme='dark'] .timeline::before {
+        background: #60a5fa;
+      }
+
+      [data-theme='dark'] .timeline-item::before {
+        background: #60a5fa;
+        border-color: var(--bg-secondary);
+      }
+
+      /* Footer no dark mode */
+      [data-theme='dark'] footer {
+        background-color: #0f172a !important;
+        color: var(--text-primary);
+      }
+
+      [data-theme='dark'] footer h4,
+      [data-theme='dark'] footer h5 {
+        color: var(--text-primary);
+      }
+
+      [data-theme='dark'] footer p {
+        color: var(--text-primary);
+      }
+
+      /* Links no dark mode */
+      [data-theme='dark'] .social-link {
+        color: var(--text-secondary);
+      }
+
+      [data-theme='dark'] .social-link:hover {
+        color: #60a5fa;
       }
     </style>
   </head>
