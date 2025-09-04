@@ -20,6 +20,58 @@ const fallbackTranslations = {
       'how_it_works.subtitle':
         'Nossa tecnologia de IA analisa o conteúdo em três etapas simples'
     },
+    nav: {
+      brand: 'Fake Lumos',
+      how_it_works: 'Como Funciona',
+      tips: 'Dicas',
+      about: 'Sobre',
+      theme_switcher: 'Alternar tema',
+      accessibility_menu: 'Acessibilidade'
+    },
+    sobre: {
+      title: 'Sobre - Fake Lumos',
+      'header.title': 'Detecte Fake News com IA',
+      'header.subtitle': 'Verifique a credibilidade de notícias em segundos',
+      'mission.title': 'Nossa Missão',
+      'mission.content1':
+        'O Fake Lumos nasceu da necessidade de combater a crescente onda de desinformação em nossa sociedade. Nossa missão é empoderar as pessoas com ferramentas e conhecimento para identificar e combater notícias falsas.',
+      'mission.content2':
+        'Através da combinação de tecnologia avançada e educação digital, buscamos criar um ambiente online mais confiável e transparente.',
+      'vision.title': 'Nossa Visão',
+      'vision.content1':
+        'Aspiramos criar uma sociedade mais consciente e crítica em relação às informações que consome. Visualizamos um futuro onde cada cidadão tenha as ferramentas e o conhecimento necessários para distinguir fatos de ficção.',
+      'vision.content2':
+        'Queremos ser referência no combate à desinformação, contribuindo para um debate público mais saudável e baseado em fatos.',
+      'history.title': 'História do Projeto',
+      'history.development.title': 'Início do Desenvolvimento',
+      'history.development.content':
+        'O projeto começou como trabalho final na disciplina "Algoritmo, Política e Sociedade" na UFBA, sob orientação do Prof. Dr. Paulo Fonseca.',
+      'history.ai.title': 'Desenvolvimento da IA',
+      'history.ai.content':
+        'Implementação de algoritmos de análise de texto e integração com APIs de fact-checking para melhorar a precisão das verificações.',
+      'history.launch.title': 'Lançamento',
+      'history.launch.content':
+        'Disponibilização da ferramenta para o público, com foco em usabilidade e acessibilidade.',
+      'team.title': 'Nossa Equipe',
+      'team.luis.name': 'Luís Teixeira',
+      'team.luis.role': 'Desenvolvedor Full-Stack e Estudante',
+      'team.paulo.name': 'Prof. Dr. Paulo Fonseca',
+      'team.paulo.role': 'Orientador do Projeto',
+      'technologies.title': 'Tecnologias Utilizadas',
+      'technologies.bootstrap.name': 'Bootstrap',
+      'technologies.bootstrap.description': 'Frontend',
+      'technologies.ml.name': 'Machine Learning',
+      'technologies.ml.description': 'Análise de Texto',
+      'technologies.apis.name': 'APIs',
+      'technologies.apis.description': 'Fact-checking',
+      'technologies.pwa.name': 'PWA',
+      'technologies.pwa.description': 'Mobile-first',
+      'footer.about': 'Fake Lumos',
+      'footer.description':
+        'Combatendo a desinformação com tecnologia e análise crítica.',
+      'footer.social': 'Redes Sociais',
+      'footer.copyright': '© 2025 Fake Lumos. Todos os direitos reservados.'
+    },
     common: {
       language: 'Português',
       loading: 'Carregando...',
@@ -327,30 +379,54 @@ export async function loadTranslations(lang = 'pt-BR') {
         fetch(`/locales/${lang}/home.json`),
         fetch(`/locales/${lang}/common.json`),
         fetch(`/locales/${lang}/sobre.json`)
-      ].map(p => p.catch(() => null))
+      ].map(p =>
+        p.catch(err => {
+          console.warn(`Failed to load translation file: ${p.url}`, err)
+          return null
+        })
+      )
     )
 
     if (homeRes?.ok) {
-      const homeTranslations = await homeRes.json()
-      translations = { ...translations, ...homeTranslations }
+      try {
+        const homeTranslations = await homeRes.json()
+        translations = { ...translations, ...homeTranslations }
+        console.log('Home translations loaded successfully')
+      } catch (err) {
+        console.warn('Failed to parse home.json:', err)
+      }
     }
 
     if (commonRes?.ok) {
-      const commonTranslations = await commonRes.json()
-      translations = { ...translations, ...commonTranslations }
+      try {
+        const commonTranslations = await commonRes.json()
+        translations = { ...translations, ...commonTranslations }
+        console.log('Common translations loaded successfully')
+      } catch (err) {
+        console.warn('Failed to parse common.json:', err)
+      }
     }
 
     if (sobreRes?.ok) {
-      const sobreTranslations = await sobreRes.json()
-      translations = { ...translations, ...sobreTranslations }
+      try {
+        const sobreTranslations = await sobreRes.json()
+        translations = { ...translations, ...sobreTranslations }
+        console.log('Sobre translations loaded successfully')
+      } catch (err) {
+        console.warn('Failed to parse sobre.json:', err)
+      }
     }
 
     currentLanguage = lang
     document.documentElement.lang = lang
+
+    console.log('Final translations object:', translations)
     return true
   } catch (error) {
     console.error('Failed to load translations:', error)
     translations = fallbackTranslations[lang] || fallbackTranslations['pt-BR']
+    currentLanguage = lang
+    document.documentElement.lang = lang
     return false
   }
 }
