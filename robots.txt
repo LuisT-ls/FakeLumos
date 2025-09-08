@@ -1,3 +1,16 @@
 User-agent: *
 Allow: /
+Allow: /assets/
+Allow: /js/
+Allow: /css/
+Allow: /locales/
+Allow: /pages/
+Disallow: /api/
+Disallow: /sw.js
+Disallow: /vercel.json
+
+# Sitemaps
 Sitemap: https://fakelumos.vercel.app/sitemap.xml
+
+# Crawl-delay para evitar sobrecarga
+Crawl-delay: 1

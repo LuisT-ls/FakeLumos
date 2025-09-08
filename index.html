@@ -44,6 +44,17 @@
       crossorigin="anonymous"
       onload="this.onload=null;this.rel='prefetch'"
     />
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="/assets/css/main.css" as="style" />
+    <link rel="preload" href="/js/app.js" as="script" />
+    <link rel="preload" href="/imagem-preview.jpg" as="image" />
+    
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="//www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="//generativelanguage.googleapis.com" />
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//fonts.gstatic.com" />
 
     <!-- Favicon -->
     <link
@@ -93,8 +104,16 @@
     />
 
     <meta name="author" content="Luís Antonio Souza Teixeira" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     <link rel="canonical" href="https://fakelumos.vercel.app/" />
+    
+    <!-- Meta tags adicionais para SEO -->
+    <meta name="googlebot" content="index, follow" />
+    <meta name="bingbot" content="index, follow" />
+    <meta name="theme-color" content="#4a90e2" />
+    <meta name="msapplication-TileColor" content="#4a90e2" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="format-detection" content="telephone=no" />
 
     <!-- Meta Tags de Regionalização -->
     <meta name="geo.region" content="BR" />
@@ -146,32 +165,88 @@
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Verificador de Fake News Sigma",
+        "alternateName": "FakeLumos",
         "url": "https://fakelumos.vercel.app/",
         "description": "Ferramenta online gratuita para verificar a veracidade de notícias usando Inteligência Artificial. Análise rápida e precisa de conteúdo suspeito.",
         "applicationCategory": "UtilityApplication",
         "operatingSystem": "Any",
         "softwareVersion": "1.0",
         "screenshot": "https://fakelumos.vercel.app/imagem-preview.jpg",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
         "offers": {
           "@type": "Offer",
           "price": "0",
-          "priceCurrency": "BRL"
+          "priceCurrency": "BRL",
+          "availability": "https://schema.org/InStock"
         },
         "creator": {
           "@type": "Person",
           "name": "Luís Antonio Souza Teixeira",
           "url": "https://fakelumos.vercel.app/pages/sobre.html"
         },
+        "publisher": {
+          "@type": "Organization",
+          "name": "FakeLumos",
+          "url": "https://fakelumos.vercel.app/"
+        },
         "aggregateRating": {
           "@type": "AggregateRating",
           "ratingValue": "4.8",
-          "ratingCount": "156"
+          "ratingCount": "156",
+          "bestRating": "5",
+          "worstRating": "1"
         },
-        "keywords": "verificador de fake news, fake news sigma, detector de fake news, checagem de notícias, ferramenta anti fake news, fact checking online",
+        "keywords": "verificador de fake news, fake news sigma, detector de fake news, checagem de notícias, ferramenta anti fake news, fact checking online, desinformação, combate à desinformação",
         "mainEntityOfPage": {
           "@type": "WebPage",
           "name": "Verificador de Fake News Online"
-        }
+        },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://fakelumos.vercel.app/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        },
+        "featureList": [
+          "Análise de fake news com IA",
+          "Verificação gratuita de notícias",
+          "Interface intuitiva e responsiva",
+          "Resultados em tempo real",
+          "Histórico de verificações"
+        ]
+      }
+    </script>
+    
+    <!-- Schema.org para FAQ -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Como funciona o verificador de fake news?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Nossa ferramenta utiliza Inteligência Artificial para analisar o conteúdo de notícias em três etapas: coleta do texto, análise automática em busca de sinais de desinformação, e apresentação de resultados detalhados sobre a credibilidade do conteúdo."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "O verificador é gratuito?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sim, nossa ferramenta é completamente gratuita e não requer cadastro. Você pode verificar quantas notícias desejar sem custos."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Quão preciso é o detector de fake news?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Nossa IA possui alta precisão na detecção de fake news, mas recomendamos sempre verificar informações importantes através de múltiplas fontes confiáveis."
+            }
+          }
+        ]
       }
     </script>
 
