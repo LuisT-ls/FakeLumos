@@ -4,6 +4,7 @@
  */
 
 import { elements } from './dom.js'
+import { trackEvent } from './analytics.js'
 
 /**
  * Exibe notificações toast
@@ -11,6 +12,12 @@ import { elements } from './dom.js'
  * @param {string} type - Tipo da notificação (success, info, warning, danger)
  */
 export function showNotification(message, type = 'info') {
+  // Track notification
+  trackEvent('notification_shown', {
+    type,
+    message: message.substring(0, 100) // Limita tamanho para analytics
+  })
+
   // Verifica se o Toast está disponível (Bootstrap)
   if (typeof bootstrap !== 'undefined' && elements.notificationToast) {
     const toast = new bootstrap.Toast(elements.notificationToast)

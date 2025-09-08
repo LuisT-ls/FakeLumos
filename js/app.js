@@ -38,6 +38,16 @@ import {
   translateNestedElements
 } from './modules/i18n.js'
 
+import { initLazyLoading } from './modules/lazyLoading.js'
+import { showSkeleton, hideAllSkeletons } from './modules/skeletonLoader.js'
+import { createFocusTrap, removeFocusTrap } from './modules/focusManager.js'
+import { updateBreadcrumbsForSection } from './modules/breadcrumbs.js'
+import { animateIn, addLoadingAnimation, removeLoadingAnimation } from './modules/microInteractions.js'
+import { trackEvent, trackVerification, trackAccessibility, trackLanguageChange, trackThemeChange } from './modules/analytics.js'
+import { isSupported, conditionalEnhancement } from './modules/progressiveEnhancement.js'
+import errorHandler from './modules/errorHandler.js'
+import { replaceFontAwesomeIcons, forceFontAwesome, isFontAwesomeWorking } from './modules/iconManager.js'
+
 // Expõe funções imediatamente para que onclick, etc. funcionem
 exposeGlobalFunctions()
 
@@ -70,6 +80,7 @@ async function initializeApp() {
     setupLanguageSwitcher()
     registerServiceWorker()
     initPerformanceObservers()
+    initializeNewModules()
 
     // Força atualização inicial da UI
     updateUIForLanguage()
@@ -389,6 +400,56 @@ function initPerformanceObservers() {
 }
 
 /**
+ * Inicializa as novas funcionalidades
+ */
+function initializeNewModules() {
+  try {
+    // Lazy loading
+    conditionalEnhancement('intersectionObserver', () => {
+      initLazyLoading()
+    })
+
+    // Breadcrumbs
+    updateBreadcrumbsForSection('Verificação')
+
+    // Micro-interações
+    animateIn(document.querySelector('main'), 'fade-in')
+
+    // Analytics
+    trackEvent('app_initialized', {
+      capabilities: isSupported,
+      userAgent: navigator.userAgent,
+      viewport: {
+        width: window.innerWidth,
+        height: window.innerHeight
+      }
+    })
+
+    // Verifica se FontAwesome está funcionando, se não, usa fallback
+    setTimeout(() => {
+      try {
+        if (isFontAwesomeWorking()) {
+          console.log('✅ FontAwesome funcionando perfeitamente - mantendo ícones padrão');
+          // Força o uso do FontAwesome para evitar substituições desnecessárias
+          forceFontAwesome();
+        } else {
+          console.log('⚠️ FontAwesome não está funcionando, ativando fallback SVG');
+          replaceFontAwesomeIcons();
+        }
+      } catch (error) {
+        console.warn('Erro ao verificar FontAwesome:', error);
+        // Em caso de erro, ativa o fallback
+        replaceFontAwesomeIcons();
+      }
+    }, 1500)
+
+    console.log('Novos módulos inicializados com sucesso')
+  } catch (error) {
+    console.error('Erro ao inicializar novos módulos:', error)
+  }
+}
+
+/**
  * Expõe funções para acesso global
  */
 function exposeGlobalFunctions() {
@@ -401,6 +462,17 @@ function exposeGlobalFunctions() {
     window.toggleReducedMotion = toggleReducedMotion
     window.toggleLargeCursor = toggleLargeCursor
     window.resetAllAccessibilitySettings = resetAllAccessibilitySettings
+    window.trackEvent = trackEvent
+    window.trackVerification = trackVerification
+    window.trackAccessibility = trackAccessibility
+    window.trackLanguageChange = trackLanguageChange
+    window.trackThemeChange = trackThemeChange
+    
+    // Funções de controle de ícones
+    window.forceFontAwesome = forceFontAwesome
+    window.isFontAwesomeWorking = isFontAwesomeWorking
+    window.replaceFontAwesomeIcons = replaceFontAwesomeIcons
+    
     window.globalFunctionsExposed = true
   }
 }

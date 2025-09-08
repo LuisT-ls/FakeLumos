@@ -16,6 +16,8 @@ import {
   changeLineSpacing,
   toggleHighlightLinks
 } from './accessibility.js'
+import { trackEvent, trackAccessibility, trackThemeChange } from './analytics.js'
+import { addLoadingAnimation, removeLoadingAnimation } from './microInteractions.js'
 
 /**
  * Gerencia clicks globais da aplicação usando event delegation
@@ -30,8 +32,11 @@ function handleGlobalClicks(e) {
 
   // Botões principais da aplicação
   if (target === elements.verifyButton) {
+    trackEvent('verification_button_clicked')
+    addLoadingAnimation(elements.verifyButton)
     handleVerification()
   } else if (target === elements.clearHistoryBtn) {
+    trackEvent('clear_history_clicked')
     handleClearHistory()
   }
   // Botões de compartilhamento
@@ -42,12 +47,15 @@ function handleGlobalClicks(e) {
   // Botões de acessibilidade
   else if (contrastButton) {
     const type = contrastButton.getAttribute('data-contrast')
+    trackAccessibility('contrast', 'change', type)
     setContrast(type)
   } else if (fontButton) {
     const action = fontButton.getAttribute('data-font-action')
+    trackAccessibility('font_size', action)
     changeFontSize(action)
   } else if (spacingButton) {
     const type = spacingButton.getAttribute('data-spacing')
+    trackAccessibility('line_spacing', 'change', type)
     changeLineSpacing(type)
   }
 }

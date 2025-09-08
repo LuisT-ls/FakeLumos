@@ -3,6 +3,8 @@
  * Este módulo gerencia os recursos de acessibilidade da aplicação
  */
 
+import { trackAccessibility, trackThemeChange } from './analytics.js'
+
 // Tamanho da Fonte
 let currentFontSize = 100
 let currentDyslexicMode = false
@@ -35,6 +37,9 @@ export function setContrast(type) {
 
   // Dispara evento para notificar mudança de contraste
   document.dispatchEvent(new CustomEvent('contrastChange', { detail: type }))
+  
+  // Track analytics
+  trackAccessibility('contrast', 'change', type)
 }
 
 /**

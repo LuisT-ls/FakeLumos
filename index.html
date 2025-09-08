@@ -13,6 +13,28 @@
       http-equiv="Permissions-Policy"
       content="unload=(self), interest-cohort=()"
     />
+    
+    <!-- Content Security Policy -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; 
+               script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://generativelanguage.googleapis.com; 
+               style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com; 
+               font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; 
+               img-src 'self' data: https:; 
+               connect-src 'self' https://generativelanguage.googleapis.com https://www.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com;
+               frame-src 'none';
+               object-src 'none';
+               base-uri 'self';
+               form-action 'self';
+               upgrade-insecure-requests;"
+    />
+    
+    <!-- Referrer Policy -->
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    
+    <!-- X-Content-Type-Options -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
 
     <!-- Preload Locales -->
     <link
@@ -453,7 +475,7 @@
     </header>
 
     <!-- Conteúdo Principal -->
-    <main class="container py-5">
+    <main id="main-content" class="container py-5">
       <div class="row justify-content-center">
         <!-- Como Funciona -->
         <section id="como-funciona" class="col-lg-8 mb-5">
@@ -1349,6 +1371,9 @@
     <a href="#main-content" class="skip-link"
       >Pular para o conteúdo principal</a
     >
+
+    <!-- Breadcrumbs serão inseridos aqui via JavaScript -->
+    <div id="breadcrumb-container"></div>
 
     <!-- Scripts -->
     <script

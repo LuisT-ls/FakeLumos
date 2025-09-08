@@ -8,6 +8,8 @@ import { saveVerification } from './history.js'
 import { showNotification } from './ui.js'
 import { fetchApiKey } from './api.js'
 import { searchGoogleCustom } from './realtimeSearch.js'
+import { validateUserInput } from './validation.js'
+import { safeExecuteAsync, captureError } from './errorHandler.js'
 
 /**
  * Detecta se a pergunta envolve fatos pós-2022
@@ -230,21 +232,53 @@ export async function handleVerification() {
   const text = elements.userInput.value.trim()
   if (!text) return
 
+  // Valida entrada do usuário
+  const validation = validateUserInput(text)
+  if (!validation.isValid) {
+    if (validation.rateLimited) {
+      showNotification(validation.errors[0], 'warning', 8000)
+    } else {
+      showNotification(validation.errors[0], 'danger')
+    }
+    return
+  }
+
+  // Mostra avisos se houver
+  if (validation.warnings.length > 0) {
+    validation.warnings.forEach(warning => {
+      showNotification(warning, 'info', 3000)
+    })
+  }
+
   showLoadingState(true)
 
   try {
     let verification = null
-    if (isPerguntaPos2022(text)) {
+    const sanitizedText = validation.sanitizedText
+    
+    if (isPerguntaPos2022(sanitizedText)) {
       // 1. Analisa com Gemini normalmente
-      let geminiResult = await checkWithGemini(text)
+      let geminiResult = await safeExecuteAsync(() => checkWithGemini(sanitizedText), {
+        context: 'gemini_analysis',
+        text: sanitizedText.substring(0, 100)
+      })
+      
+      if (!geminiResult) {
+        throw new Error('Falha na análise do Gemini')
+      }
+      
       // 2. Complementa com busca Google
-      const googleResults = await searchGoogleCustom(text)
+      const googleResults = await safeExecuteAsync(() => searchGoogleCustom(sanitizedText), {
+        context: 'google_search',
+        text: sanitizedText.substring(0, 100)
+      }) || []
+      
       // 3. Ajusta Gemini se fontes confirmarem
-      geminiResult = ajustarGeminiComFontes(geminiResult, googleResults, text)
+      geminiResult = ajustarGeminiComFontes(geminiResult, googleResults, sanitizedText)
       verification = {
         id: Date.now(),
         timestamp: new Date().toISOString(),
-        text: text.substring(0, 200) + (text.length > 200 ? '...' : ''),
+        text: sanitizedText.substring(0, 200) + (sanitizedText.length > 200 ? '...' : ''),
         geminiAnalysis: geminiResult,
         overallScore: geminiResult.score,
         realtimeSource: 'Google Custom Search',
@@ -256,18 +290,32 @@ export async function handleVerification() {
       )
     } else {
       // Fluxo padrão Gemini
-      const geminiResult = await checkWithGemini(text)
+      const geminiResult = await safeExecuteAsync(() => checkWithGemini(sanitizedText), {
+        context: 'gemini_analysis_standard',
+        text: sanitizedText.substring(0, 100)
+      })
+      
+      if (!geminiResult) {
+        throw new Error('Falha na análise do Gemini')
+      }
+      
       verification = {
         id: Date.now(),
         timestamp: new Date().toISOString(),
-        text: text.substring(0, 200) + (text.length > 200 ? '...' : ''),
+        text: sanitizedText.substring(0, 200) + (sanitizedText.length > 200 ? '...' : ''),
         geminiAnalysis: geminiResult,
         overallScore: geminiResult.score
       }
     }
-    saveVerification(verification)
+    
+    if (verification) {
+      saveVerification(verification)
+    }
   } catch (error) {
-    console.error('Erro durante a verificação:', error)
+    captureError(error, {
+      context: 'verification_process',
+      text: text.substring(0, 100)
+    })
     showNotification(
       'Ocorreu um erro durante a verificação. Tente novamente.',
       'danger'

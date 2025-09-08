@@ -1,4 +1,4 @@
-const CACHE_NAME = 'fake-news-checker-v1'
+const CACHE_NAME = 'fake-news-checker-v2'
 const OFFLINE_URL = '/pages/offline.html'
 
 const CRITICAL_ASSETS = [
@@ -10,7 +10,19 @@ const CRITICAL_ASSETS = [
   OFFLINE_URL
 ]
 
-const SECONDARY_ASSETS = ['/js/app.js']
+const SECONDARY_ASSETS = [
+  '/js/app.js',
+  '/js/modules/validation.js',
+  '/js/modules/errorHandler.js',
+  '/js/modules/lazyLoading.js',
+  '/js/modules/skeletonLoader.js',
+  '/js/modules/focusManager.js',
+  '/js/modules/breadcrumbs.js',
+  '/js/modules/microInteractions.js',
+  '/js/modules/analytics.js',
+  '/js/modules/progressiveEnhancement.js',
+  '/js/modules/iconManager.js'
+]
 
 const DEFERRED_ASSETS = [
   'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js'
