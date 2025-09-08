@@ -1,16 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7CWXXYJX08"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-7CWXXYJX08');
-    </script>
-    
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="mobile-web-app-capable" content="yes" />
@@ -23,7 +13,7 @@
       http-equiv="Permissions-Policy"
       content="unload=(self), interest-cohort=()"
     />
-    
+
     <!-- Content Security Policy -->
     <meta
       http-equiv="Content-Security-Policy"
@@ -39,10 +29,10 @@
                form-action 'self';
                upgrade-insecure-requests;"
     />
-    
+
     <!-- Referrer Policy -->
     <meta name="referrer" content="strict-origin-when-cross-origin" />
-    
+
     <!-- X-Content-Type-Options -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
 
@@ -250,6 +240,21 @@
       />
     </noscript>
 
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-7CWXXYJX08"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-7CWXXYJX08");
+    </script>
+
     <style>
       body {
         font-family: Arial, Helvetica, sans-serif;
@@ -339,7 +344,7 @@
 
       .mb-0 {
         margin-bottom: 0;
-        font-family: 'Roboto', sans-serif;
+        font-family: "Roboto", sans-serif;
         font-size: 16px;
         line-height: 1.5;
       }
@@ -1397,25 +1402,25 @@
     <!-- Script de otimização de renderização -->
     <script type="module">
       // Registra um paint timing observer
-      if ('PerformanceObserver' in window) {
-        const observer = new PerformanceObserver(list => {
+      if ("PerformanceObserver" in window) {
+        const observer = new PerformanceObserver((list) => {
           for (const entry of list.getEntries()) {
-            if (entry.entryType === 'largest-contentful-paint') {
-              console.log('LCP:', entry.startTime)
+            if (entry.entryType === "largest-contentful-paint") {
+              console.log("LCP:", entry.startTime);
             }
           }
-        })
-        observer.observe({ entryTypes: ['largest-contentful-paint'] })
+        });
+        observer.observe({ entryTypes: ["largest-contentful-paint"] });
       }
 
       // Otimiza carregamento de recursos
-      document.addEventListener('DOMContentLoaded', () => {
+      document.addEventListener("DOMContentLoaded", () => {
         // Carrega recursos não críticos após o conteúdo principal
-        const deferredStyles = document.querySelectorAll('link[media="print"]')
-        deferredStyles.forEach(style => {
-          style.media = 'all'
-        })
-      })
+        const deferredStyles = document.querySelectorAll('link[media="print"]');
+        deferredStyles.forEach((style) => {
+          style.media = "all";
+        });
+      });
     </script>
   </body>
 </html>
