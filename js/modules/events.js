@@ -132,11 +132,18 @@ export function setupEventListeners() {
       // Limpa o histórico (implementado no módulo history.js)
       window.dispatchEvent(new CustomEvent('clearHistory'))
 
-      // Fecha o modal
+      // Fecha o modal de forma acessível
       const modal = bootstrap.Modal.getInstance(
         document.getElementById('clearHistoryModal')
       )
-      if (modal) modal.hide()
+      if (modal) {
+        // Remove aria-hidden antes de fechar
+        const modalElement = document.getElementById('clearHistoryModal')
+        if (modalElement) {
+          modalElement.removeAttribute('aria-hidden')
+        }
+        modal.hide()
+      }
 
       // Mostra notificação de sucesso
       showNotification(t('history_cleared'), 'success')

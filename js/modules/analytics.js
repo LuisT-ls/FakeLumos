@@ -26,11 +26,33 @@ class AnalyticsManager {
    * Inicializa o analytics
    */
   init() {
+    this.setupGoogleAnalytics();
     this.setupPerformanceTracking();
     this.setupUserInteractionTracking();
     this.setupErrorTracking();
     this.setupPageTracking();
     this.startFlushTimer();
+  }
+
+  /**
+   * Configura integração com Google Analytics
+   */
+  setupGoogleAnalytics() {
+    // Verifica se o Google Analytics está disponível
+    if (typeof gtag !== 'undefined') {
+      console.log('Google Analytics integrado com sucesso');
+      
+      // Configura eventos customizados para o Google Analytics
+      this.gtag = gtag;
+      
+      // Envia evento de inicialização
+      this.gtag('event', 'app_initialized', {
+        'custom_parameter_1': 'fake_news_checker',
+        'custom_parameter_2': this.sessionId
+      });
+    } else {
+      console.warn('Google Analytics não está disponível');
+    }
   }
 
   /**
@@ -275,6 +297,21 @@ class AnalyticsManager {
     };
 
     this.events.push(event);
+
+    // Envia evento para Google Analytics se disponível
+    if (this.gtag && typeof this.gtag === 'function') {
+      try {
+        this.gtag('event', eventName, {
+          'event_category': 'fake_news_checker',
+          'event_label': properties.text?.substring(0, 100) || eventName,
+          'value': properties.score || properties.processingTime || 1,
+          'custom_parameter_1': this.sessionId,
+          'custom_parameter_2': properties.classification || properties.action || 'unknown'
+        });
+      } catch (error) {
+        console.warn('Erro ao enviar evento para Google Analytics:', error);
+      }
+    }
 
     if (this.config.debug || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
       console.log('Analytics Event:', event);

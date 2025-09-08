@@ -21,7 +21,9 @@ const SECONDARY_ASSETS = [
   '/js/modules/microInteractions.js',
   '/js/modules/analytics.js',
   '/js/modules/progressiveEnhancement.js',
-  '/js/modules/iconManager.js'
+  '/js/modules/iconManager.js',
+  '/js/modules/modalManager.js',
+  '/js/modules/modalAccessibility.js'
 ]
 
 const DEFERRED_ASSETS = [

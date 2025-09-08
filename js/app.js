@@ -47,6 +47,8 @@ import { trackEvent, trackVerification, trackAccessibility, trackLanguageChange,
 import { isSupported, conditionalEnhancement } from './modules/progressiveEnhancement.js'
 import errorHandler from './modules/errorHandler.js'
 import { replaceFontAwesomeIcons, forceFontAwesome, isFontAwesomeWorking } from './modules/iconManager.js'
+import modalManager from './modules/modalManager.js'
+import { fixModalAccessibility, fixAllModalsAccessibility } from './modules/modalAccessibility.js'
 
 // Expõe funções imediatamente para que onclick, etc. funcionem
 exposeGlobalFunctions()
@@ -443,6 +445,16 @@ function initializeNewModules() {
       }
     }, 1500)
 
+    // Corrige problemas de acessibilidade em modais
+    setTimeout(() => {
+      try {
+        fixAllModalsAccessibility();
+        console.log('✅ Modais corrigidos para acessibilidade');
+      } catch (error) {
+        console.warn('Erro ao corrigir acessibilidade dos modais:', error);
+      }
+    }, 500)
+
     console.log('Novos módulos inicializados com sucesso')
   } catch (error) {
     console.error('Erro ao inicializar novos módulos:', error)
@@ -472,6 +484,10 @@ function exposeGlobalFunctions() {
     window.forceFontAwesome = forceFontAwesome
     window.isFontAwesomeWorking = isFontAwesomeWorking
     window.replaceFontAwesomeIcons = replaceFontAwesomeIcons
+    
+    // Funções de correção de acessibilidade em modais
+    window.fixModalAccessibility = fixModalAccessibility
+    window.fixAllModalsAccessibility = fixAllModalsAccessibility
     
     window.globalFunctionsExposed = true
   }
